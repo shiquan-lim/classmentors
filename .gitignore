@@ -1,7 +1,11 @@
 node_modules/
 src/jspm_packages/
 dist/
+<<<<<<< HEAD
+package.json
+=======
 coverage/
+>>>>>>> singpath/master
 *.sublime-project
 *.sublime-workspace
 npm-debug.log

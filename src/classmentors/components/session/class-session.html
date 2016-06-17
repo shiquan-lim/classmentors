@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="session-admin">
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.6-dist/css">
+		<script type="text/javascript" src="lib/angular.min.js"></script>
+		<script type="text/javascript" src="lib/angularfire.js"></script>
+		<script type="text/javascript" src="session.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	</head>
+	<body ng-controller="SessionController as session">
+		<div></div>
+		<h2>{{session.enrolment.length}} students currently enrolled</h2>
+		<div ng-repeat="student in session.enrolment">
+			{{student.name}}: Rank {{student.ranking}}
+		</div></br>
+		Enter a new user to join the session: <input type="text" id="input"></input>
+		<button onclick="writeUserData()">Add User!</button>
+
+		<script>
+			// Initialize Firebase
+		var config = {
+		    apiKey: "AIzaSyCDxuAaiTyPmosBL6QLgR94yoRswMyZcIg",
+		    authDomain: "project-1180774075744369732.firebaseapp.com",
+		    databaseURL: "https://project-1180774075744369732.firebaseio.com",
+		    storageBucket: "project-1180774075744369732.appspot.com",
+		};
+
+		firebase.initializeApp(config);
+
+		function writeUserData() {
+		  var userID = document.getElementById("input").value;
+		  var entry = {};
+		  entry[userID] = {
+		  	"username": userID,
+		  	"ranking": 7
+		  };
+		  firebase.database().ref('users/').set(entry);
+		  // writeFromDB({
+		  // 	"name": firebase.database().ref('users/').username,
+		  // 	"ranking": 6
+		  // });
+		}
+		console.log(firebase.database().ref('users/'));
+		</script>
+	</body>
+</html>
