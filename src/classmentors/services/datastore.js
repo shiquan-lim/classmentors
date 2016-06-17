@@ -936,6 +936,7 @@ classMentors.factory('clmDataStore', [
                 event, tasks, solutions, participant.$id, progress[participant.$id]
               );
             });
+            
           }
 
           function debouncedUpdate() {
@@ -1123,11 +1124,13 @@ classMentors.factory('clmDataStore', [
            */
           fetchBadges: function(profile) {
             var details = clmDataStore.services.codeCombat.details(profile);
-
+            //2016 Stop badges from being fetched via backend url. 
+            return $q.when([]);
+            /*
             if (!details) {
               return $q.when([]);
             }
-
+            
             return $q.all({
               ccProfile: clmDataStore.services.codeCombat.fetchProfile(details.id),
               badges: clmDataStore.services.codeCombat.availableBadges()
@@ -1153,6 +1156,7 @@ classMentors.factory('clmDataStore', [
               $log.error(err);
               return [];
             });
+            */
           },
 
           auth: function() {
@@ -1282,6 +1286,10 @@ classMentors.factory('clmDataStore', [
           },
 
           fetchProfile: function(userId) {
+            // 2016 skip fetching profiles from backend url. 
+            return $q.when([]);
+            
+            /*
             if (!userId) {
               return $q.reject(clmDataStore.services.codeSchool.errNoUserId);
             }
@@ -1293,6 +1301,7 @@ classMentors.factory('clmDataStore', [
             ].join('/')).then(function(resp) {
               return resp.data;
             });
+            */
           },
 
           fetchBadges: function(profile) {

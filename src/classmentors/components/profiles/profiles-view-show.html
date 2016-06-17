@@ -11,48 +11,70 @@
             </h3>
         </div>
     </div>
-
+    
     <div flex="67">
-
+        <!--
         <div clm-spf-profile="ctrl.profile.$id"></div>
+
         <div clm-profile="ctrl.profile" clm-service-id="codeCombat" clm-current-user="ctrl.currentUserProfile"></div>
         <div clm-profile="ctrl.profile" clm-service-id="codeSchool" clm-current-user="ctrl.currentUserProfile"></div>
         <div clm-profile="ctrl.profile" clm-service-id="treeHouse" clm-current-user="ctrl.currentUserProfile"></div>
-
-        <div id="register-codecombat" ng-if="!ctrl.profile.services.codeCombat.details.id" class="register-service md-whiteframe-z1">
-            <h2>Code Combat</h2>
-
-            <p>
-                <a href="http://codecombat.com/" target="_blank">Code Combat</a>,
-                learn to Code JavaScript by Playing a Game.
-            </p>
-        </div>
-
-        <div id="register-codeschool" ng-if="!ctrl.profile.services.codeSchool.details.id" class="register-service md-whiteframe-z1">
-            <h2>Code School</h2>
-
-            <p>
-                <a href="https://www.codeschool.com/" target="_blank">Code School</a>
-                teaches web technologies in the comfort of your browser with video lessons,
-                coding challenges, and screencasts. Registering is free, and the provides
-                free content to try out.
-            </p>
-
-        </div>
-        <!--
-        <div id="register-treehouse" class="register-service md-whiteframe-z1">
-            <h2>Treehouse</h2>
-
-            <p>
-                Learn HTML, CSS, iPhone apps &amp; more at
-                <a href="http://www.teamtreehouse.com/signup_code/singapore" target="_blank">
-                    Treehouse
-                </a>.
-                Treehouse offers a 14 days free trial.
-            </p>
-
-        </div>
         -->
+        <button type="submit" ng-click="ctrl.refreshAchievements(ctrl.profile.$id)">Refresh Achievements for {{ctrl.profile.$id}} </button>
+         
+        <div id="register-freecodecamp" class="register-service md-whiteframe-z1">
+                <h2>FreeCodeCamp</h2>
+                <div ng-hide="ctrl.profile.services.freeCodeCamp.details.id">
+                  Not registered.
+                </div>
+                <div ng-show="ctrl.profile.services.freeCodeCamp.details.id">
+                  {{ctrl.profile.services.freeCodeCamp.totalAchievements}} achievements<br>
+                  Registered as <a href="https://www.freecodecamp.com/{{ctrl.profile.services.freeCodeCamp.details.id}}">{{ctrl.profile.services.freeCodeCamp.details.id}}</a> on Free Code Camp.
+                </div>
+            </div>
+            
+     <div id="register-pivotalexpert" class="register-service md-whiteframe-z1">
+                <h2>Pivotal Expert</h2>
+                <div ng-hide="ctrl.profile.services.pivotalExpert.details.id">
+                  Not registered.
+                </div>
+                <div ng-show="ctrl.profile.services.pivotalExpert.details.id">
+                  {{ctrl.profile.services.pivotalExpert.totalAchievements}}  achievements<br>
+                  Registered as <a href="https://pivotal-expert.firebaseapp.com/#/profile/{{ctrl.profile.services.pivotalExpert.details.id}}">{{ctrl.profile.services.pivotalExpert.details.id}}</a> on Pivotal Expert.
+                </div>
+            </div>
+            <!--- until API corrected 
+            <div id="register-codecombat" class="register-service md-whiteframe-z1">
+                <h2>Code Combat</h2>
+
+                <div ng-hide="ctrl.profile.services.codeCombat.details.id">  
+                    <p>
+                        <a href="http://codecombat.com/" target="_blank">Code Combat</a>,
+                        learn to Code JavaScript by Playing a Game.
+                    </p>
+                    <form ng-submit="ctrl.updateCodeCombatUsername(ctrl.newCodeCombatUsername)">
+                            Enter your Code Combat username.<br>
+                            https://codecombat.com/user/<input ng-model="ctrl.newCodeCombatUsername" />
+                            <button type="submit">Save</button>
+                    </form>
+                </div>   
+                <div ng-show="ctrl.profile.services.codeCombat.details.id">
+                   {{ctrl.profile.services.codeCombat.totalAchievements}}  achievements<br>
+                   Registered as <a href="https://codecombat.com/user/{{ctrl.profile.services.codeCombat.details.id}}">{{ctrl.profile.services.codeCombat.details.id}}</a> on Code Combat.
+                    <button type="submit" ng-click="ctrl.removeCodeCombat()">Remove</button>
+                </div>
+            </div>
+            --> 
+            <div id="register-codeschool" class="register-service md-whiteframe-z1">
+                <h2>Code School</h2>
+                <div ng-hide="ctrl.profile.services.codeSchool.details.id">
+                    Not registered.
+                </div>
+                <div ng-show="ctrl.profile.services.codeSchool.details.id">
+                    {{ctrl.profile.services.codeSchool.totalAchievements}}  achievements<br>
+                   Registered as <a href="https://www.codeschool.com/users/{{ctrl.profile.services.codeSchool.details.id}}">{{ctrl.profile.services.codeSchool.details.id}}</a> on Code School.
+                </div>
+            </div>
 
     </div>
 

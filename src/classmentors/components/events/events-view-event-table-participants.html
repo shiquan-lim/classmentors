@@ -56,7 +56,7 @@
 
                         <div ng-if="task.serviceId">
                             <span ng-if="ctrl.currentUserSolutions[task.$id]">
-                                Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed">*</span>
+                                Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed"></span>
                             </span>
                             <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
@@ -75,7 +75,7 @@
 
                         <div ng-if="task.textResponse">
                             <span ng-if="ctrl.currentUserSolutions[task.$id]">
-                                {{ ctrl.currentUserSolutions[task.$id] | cmTruncate: 10 }}<span ng-if="!ctrl.currentUserProgress[task.$id].completed">*</span>
+                                {{ ctrl.currentUserSolutions[task.$id] | cmTruncate: 10 }}<span ng-if="!ctrl.currentUserProgress[task.$id].completed"></span>
                                 <md-button class="md-icon-button md-primary small-icon"
                                     aria-label="Update response"
                                     ng-click="ctrl.promptForTextResponse(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
@@ -98,7 +98,7 @@
 
                         <div ng-if="task.linkPattern">
                             <span ng-if="ctrl.currentUserSolutions[task.$id]">
-                                <a ng-href="{{ctrl.currentUserSolutions[task.$id]}}" target="_blank">Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed">*</span></a>
+                                <a ng-href="{{ctrl.currentUserSolutions[task.$id]}}" target="_blank">Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed"></span></a>
                                 <md-button class="md-icon-button md-primary small-icon"
                                     aria-label="Update link"
                                     ng-click="ctrl.promptForLink(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"

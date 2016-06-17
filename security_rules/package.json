@@ -1,0 +1,30 @@
+{
+  "name": "security-rules",
+  "description": "Firebase security rulest testing for classmentors",
+  "main": "worker.js",
+  "author": "Chris Boesch <scboesch@gmail.com>",
+  "homepage": "http://chrisboesch.com",
+  "dependencies": {
+    "firebase": "2.4.2",
+    "firebase-queue": "latest",
+    "request": "latest"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "2.4.5",
+    "mocha-lcov-reporter": "^1.2.0",
+    "superagent": "1.8.3",
+    "targaryen": "^2.1.1",
+    "proxyquire":"latest",
+    "sinon":"latest",
+    "mockfirebase":"latest"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
+    "travis-ci": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls;"
+  }
+}

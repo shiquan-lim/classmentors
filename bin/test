@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+set -e
+
+DEST=_tests
+BUNDLE="${DEST}/bundle.js"
+
+cleanup() {
+	rm -rf "${DEST}/"
+}
+
+trap cleanup EXIT
+mkdir -p "${DEST}/"
+
+jspm build tests.js "${BUNDLE}"
+mocha --require source-map-support/register "${BUNDLE}"

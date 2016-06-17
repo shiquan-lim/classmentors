@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# exit with nonzero exit code if anything fails
+set -e
+
+npm run build
+
+if [[ "$TRAVIS_BRANCH" -ne "master" ]]; then
+	>&2 echo "Skipping github pages deployment: not master branch."
+	exit 0
+fi
+
+if [[ -z "$GH_TOKEN" ]]; then
+	>&2 echo "Skipping github pages deployment: GH_TOKEN is not set."
+	exit 0
+fi
+
+if [[ -z "$TRAVIS_REPO_SLUG" ]]; then
+	>&2 echo "Error: TRAVIS_REPO_SLUG is not set."
+	exit 1
+fi
+
+if [[ -z "$PROD_FIREBASE_ID" ]]; then
+	echo '$PROD_FIREBASE_ID is not set. Will use default firebase database target.'
+fi
+
+GIT_REMOTE_URL="https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git"
+GIT_COMMIT_NAME="Travis"
+
+npm run --silent build:gh-pages -- "$PROD_FIREBASE_ID" "$GIT_REMOTE_URL" "$GIT_COMMIT_NAME"

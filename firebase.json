@@ -1,0 +1,15 @@
+{
+  "rules": "security_rules/security-rules.json",
+  "public": "dist/classmentors",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ],
+  "hosting": {
+    "public": "dist/classmentors"
+  },
+  "database": {
+    "rules": "security_rules/security-rules.json"
+  }
+}

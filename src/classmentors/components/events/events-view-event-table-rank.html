@@ -3,6 +3,7 @@
 </div>
 <div ng-if="!ctrl.loading">
     <md-content class="md-padding">
+        <button ng-show="ctrl.event.owner.publicId==ctrl.profile.$id" type="submit" ng-click="ctrl.updateAllParticipantUserProfiles()">Update All User Achievements</button>
         <table class="events ranking">
             <thead>
                 <tr ng-class="{'reversed': ctrl.orderOpts[0].reversed, secondaryReversed: ctrl.orderOpts[1].reversed}">
@@ -45,7 +46,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <th colspan="5" ng-if="(ctrl.rankingView|spfEmpty)">
+                    <th colspan="5" ng-if="(ctrl.rankingView2|spfEmpty)">
                         No participants
                     </th> 
                 </tr>
@@ -73,13 +74,13 @@
                     <td>{{ ctrl.currentUserRanking.codeSchool || 0 }}</td>
                     <td>{{ ctrl.currentUserRanking.singPath || 0 }}</td>
                     <td>{{ ctrl.currentUserRanking.freeCodeCamp || 0 }}</td>
-                    <td>{{ ctrl.currentUserRanking.codeVantage || 0 }}</td>
+                    <td>{{ ctrl.currentUserRanking.pivotalExpert || 0 }}</td>
                     --> 
                 </tr>
 
-                <tr ng-repeat="participant in ctrl.rankingView track by participant.$id" ng-class="'index-' + $index + ' ' + ($odd ? 'odd' : 'even')">
+                <tr ng-repeat="participant in ctrl.rankingView2 | orderBy : ctrl.orderOpts[0].key:ctrl.orderOpts[0].reversed" ng-class="'index-' + $index + ' ' + ($odd ? 'odd' : 'even')">
                     <th>
-                        {{ participant.$ranking }}
+                        {{$index+1}}
                     </th>
                     <th>
                         <!-- spfToArray adds the $$hashKey property to every element in the object -->

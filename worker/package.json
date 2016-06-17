@@ -1,0 +1,32 @@
+{
+  "name": "verifier",
+  "description": "Firebase Profile Application",
+  "main": "worker.js",
+  "author": "Chris Boesch <scboesch@gmail.com>",
+  "homepage": "http://chrisboesch.com",
+  "dependencies": {
+    "firebase": "2.4.2",
+    "firebase-queue": "latest",
+    "request": "latest"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "coveralls": "^2.11.9",
+    "firebase-token-generator": "^2.0.0",
+    "istanbul": "^0.4.3",
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "2.4.5",
+    "mocha-lcov-reporter": "^1.2.0",
+    "mockfirebase": "latest",
+    "node-lambda": "^0.8.5",
+    "proxyquire": "latest",
+    "sinon": "latest",
+    "superagent": "1.8.3",
+    "targaryen": "^2.1.1"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/*.spec.js",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
+    "travis-ci": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls;"
+  }
+}

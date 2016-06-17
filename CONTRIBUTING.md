@@ -5,7 +5,7 @@ Pull Resquests (PR) are welcomes.
 
 ## Install
 
-Fork [Class Mentors](https://github.com/singpath/classmentors), then:
+Fork [Class Mentors], then:
 
 ```shell
 git clone git@github.com:your-user-id/classmentors.git
@@ -94,3 +94,27 @@ To serve it:
 ```shell
 npm run serve-build
 ```
+
+## Github Pages
+
+To build and push the app to the remote "origin" gh-pages branch:
+```shell
+npm run build:gh-pages -- "my-firebase-database-name"
+```
+
+To let Travis update your Github pages automatically (only when master get updated),
+you will need to enable Travis for your fork and set up some environment variables.
+
+Using [Travis CLI]:
+```shell
+travis enable
+travis env set --public PROD_FIREBASE_ID "my-firebase-database-name"
+travis env set --private GH_TOKEN some-github-oauth-token
+```
+
+You can create a Github Oauth token on your [personal access tokens] setting page.
+Make sure `GH_TOKEN` is set as private, or a pull request could steal that token.
+
+[Class Mentors]: https://github.com/singpath/classmentors
+[Travis CLI]: https://github.com/travis-ci/travis.rb#installation
+[personal access tokens]: https://github.com/settings/tokens

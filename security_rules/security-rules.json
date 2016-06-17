@@ -1,0 +1,1091 @@
+{
+  "rules": {
+    ".read": false, 
+    ".write": false, 
+    "auth": {
+      "publicIds": {
+        "$publicId": {
+          ".validate": "newData.isString() && newData.val().matches(/^[-:a-zA-Z0-9]+$/) && $publicId.matches(/^[-a-z0-9]{3,20}$/) && ($publicId == null || newData.parent().parent().parent().child('auth').child('publicIds').child($publicId).val() == newData.val() && newData.parent().parent().parent().child('auth').child('usedPublicIds').child($publicId).val() == true && newData.parent().parent().parent().child('auth').child('users').child(newData.val()).child('publicId').val() == $publicId)", 
+          ".write": "auth != null && auth.uid == newData.val() && (newData.val() != null && data.val() == null)"
+        }
+      }, 
+      "usedPublicIds": {
+        "$publicId": {
+          ".validate": "newData.isBoolean() && newData.val() == (newData.parent().parent().parent().child('auth').child('publicIds').child($publicId).val() != null)", 
+          ".write": "newData.val() != null"
+        }, 
+        ".read": "true"
+      }, 
+      "users": {
+        "$userId": {
+          "$other": {
+            ".validate": "false"
+          }, 
+          ".read": "auth != null && auth.uid == $userId", 
+          ".validate": "newData.hasChildren(['id', 'fullName', 'displayName', 'email', 'gravatar', 'createdAt']) && $userId == newData.child('id').val() && (newData.child('publicId').val() == null || newData.parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val() == newData.child('id').val() && newData.parent().parent().parent().child('auth').child('usedPublicIds').child(newData.child('publicId').val()).val() == true && newData.parent().parent().parent().child('auth').child('users').child(newData.child('id').val()).child('publicId').val() == newData.child('publicId').val())", 
+          ".write": "newData.val() != null && (auth != null && auth.uid == $userId)", 
+          "country": {
+            "$other": {
+              ".validate": "false"
+            }, 
+            ".validate": "newData.hasChildren() && newData.hasChildren(['code', 'name']) || newData.val() == null", 
+            "code": {
+              ".validate": "newData.isString()"
+            }, 
+            "name": {
+              ".validate": "newData.isString()"
+            }
+          }, 
+          "createdAt": {
+            ".validate": "newData.isNumber() && (data.val() == null && newData.val() == now || newData.val() != null && data.val() == newData.val())"
+          }, 
+          "displayName": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+          }, 
+          "email": {
+            ".validate": "newData.isString() && newData.val().matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$/)"
+          }, 
+          "fullName": {
+            ".validate": "newData.isString() && newData.val().length >= 3"
+          }, 
+          "gravatar": {
+            ".validate": "newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/)"
+          }, 
+          "id": {
+            ".validate": "newData.isString()"
+          }, 
+          "publicId": {
+            ".validate": "newData.isString() && newData.val().matches(/^[-a-z0-9]{3,20}$/) || newData.val() == null"
+          }, 
+          "school": {
+            "$other": {
+              ".validate": "false"
+            }, 
+            ".validate": "newData.hasChildren() && newData.hasChildren(['id', 'name', 'type']) || newData.val() == null", 
+            "iconUrl": {
+              ".validate": "newData.isString() || newData.val() == null"
+            }, 
+            "id": {
+              ".validate": "newData.isString()"
+            }, 
+            "name": {
+              ".validate": "newData.isString()"
+            }, 
+            "type": {
+              ".validate": "newData.isString()"
+            }
+          }, 
+          "secretKey": {
+            ".validate": "newData.isString() && newData.val().length >= 16 || newData.val() == null"
+          }, 
+          "secretKeyValidUntil": {
+            ".validate": "newData.isNumber() || newData.val() == null"
+          }, 
+          "yearOfBirth": {
+            ".validate": "newData.isNumber() && newData.val() > 1900 && newData.val() < 2015 || newData.val() == null"
+          }
+        }
+      }
+    }, 
+    "classMentors": {
+      "admins": {
+        "$userId": {
+          ".validate": "newData.isBoolean() && root.child('auth/users/' + $userId).exists()"
+        }
+      }, 
+      "badges": {
+        "$serviceId": {
+          "$badgeId": {
+            ".validate": "newData.hasChildren(['id', 'name', 'iconUrl'])", 
+            "iconUrl": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:\\/)?\\/.+/)"
+            }, 
+            "id": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "name": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "url": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }
+          }
+        }, 
+        ".read": true, 
+        ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
+      }, 
+      "earnedBadges": {
+        "$randomId": {
+          ".validate": "newData.hasChildren(['user', 'badge', 'earnedAt', 'service'])", 
+          "badge": {
+            ".validate": "newData.hasChildren(['id', 'name', 'iconUrl'])", 
+            "iconUrl": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:\\/)?\\/.+/)"
+            }, 
+            "id": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "name": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "url": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }
+          }, 
+          "earnedAt": {
+            ".validate": "newData.val() === now"
+          }, 
+          "service": {
+            ".validate": "newData.hasChildren(['id', 'name'])", 
+            "id": {
+              ".validate": "newData.isString()"
+            }, 
+            "name": {
+              ".validate": "newData.isString()"
+            }
+          }, 
+          "user": {
+            ".validate": "newData.hasChildren(['displayName', 'publicId', 'gravatar'])", 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }, 
+            "publicId": {
+              ".validate": "root.child('classMentors/userProfiles/' + newData.val()).exists()"
+            }
+          }
+        }, 
+        ".read": true, 
+        ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
+      }, 
+      "eventApplications": {
+        "$eventId": {
+          "$userId": {
+            ".validate": "newData.isString() && newData.val().length === 64", 
+            ".write": "auth !== null && root.child('classMentors/eventPasswords/' + $eventId + '/hash').val() === newData.val() && $userId === auth.uid"
+          }
+        }
+      }, 
+      "eventParticipants": {
+        "$eventId": {
+          "$publicId": {
+            ".validate": "newData.hasChildren(['user'])", 
+            ".write": "newData.exists() === false && auth !== null && root.child('auth/publicIds').child($publicId).val() === auth.uid && root.child('classMentors/userProfiles').child($publicId).child('joinedEvents').child($eventId).exists() === false", 
+            "user": {
+              ".validate": "newData.hasChildren(['displayName', 'gravatar'])", 
+              ".write": "auth !== null && root.child('auth/publicIds').child($publicId).val() === auth.uid && root.child('classMentors/eventApplications').child($eventId).child(auth.uid).exists()", 
+              "displayName": {
+                ".validate": "newData.isString() && newData.val().length >= 3"
+              }, 
+              "gravatar": {
+                ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+              }, 
+              "school": {
+                ".validate": "newData.hasChildren(['name', 'type'])", 
+                "iconUrl": {
+                  ".validate": "newData.isString()"
+                }, 
+                "name": {
+                  ".validate": "newData.isString()"
+                }, 
+                "type": {
+                  ".validate": "newData.isString()"
+                }
+              }
+            }
+          }, 
+          ".read": "auth !== null && (\n  root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists()\n  || root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n)", 
+          ".write": "auth !== null && root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()"
+        }
+      }, 
+      "eventPasswords": {
+        "$eventId": {
+          ".validate": "root.child('classMentors/events/' + $eventId).exists() && newData.hasChildren(['hash', 'options'])", 
+          ".write": "auth !== null && root.child('auth/publicIds').child(\n  root.child('classMentors/events/' + $eventId + '/owner/publicId').val()\n).val() === auth.uid", 
+          "hash": {
+            ".validate": "newData.isString() && newData.val().length === 64"
+          }, 
+          "options": {
+            ".read": "true", 
+            ".validate": "newData.hasChildren(['salt', 'keySize', 'iterations', 'prf'])", 
+            "iterations": {
+              ".validate": "newData.isNumber() && newData.val() >= 1000"
+            }, 
+            "keySize": {
+              ".validate": "newData.isNumber() && newData.val() === 8"
+            }, 
+            "prf": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "salt": {
+              ".validate": "newData.isString() && newData.val().length === 32"
+            }
+          }
+        }
+      }, 
+      "eventProgress": {
+        "$eventId": {
+          "$publicId": {
+            "$taskId": {
+              ".validate": "newData.hasChildren(['completed'])", 
+              "completed": {
+                ".validate": "root.child('classMentors/eventTasks').child($eventId).child($taskId).exists()"
+              }
+            }
+          }, 
+          ".read": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists()\n)", 
+          ".write": "auth !== null && root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()"
+        }
+      }, 
+      "eventRankings": {
+        "$eventId": {
+          "$publicId": {
+            "$serviceId": {
+              ".validate": "newData.isNumber()"
+            }, 
+            ".validate": "newData.hasChildren(['user', 'total'])", 
+            ".write": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n  || (\n    newData.exists() === false\n    && root.child('auth/publicIds').child($publicId).val() === auth.uid\n  )\n)", 
+            "user": {
+              ".validate": "newData.hasChildren(['displayName', 'gravatar'])", 
+              "displayName": {
+                ".validate": "newData.isString() && newData.val().length >= 3"
+              }, 
+              "gravatar": {
+                ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+              }, 
+              "school": {
+                ".validate": "newData.hasChildren(['name', 'type'])", 
+                "iconUrl": {
+                  ".validate": "newData.isString()"
+                }, 
+                "name": {
+                  ".validate": "newData.isString()"
+                }, 
+                "type": {
+                  ".validate": "newData.isString()"
+                }
+              }
+            }
+          }
+        }, 
+        ".read": true
+      }, 
+      "eventSolutions": {
+        "$eventId": {
+          "$publicId": {
+            "$taskId": {
+              ".validate": "root.child('classMentors/eventTasks').child($eventId).child($taskId).child('openedAt').exists() && (\n  root.child('classMentors/eventTasks').child($eventId).child($taskId).child('textResponse').exists() === false\n  || newData.isString()\n) && (\n  root.child('classMentors/eventTasks').child($eventId).child($taskId).child('linkPattern').exists() === false\n  || (\n    newData.isString()\n    && newData.val().contains(root.child('classMentors/eventTasks').child($eventId).child($taskId).child('linkPattern').val())\n  )\n) && (\n  root.child('classMentors/eventTasks').child($eventId).child($taskId).child('serviceId').exists() === false\n  || newData.isBoolean()\n)", 
+              ".write": "auth !== null && root.child('auth/publicIds').child($publicId).val() === auth.uid && root.child('classMentors/eventTasks').child($eventId).child($taskId).child('openedAt').exists()"
+            }, 
+            ".write": "auth !== null && root.child('auth/publicIds').child($publicId).val() === auth.uid"
+          }, 
+          ".read": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists()\n)", 
+          ".write": "auth !== null && root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()"
+        }
+      }, 
+      "eventTasks": {
+        "$eventId": {
+          "$taskId": {
+            ".validate": "newData.hasChildren(['title', 'description', 'archived']) && (\n  newData.child('serviceId').exists()\n  || newData.child('linkPattern').exists()\n  || newData.child('textResponse').exists()\n) && (\n  newData.child('openedAt').exists()\n  || newData.child('closedAt').exists()\n) && (\n  data.child('openedAt').exists() === false\n  || (\n    newData.child('openedAt').exists()\n    || newData.child('history').child('' + data.child('openedAt').val()).val() === 'opened'\n  )\n) && (\n  data.child('closedAt').exists() === false\n  || (\n    newData.child('closedAt').exists()\n    || newData.child('history').child('' + data.child('closedAt').val()).val() === 'closed'\n  )\n)", 
+            "archived": {
+              ".validate": "newData.isBoolean()"
+            }, 
+            "badge": {
+              ".validate": "newData.hasChildren(['id', 'name', 'iconUrl']) && newData.parent().child('serviceId').exists() && (\n  newData.parent().child('serviceId').val() == 'codeSchool'\n  || newData.parent().child('serviceId').val() == 'codeCombat'\n) && newData.parent().child('singPathProblem').exists() === false && newData.parent().child('linkPattern').exists() === false", 
+              "iconUrl": {
+                ".validate": "newData.isString() && newData.val().matches(/(https?\\:\\/)?\\/.+/)"
+              }, 
+              "id": {
+                ".validate": "newData.isString() && newData.val().length >= 3"
+              }, 
+              "name": {
+                ".validate": "newData.isString() && newData.val().length >= 3"
+              }, 
+              "url": {
+                ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+              }
+            }, 
+            "closedAt": {
+              ".validate": "data.val() === newData.val() || newData.val() == now"
+            }, 
+            "description": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 200"
+            }, 
+            "hidden": {
+              ".validate": "newData.isBoolean()"
+            }, 
+            "history": {
+              "$timeStamp": {
+                ".validate": "data.val() == newData.val() ||(\n  data.exists() === false\n  && newData.isString()\n  && (newData.val() === 'closed' || newData.val() === 'opened' )\n)"
+              }
+            }, 
+            "link": {
+              ".validate": "newData.isString() && newData.val().matches(/^(https?:\\/\\/.+|#\\/).+$/)"
+            }, 
+            "linkPattern": {
+              ".validate": "newData.isString() && newData.parent().child('serviceId').exists() === false && newData.parent().child('textResponse').exists() === false && newData.parent().child('badge').exists() === false && newData.parent().child('singPathProblem').exists() === false"
+            }, 
+            "openedAt": {
+              ".validate": "data.val() === newData.val() || newData.val() === now"
+            }, 
+            "serviceId": {
+              ".validate": "newData.isString() && newData.parent().child('linkPattern').exists() === false && newData.parent().child('textResponse').exists() === false && (\n  newData.val() === 'singPath'\n  || newData.val() === 'codeSchool'\n  || newData.val() === 'codeCombat'\n)"
+            }, 
+            "showLinks": {
+              ".validate": "newData.isBoolean()"
+            }, 
+            "showProgress": {
+              ".validate": "newData.isBoolean()"
+            }, 
+            "singPathProblem": {
+              ".validate": "newData.hasChildren(['path', 'level', 'problem']) && newData.parent().child('serviceId').exists() && newData.parent().child('serviceId').val() == 'singPath' && newData.parent().child('badge').exists() === false && newData.parent().child('linkPattern').exists() === false && newData.parent().child('textResponse').exists() === false", 
+              "level": {
+                ".validate": "newData.hasChildren(['id', 'title'])", 
+                "id": {
+                  ".validate": "newData.isString() && root.child('singpath/levels').child(newData.parent().parent().child('path/id').val()).child(newData.val()).exists()"
+                }, 
+                "title": {
+                  ".validate": "newData.isString() && root.child('singpath/levels').child(newData.parent().parent().child('path/id').val()).child(newData.parent().child('id').val()).child('title').val() === newData.val()"
+                }
+              }, 
+              "path": {
+                ".validate": "newData.hasChildren(['id', 'title'])", 
+                "id": {
+                  ".validate": "newData.isString() && root.child('singpath/paths').child(newData.val()).exists()"
+                }, 
+                "title": {
+                  ".validate": "newData.isString() && root.child('singpath/paths').child(newData.parent().child('id').val()).child('title').val() === newData.val()"
+                }
+              }, 
+              "problem": {
+                ".validate": "newData.hasChildren(['id', 'title'])", 
+                "id": {
+                  ".validate": "newData.isString() && root.child('singpath/problems').child(newData.parent().parent().child('path/id').val()).child(newData.parent().parent().child('level/id').val()).child(newData.val()).exists()"
+                }, 
+                "title": {
+                  ".validate": "newData.isString() && root.child('singpath/problems').child(newData.parent().parent().child('path/id').val()).child(newData.parent().parent().child('level/id').val()).child(newData.parent().child('id').val()).child('title').val() === newData.val()"
+                }
+              }
+            }, 
+            "textResponse": {
+              ".validate": "newData.isString() && newData.parent().child('serviceId').exists() === false && newData.parent().child('linkPattern').exists() === false && newData.parent().child('badge').exists() === false && newData.parent().child('singPathProblem').exists() === false"
+            }, 
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 30"
+            }
+          }, 
+          ".indexOn": "archived", 
+          ".read": "auth !== null && (\n  root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists()\n  || root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n)", 
+          ".write": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n)"
+        }
+      }, 
+      "events": {
+        "$eventId": {
+          ".validate": "newData.hasChildren(['createdAt', 'owner', 'title']) && (\n  data.exists()\n  || root.child('classMentors/premiumUsers').child(auth.uid).val() === true\n)", 
+          ".write": "auth !== null && (\n  data.exists() === false\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n  || (\n    root.child('auth/publicIds').child(data.child('owner/publicId').val()).val() === auth.uid\n    && (\n      newData.hasChildren(['featured']) === false\n      || newData.child('featured').val() === false\n      || data.child('featured').val() === true\n    )\n  )\n)", 
+          "createdAt": {
+            ".validate": "(data.exists() && data.val() === newData.val()) || (!data.exists() && newData.val() === now)"
+          }, 
+          "featured": {
+            ".validate": "newData.isBoolean()"
+          }, 
+          "owner": {
+            ".validate": "newData.hasChildren(['displayName', 'publicId', 'gravatar'])", 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }, 
+            "publicId": {
+              ".validate": "auth !== null && root.child('classMentors/userProfiles/' + newData.val()).exists() && root.child('auth/publicIds').child(newData.val()).val() === auth.uid"
+            }
+          }, 
+          "schoolEvent": {
+            ".validate": "newData.isBoolean()"
+          }, 
+          "title": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 60"
+          }
+        }, 
+        ".indexOn": "featured", 
+        ".read": true
+      }, 
+      "premiumUsers": {
+        "$userId": {
+          ".validate": "newData.isBoolean() && root.child('auth/users/' + $userId).exists()"
+        }
+      }, 
+      "problemLevels": {
+        "$levelId": {
+          ".validate": "newData.hasChildren(['createdAt', 'description', 'owner', 'title']);", 
+          ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true", 
+          "acceptContribution": {
+            ".validate": "newData.isBoolean()"
+          }, 
+          "createdAt": {
+            ".validate": "(data.exists() && data.val() === newData.val()) || (!data.exists() && newData.val() === now)"
+          }, 
+          "description": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 255"
+          }, 
+          "owner": {
+            ".validate": "newData.hasChildren(['displayName', 'publicId', 'gravatar'])", 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }, 
+            "publicId": {
+              ".validate": "auth !== null && root.child('classMentors/userProfiles/' + newData.val()).exists() && root.child('auth/publicIds').child(newData.val()).val() === auth.uid"
+            }
+          }, 
+          "title": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 60"
+          }
+        }, 
+        ".indexOn": "acceptContribution", 
+        ".read": true
+      }, 
+      "problems": {
+        "$levelId": {
+          "$problemId": {
+            ".validate": "newData.hasChildren(['createdAt', 'description', 'owner', 'title']) && (\n  newData.child('linkPattern').exists()\n  || newData.child('textResponse').exists()\n  || newData.child('pythonTutorLink').exists()\n)", 
+            ".write": "auth !== null && (data.exists() === false\n  || root.child('auth/publicIds').child(data.child('owner/publicId').val()).val() === auth.uid\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n)", 
+            "createdAt": {
+              ".validate": "(\n  data.exists() && data.val() === newData.val()\n) || (\n  !data.exists() && newData.val() === now\n)"
+            }, 
+            "description": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 2000"
+            }, 
+            "expectedOutput": {
+              ".validate": "newData.isString() && newData.val().length < 8192"
+            }, 
+            "link": {
+              ".validate": "newData.isString() && newData.val().matches(/^(https?:\\/\\/.+|#\\/).+$/)"
+            }, 
+            "linkPattern": {
+              ".validate": "newData.isString() && newData.val().length < 2000 && newData.parent().child('textResponse').exists() === false && newData.parent().child('pythonTutorLink').exists() === false"
+            }, 
+            "owner": {
+              ".validate": "newData.hasChildren(['displayName', 'publicId', 'gravatar'])", 
+              "displayName": {
+                ".validate": "newData.isString() && newData.val().length >= 3"
+              }, 
+              "gravatar": {
+                ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+              }, 
+              "publicId": {
+                ".validate": "auth !== null && root.child('classMentors/userProfiles/' + newData.val()).exists() && root.child('auth/publicIds').child(newData.val()).val() === auth.uid"
+              }
+            }, 
+            "postCode": {
+              ".validate": "newData.isString() && newData.val().length < 8192"
+            }, 
+            "preCode": {
+              ".validate": "newData.isString() && newData.val().length < 8192"
+            }, 
+            "pythonTutorLink": {
+              ".validate": "newData.isString() && newData.val().length < 2000 && newData.parent().child('linkPattern').exists() === false && newData.parent().child('textResponse').exists() === false && newData.parent().hasChildren(['expectedOutput'])"
+            }, 
+            "textResponse": {
+              ".validate": "newData.isString() && newData.parent().child('linkPattern').exists() === false && newData.parent().child('pythonTutorLink').exists() === false"
+            }, 
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 60"
+            }
+          }
+        }, 
+        ".read": true
+      }, 
+      "schools": {
+        "$schoolId": {
+          ".validate": "newData.hasChildren(['crest', 'group', 'name'])", 
+          "crest": {
+            ".validate": "newData.isString()"
+          }, 
+          "group": {
+            ".validate": "newData.isString()"
+          }, 
+          "name": {
+            ".validate": "newData.isString()"
+          }
+        }, 
+        ".read": true, 
+        ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
+      }, 
+      "servicesUserIds": {
+        "$serviceId": {
+          "$serviceUserId": {
+            ".validate": "root.child('auth/publicIds/' + newData.val()).val() === auth.uid", 
+            ".write": "auth !== null && ( data.exists() === false || ( newData.exists() === true && root.child('auth/publicIds/' + data.val()).val() === auth.uid ))"
+          }
+        }, 
+        ".read": true
+      }, 
+      "userAchievements":{
+        ".read":true,
+        ".write": "auth.uid == 'queue-worker'"
+      },
+      "userProfiles": {
+        "$publicId": {         
+          "createdEvents": {
+            "$eventId": {
+              ".validate": "newData.hasChildren(['createdAt', 'title']) && root.child('classMentors/events').child($eventId).child('owner/publicId').val() === $publicId", 
+              "createdAt": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('createdAt').val() === newData.val()"
+              }, 
+              "featured": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('featured').val() === newData.val() || newData.val() === false"
+              }, 
+              "title": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('title').val() === newData.val()"
+              }
+            }, 
+            ".indexOn": "createdAt"
+          }, 
+          "joinedEvents": {
+            "$eventId": {
+              ".validate": "newData.hasChildren(['createdAt', 'owner', 'title']) && root.child('classMentors/eventParticipants').child($eventId).child($publicId).exists()", 
+              ".write": "auth !== null && root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()", 
+              "createdAt": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('createdAt').val() === newData.val()"
+              }, 
+              "featured": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('featured').val() === newData.val() || newData.val() === false"
+              }, 
+              "owner": {
+                ".validate": "newData.hasChildren(['displayName', 'publicId', 'gravatar'])", 
+                "displayName": {
+                  ".validate": "root.child('classMentors/events').child($eventId).child('owner/displayName').val() === newData.val()"
+                }, 
+                "gravatar": {
+                  ".validate": "root.child('classMentors/events').child($eventId).child('owner/gravatar').val() === newData.val()"
+                }, 
+                "publicId": {
+                  ".validate": "root.child('classMentors/events').child($eventId).child('owner/publicId').val() === newData.val()"
+                }
+              }, 
+              "title": {
+                ".validate": "root.child('classMentors/events').child($eventId).child('title').val() === newData.val()"
+              }
+            }, 
+            ".indexOn": "createdAt"
+          }, 
+          "services": {
+            "$serviceId": {
+              ".validate": "newData.hasChildren(['details'])", 
+              "badges": {
+                "$badgeId": {
+                  ".validate": "newData.hasChildren(['id', 'name', 'iconUrl'])", 
+                  "iconUrl": {
+                    ".validate": "newData.isString() && newData.val().matches(/(https?\\:\\/)?\\/.+/)"
+                  }, 
+                  "id": {
+                    ".validate": "newData.isString() && newData.val().length >= 3"
+                  }, 
+                  "name": {
+                    ".validate": "newData.isString() && newData.val().length >= 3"
+                  }, 
+                  "url": {
+                    ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+                  }
+                }, 
+                ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
+              }, 
+              "details": {
+                ".validate": "newData.hasChildren(['id', 'name', 'registeredBefore'])", 
+                "name": {
+                  ".validate": "newData.isString() && newData.val().length >= 1"
+                }, 
+                "registeredBefore": {
+                 
+                }
+              }, 
+              "lastUpdate": {
+                ".validate": "newData.val() === now", 
+                ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
+              }
+            }
+          }, 
+          "user": {
+            ".validate": "newData.hasChildren(['displayName', 'gravatar'])", 
+            "country": {
+              ".validate": "newData.hasChildren(['code', 'name'])", 
+              "code": {
+                ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('country/code').val()"
+              }, 
+              "name": {
+                ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('country/name').val()"
+              }
+            }, 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/(https?\\:)?\\/\\/.+/)"
+            }, 
+            "isAdmin": {
+              ".validate": "newData.isBoolean() && root.child('classMentors/admins').child(\n  root.child('auth/publicIds').child($publicId).val()\n).val() === true"
+            }, 
+            "isPremium": {
+              ".validate": "newData.isBoolean() && root.child('classMentors/premiumUsers').child(\n  root.child('auth/publicIds').child($publicId).val()\n).val() === true"
+            }, 
+            "school": {
+              ".validate": "newData.hasChildren(['name', 'type'])", 
+              "iconUrl": {
+                ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('school/iconUrl').val()"
+              }, 
+              "name": {
+                ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('school/name').val()"
+              }, 
+              "type": {
+                ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('school/type').val()"
+              }
+            }, 
+            "yearOfBirth": {
+              ".validate": "newData.val() === root.child('auth/users').child(auth.uid).child('yearOfBirth').val()"
+            }
+          },
+          ".write": "auth !== null && root.child('auth/publicIds/' + $publicId).val() === auth.uid"
+        }, 
+        ".read": true,
+        ".write":"auth.uid == 'queue-worker'"
+      }
+    }, 
+    "logs": {
+      ".write":"auth !== null",
+      ".read": "auth !== null"
+    },
+    "queue": {
+      "tasks": {
+        ".read": "auth !== null",
+        ".write": "auth !== null"
+      }
+    },
+    "singpath": {
+      "admin": {
+        "$key1": {
+          ".validate": "$key1.matches(/^[-:a-zA-Z0-9]+$/) && newData.isBoolean()"
+        }
+      }, 
+      "levels": {
+        "$pathId": {
+          "$levelId": {
+            "$other": {
+              ".validate": "false"
+            }, 
+            ".validate": "newData.hasChildren(['title', 'description', 'language', 'owner']) && newData.parent().parent().parent().parent().child('singpath').child('paths').child($pathId).val() != null && (newData.child('language').val() == newData.parent().parent().parent().parent().child('singpath').child('paths').child($pathId).child('language').val() && newData.child('owner').child('publicId').val() == newData.parent().parent().parent().parent().child('singpath').child('paths').child($pathId).child('owner').child('publicId').val())", 
+            ".write": "(auth != null && newData.parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.val() != null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('owner').child('publicId').val()).val() == auth.uid || newData.val() == null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(data.child('owner').child('publicId').val()).val() == auth.uid)) && (newData.val() != null || newData.parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).val() == null && newData.parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).val() == null)", 
+            "description": {
+              ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 2048"
+            }, 
+            "language": {
+              ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+            }, 
+            "owner": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".validate": "newData.hasChildren(['publicId', 'displayName', 'gravatar']) && (newData.child('publicId').val() != null && newData.child('displayName').val() == newData.parent().parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('displayName').val() && newData.child('gravatar').val() == newData.parent().parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('gravatar').val())", 
+              "displayName": {
+                ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+              }, 
+              "gravatar": {
+                ".validate": "newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/)"
+              }, 
+              "publicId": {
+                ".validate": "newData.isString() && newData.val().matches(/^[-a-z0-9]{3,20}$/)"
+              }
+            }, 
+            "title": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+            }
+          }, 
+          ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() != null && newData.parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().child('singpath').child('problems').child($pathId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('problems').child($pathId).child('owner').child('publicId').val()).val() == auth.uid)) && (newData.parent().parent().parent().child('singpath').child('levels').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).val() == null)"
+        }, 
+        ".indexOn": [
+          "title"
+        ], 
+        ".read": "true"
+      }, 
+      "paths": {
+        "$pathId": {
+          "$other": {
+            ".validate": "false"
+          }, 
+          ".validate": "newData.hasChildren(['title', 'description', 'language', 'owner'])", 
+          ".write": "(auth != null && newData.parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || newData.val() != null && data.val() != null && (auth != null && (newData.val() != null && newData.parent().parent().parent().child('auth').child('publicIds').child(newData.child('owner').child('publicId').val()).val() == auth.uid || newData.val() == null && newData.parent().parent().parent().child('auth').child('publicIds').child(data.child('owner').child('publicId').val()).val() == auth.uid))) && (newData.val() != null || newData.parent().parent().parent().child('singpath').child('levels').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).val() == null)", 
+          "description": {
+            ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 2048"
+          }, 
+          "language": {
+            ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+          }, 
+          "owner": {
+            "$other": {
+              ".validate": "false"
+            }, 
+            ".validate": "newData.hasChildren(['publicId', 'displayName', 'gravatar']) && (newData.child('publicId').val() != null && newData.child('displayName').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('displayName').val() && newData.child('gravatar').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('gravatar').val())", 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/)"
+            }, 
+            "publicId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[-a-z0-9]{3,20}$/)"
+            }
+          }, 
+          "title": {
+            ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+          }
+        }, 
+        ".indexOn": [
+          "title"
+        ], 
+        ".read": "true"
+      }, 
+      "problems": {
+        "$pathId": {
+          "$levelId": {
+            "$problemId": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".validate": "newData.hasChildren(['title', 'description', 'language', 'owner', 'tests']) && newData.parent().parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).val() != null && (newData.child('language').val() == newData.parent().parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).child('language').val() && newData.child('owner').child('publicId').val() == newData.parent().parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).child('owner').child('publicId').val())", 
+              ".write": "(auth != null && newData.parent().parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.val() != null && newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('owner').child('publicId').val()).val() == auth.uid || newData.val() == null && newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(data.child('owner').child('publicId').val()).val() == auth.uid)) && (newData.val() != null || newData.parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).val() == null)", 
+              "description": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 2048"
+              }, 
+              "language": {
+                ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+              }, 
+              "owner": {
+                "$other": {
+                  ".validate": "false"
+                }, 
+                ".validate": "newData.hasChildren(['publicId', 'displayName', 'gravatar']) && (newData.child('publicId').val() != null && newData.child('displayName').val() == newData.parent().parent().parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('displayName').val() && newData.child('gravatar').val() == newData.parent().parent().parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.child('publicId').val()).val()).child('gravatar').val())", 
+                "displayName": {
+                  ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+                }, 
+                "gravatar": {
+                  ".validate": "newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/)"
+                }, 
+                "publicId": {
+                  ".validate": "newData.isString() && newData.val().matches(/^[-a-z0-9]{3,20}$/)"
+                }
+              }, 
+              "seed": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4096 || newData.val() == null"
+              }, 
+              "tests": {
+                ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4096"
+              }, 
+              "title": {
+                ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+              }
+            }, 
+            ".indexOn": [
+              "title"
+            ], 
+            ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).val() != null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).val() == null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('levels').child($pathId).child($levelId).child('owner').child('publicId').val()).val() == auth.uid)) && (newData.parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).val() == null && newData.parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).val() == null)"
+          }, 
+          ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() != null && newData.parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().child('singpath').child('problems').child($pathId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('problems').child($pathId).child('owner').child('publicId').val()).val() == auth.uid)) && (newData.parent().parent().parent().child('singpath').child('levels').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).val() == null)"
+        }, 
+        ".read": "true"
+      }, 
+      "queuedSolutions": {
+        "$pathId": {
+          "$levelId": {
+            "$problemId": {
+              "$publicId": {
+                "$queueId": {
+                  "$other": {
+                    ".validate": "false"
+                  }, 
+                  ".validate": "newData.hasChildren(['meta']) && ((data.val() == null || data.child('meta').child('solved').val() == true && newData.child('meta').child('history').child(data.child('meta').child('startedAt').val() + '').val() != null) && newData.child('meta').child('startedAt').val() == now && newData.child('meta').child('endedAt').val() == null && newData.child('meta').child('verified').val() == false && newData.child('meta').child('solved').val() == false && newData.child('meta').child('taskId').val() == null && newData.child('meta').child('history').child(newData.child('meta').child('startedAt').val() + '').val() == null && newData.child('payload').val() == null && newData.child('results').val() == null || newData.child('meta').child('startedAt').val() != null && data.child('meta').child('startedAt').val() == newData.child('meta').child('startedAt').val() && newData.child('meta').child('endedAt').val() == now && newData.child('meta').child('verified').val() == false && newData.child('meta').child('solved').val() == false && newData.child('meta').child('taskId').val() != null && newData.child('meta').child('taskId').val() != data.child('meta').child('taskId').val() && newData.child('meta').child('history').child(newData.child('meta').child('startedAt').val() + '').val() == null && newData.child('payload').val() != null && newData.child('results').child(newData.child('meta').child('taskId').val()).val() == null || newData.child('meta').child('startedAt').val() != null && data.child('meta').child('startedAt').val() == newData.child('meta').child('startedAt').val() && (newData.child('meta').child('endedAt').val() != null && data.child('meta').child('endedAt').val() == newData.child('meta').child('endedAt').val()) && newData.child('meta').child('verified').val() == true && (newData.child('meta').child('taskId').val() != null && data.child('meta').child('taskId').val() == newData.child('meta').child('taskId').val()) && newData.child('payload').val() != null && (newData.child('payload').val() != null && newData.child('payload').child('language').val() == data.child('payload').child('language').val() && newData.child('payload').child('tests').val() == data.child('payload').child('tests').val() && newData.child('payload').child('solution').val() == data.child('payload').child('solution').val()) && newData.child('results').child(newData.child('meta').child('taskId').val()).val() != null) && newData.parent().parent().parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).val() != null", 
+                  "meta": {
+                    "$other": {
+                      ".validate": "false"
+                    }, 
+                    ".read": "auth != null && auth.uid == root.child('auth').child('publicIds').child($publicId).val()", 
+                    ".validate": "newData.hasChildren(['startedAt', 'verified', 'solved'])", 
+                    ".write": "newData.val() != null && (auth != null && auth.uid == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val())", 
+                    "endedAt": {
+                      ".validate": "newData.isNumber() && newData.val() == now || newData.val() == null"
+                    }, 
+                    "history": {
+                      "$startedAt": {
+                        ".validate": "newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('solved').val() == true && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('startedAt').val() + '' == $startedAt && newData.val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('endedAt').val() - newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('startedAt').val()"
+                      }, 
+                      ".validate": "newData.hasChildren() || newData.val() == null"
+                    }, 
+                    "solved": {
+                      ".validate": "newData.isBoolean()", 
+                      ".write": "true"
+                    }, 
+                    "startedAt": {
+                      ".validate": "newData.isNumber() && newData.val() == now"
+                    }, 
+                    "taskId": {
+                      ".validate": "(newData.isString() || newData.val() == null) && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child(newData.val()).val() != null"
+                    }, 
+                    "verified": {
+                      ".validate": "newData.isBoolean()", 
+                      ".write": "true"
+                    }
+                  }, 
+                  "payload": {
+                    "$other": {
+                      ".validate": "false"
+                    }, 
+                    ".read": "auth != null && auth.uid == root.child('auth').child('publicIds').child($publicId).val() && root.child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('solved').val() == false", 
+                    ".validate": "newData.hasChildren() && newData.hasChildren(['tests', 'solution', 'language']) || newData.val() == null", 
+                    ".write": "auth != null && auth.uid == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()", 
+                    "language": {
+                      ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+                    }, 
+                    "solution": {
+                      ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 8192"
+                    }, 
+                    "tests": {
+                      ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4096"
+                    }
+                  }, 
+                  "results": {
+                    "$taskId": {
+                      "$other": {
+                        ".validate": "false"
+                      }, 
+                      ".validate": "newData.hasChildren(['solved']) && (newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).val() != null && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).child('completed').val() == true && (newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).child('payload').val() != null && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).child('payload').child('language').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('payload').child('language').val() && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).child('payload').child('tests').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('payload').child('tests').val() && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queues').child($queueId).child('tasks').child($taskId).child('payload').child('solution').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('payload').child('solution').val()))", 
+                      ".write": "auth != null && auth.isWorker == true && $queueId == auth.queue && newData.parent().parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('taskId').val() == $taskId", 
+                      "errors": {
+                        ".validate": "newData.isString() || newData.val() == null"
+                      }, 
+                      "meta": {
+                        ".validate": "newData.hasChildren() || newData.val() == null"
+                      }, 
+                      "printed": {
+                        ".validate": "newData.isString() || newData.val() == null"
+                      }, 
+                      "results": {
+                        ".validate": "newData.hasChildren() || newData.isString() || newData.val() == null"
+                      }, 
+                      "solved": {
+                        ".validate": "newData.isBoolean()"
+                      }
+                    }, 
+                    ".read": "auth != null && auth.uid == root.child('auth').child('publicIds').child($publicId).val()", 
+                    ".validate": "newData.hasChildren() || newData.val() == null", 
+                    ".write": "auth != null && auth.uid == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val() && newData.val() == null"
+                  }
+                }
+              }, 
+              ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).val() != null && newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).val() == null && newData.parent().parent().parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('problems').child($pathId).child($levelId).child($problemId).child('owner').child('publicId').val()).val() == auth.uid)) && newData.parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).val() == null"
+            }, 
+            ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).val() != null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().parent().child('singpath').child('levels').child($pathId).child($levelId).val() == null && newData.parent().parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('levels').child($pathId).child($levelId).child('owner').child('publicId').val()).val() == auth.uid)) && (newData.parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).val() == null && newData.parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).val() == null)"
+          }, 
+          ".write": "newData.val() == null && (auth != null && newData.parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true || auth != null && (newData.parent().parent().parent().child('singpath').child('paths').child($pathId).val() != null && newData.parent().parent().parent().child('auth').child('publicIds').child(newData.parent().parent().parent().child('singpath').child('paths').child($pathId).child('owner').child('publicId').val()).val() == auth.uid || newData.parent().parent().parent().child('singpath').child('paths').child($pathId).val() == null && newData.parent().parent().parent().child('auth').child('publicIds').child(root.child('singpath').child('paths').child($pathId).child('owner').child('publicId').val()).val() == auth.uid)) && (newData.parent().parent().parent().child('singpath').child('levels').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('problems').child($pathId).val() == null && newData.parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).val() == null)"
+        }
+      }, 
+      "queues": {
+        "$queueId": {
+          "tasks": {
+            "$taskId": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".read": "auth != null && auth.uid == data.child('owner').val()", 
+              ".validate": "newData.hasChildren(['owner', 'payload', 'createdAt', 'started', 'completed', 'consumed']) && (newData.child('owner').val() != null && (data.child('owner').val() == null || data.child('owner').val() == newData.child('owner').val())) && (data.val() == null || newData.child('payload').val() != null && newData.child('payload').child('language').val() == data.child('payload').child('language').val() && newData.child('payload').child('tests').val() == data.child('payload').child('tests').val() && newData.child('payload').child('solution').val() == data.child('payload').child('solution').val()) && newData.child('createdAt').val() != null && newData.child('startedAt').val() != null == newData.child('started').val() && newData.child('completedAt').val() != null == newData.child('completed').val()", 
+              ".write": "data.val() == null && (newData.child('started').val() == false && newData.child('completed').val() == false && newData.child('consumed').val() == false && newData.child('worker').val() == null && newData.child('results').val() == null && (newData.child('solutionRef').val() == null || newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).val() != null) && (newData.child('solutionRef').val() == null || newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).child('results').child($taskId).val() == null)) && (auth != null && auth.uid == newData.child('owner').val()) || data.val() != null && data.child('started').val() == false && data.child('worker').val() == null && (newData.child('started').val() == true && newData.child('completed').val() == false && newData.child('consumed').val() == false && newData.child('worker').val() != null && newData.child('results').val() == null && (newData.child('solutionRef').val() == null || newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).child('results').child($taskId).val() == null)) && (auth != null && auth.isWorker == true && $queueId == auth.queue) && (auth != null && auth.uid == newData.child('worker').val()) || data.val() != null && data.child('started').val() == true && (newData.child('started').val() == false && newData.child('completed').val() == false && newData.child('consumed').val() == false && newData.child('worker').val() == null && newData.child('results').val() == null && (newData.child('solutionRef').val() == null || newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).val() != null) && (newData.child('solutionRef').val() == null || newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).child('results').child($taskId).val() == null)) && (auth != null && auth.uid == data.child('worker').val() || auth != null && auth.isWorker == true && $queueId == auth.queue && now - data.child('startedAt').val() > 6000) || data.val() != null && data.child('completed').val() == false && data.child('started').val() == true && data.child('worker').val() == newData.child('worker').val() && (newData.child('started').val() == true && newData.child('completed').val() == true && newData.child('worker').val() != null && newData.child('consumed').val() == (newData.child('results').val() == null) && (newData.child('solutionRef').val() != null && newData.parent().parent().parent().parent().parent().child(newData.child('solutionRef').val()).child('results').child($taskId).val() != null || newData.child('results').val() != null)) && (auth != null && auth.uid == newData.child('worker').val()) || data.val() != null && data.child('consumed').val() == false && (newData.child('started').val() == true && newData.child('completed').val() == true && newData.child('worker').val() != null && newData.child('consumed').val() == true && newData.child('results').val() != null) && (auth != null && auth.uid == newData.child('owner').val())", 
+              "completed": {
+                ".validate": "newData.isBoolean()"
+              }, 
+              "completedAt": {
+                ".validate": "newData.isNumber() && (data.val() == null && newData.val() == now || newData.val() != null && data.val() == newData.val()) || newData.val() == null"
+              }, 
+              "consumed": {
+                ".validate": "newData.isBoolean()"
+              }, 
+              "createdAt": {
+                ".validate": "newData.isNumber() && (data.val() == null && newData.val() == now || newData.val() != null && data.val() == newData.val())"
+              }, 
+              "owner": {
+                ".validate": "newData.isString() && newData.val().matches(/^[-:a-zA-Z0-9]+$/)"
+              }, 
+              "payload": {
+                "$other": {
+                  ".validate": "false"
+                }, 
+                ".validate": "newData.hasChildren(['tests', 'solution', 'language'])", 
+                "language": {
+                  ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+                }, 
+                "solution": {
+                  ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 8192"
+                }, 
+                "tests": {
+                  ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 4096"
+                }
+              }, 
+              "results": {
+                "$other": {
+                  ".validate": "false"
+                }, 
+                ".validate": "newData.hasChildren() && newData.hasChildren(['solved']) || newData.val() == null", 
+                "errors": {
+                  ".validate": "newData.isString() || newData.val() == null"
+                }, 
+                "meta": {
+                  ".validate": "newData.hasChildren() || newData.val() == null"
+                }, 
+                "printed": {
+                  ".validate": "newData.isString() || newData.val() == null"
+                }, 
+                "results": {
+                  ".validate": "newData.hasChildren() || newData.isString() || newData.val() == null"
+                }, 
+                "solved": {
+                  ".validate": "newData.isBoolean()"
+                }
+              }, 
+              "solutionRef": {
+                ".validate": "newData.isString() || newData.val() == null"
+              }, 
+              "started": {
+                ".validate": "newData.isBoolean()"
+              }, 
+              "startedAt": {
+                ".validate": "newData.isNumber() && (data.val() == null && newData.val() == now || newData.val() != null && data.val() == newData.val()) || newData.val() == null"
+              }, 
+              "tries": {
+                ".validate": "newData.hasChildren() || newData.val() == null"
+              }, 
+              "worker": {
+                ".validate": "newData.isString() && newData.val().matches(/^[-:a-zA-Z0-9]+$/) || newData.val() == null"
+              }
+            }, 
+            ".indexOn": [
+              "started", 
+              "completed"
+            ], 
+            ".read": "auth != null && auth.isWorker == true && $queueId == auth.queue"
+          }, 
+          "workers": {
+            "$workerId": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".validate": "newData.hasChildren(['startedAt', 'presence'])", 
+              ".write": "auth != null && auth.isWorker == true && $queueId == auth.queue && (auth != null && auth.uid == $workerId || newData.val() == null)", 
+              "presence": {
+                ".validate": "newData.isNumber() && newData.val() == now"
+              }, 
+              "startedAt": {
+                ".validate": "newData.isNumber() && (data.val() == null && newData.val() == now || newData.val() != null && data.val() == newData.val())"
+              }
+            }, 
+            ".indexOn": [
+              "presence", 
+              "completed"
+            ], 
+            ".read": "true"
+          }
+        }
+      }, 
+      "userProfiles": {
+        "$publicId": {
+          "$other": {
+            ".validate": "false"
+          }, 
+          ".validate": "newData.hasChildren(['user'])", 
+          "queuedSolutions": {
+            "$pathId": {
+              "$levelId": {
+                "$problemId": {
+                  "$queueId": {
+                    "$other": {
+                      ".validate": "false"
+                    }, 
+                    ".validate": "newData.hasChildren(['startedAt', 'solved', 'language']) && (newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).val() != null && newData.child('startedAt').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('startedAt').val() && newData.child('solved').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('solved').val() && newData.child('language').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('problems').child($pathId).child($levelId).child($problemId).child('language').val() && (newData.child('solved').val() == false || newData.child('duration').val() == newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).child('meta').child('history').child(newData.child('startedAt').val() + '').val()))", 
+                    ".write": "newData.val() != null == (newData.parent().parent().parent().parent().parent().parent().parent().parent().child('singpath').child('queuedSolutions').child($pathId).child($levelId).child($problemId).child($publicId).child($queueId).val() != null)", 
+                    "duration": {
+                      ".validate": "newData.isNumber() || newData.val() == null"
+                    }, 
+                    "language": {
+                      ".validate": "newData.isString() && newData.val().matches(/^(python3?|angularjs|javascript|java)$/)"
+                    }, 
+                    "solved": {
+                      ".validate": "newData.isBoolean()"
+                    }, 
+                    "startedAt": {
+                      ".validate": "newData.isNumber()"
+                    }
+                  }
+                }
+              }
+            }, 
+            ".validate": "newData.hasChildren() || newData.val() == null"
+          }, 
+          "user": {
+            "$other": {
+              ".validate": "false"
+            }, 
+            ".validate": "newData.hasChildren(['displayName', 'gravatar', 'displayName', 'gravatar']) && ($publicId != null && ($publicId != null && newData.child('displayName').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('displayName').val() && newData.child('gravatar').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('gravatar').val()) && newData.child('yearOfBirth').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('yearOfBirth').val() && (newData.child('country').val() == null && newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('country').val() == null || newData.child('country').child('code').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('country').child('code').val()) && (newData.child('school').val() == null && newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('school').val() == null || newData.child('school').child('id').val() == newData.parent().parent().parent().parent().child('auth').child('users').child(newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()).child('school').child('id').val())) && (newData.child('isAdmin').val() == null || newData.child('isAdmin').val() == (auth != null && newData.parent().parent().parent().parent().child('singpath').child('admins').child(auth.uid).val() == true))", 
+            ".write": "auth != null && auth.uid == newData.parent().parent().parent().parent().child('auth').child('publicIds').child($publicId).val()", 
+            "country": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".validate": "(newData.hasChildren() && newData.hasChildren(['code', 'name']) || newData.val() == null) && (newData.hasChildren() && newData.hasChildren(['code', 'name']) || newData.val() == null)", 
+              "code": {
+                ".validate": "newData.isString() && newData.isString()"
+              }, 
+              "name": {
+                ".validate": "newData.isString() && newData.isString()"
+              }
+            }, 
+            "displayName": {
+              ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 64 && newData.isString() && newData.val().length >= 3 && newData.val().length <= 64"
+            }, 
+            "gravatar": {
+              ".validate": "newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/) && newData.isString() && newData.val().matches(/^(https?\\:)?\\/\\/.+$/)"
+            }, 
+            "isAdmin": {
+              ".validate": "(newData.isBoolean() || newData.val() == null) && (newData.isBoolean() || newData.val() == null)"
+            }, 
+            "isPremium": {
+              ".validate": "(newData.isBoolean() || newData.val() == null) && (newData.isBoolean() || newData.val() == null)"
+            }, 
+            "school": {
+              "$other": {
+                ".validate": "false"
+              }, 
+              ".validate": "(newData.hasChildren() && newData.hasChildren(['id', 'name', 'type']) || newData.val() == null) && (newData.hasChildren() && newData.hasChildren(['id', 'name', 'type']) || newData.val() == null)", 
+              "iconUrl": {
+                ".validate": "(newData.isString() || newData.val() == null) && (newData.isString() || newData.val() == null)"
+              }, 
+              "id": {
+                ".validate": "newData.isString() && newData.isString()"
+              }, 
+              "name": {
+                ".validate": "newData.isString() && newData.isString()"
+              }, 
+              "type": {
+                ".validate": "newData.isString() && newData.isString()"
+              }
+            }, 
+            "yearOfBirth": {
+              ".validate": "(newData.isNumber() && newData.val() > 1900 && newData.val() < 2015 || newData.val() == null) && (newData.isNumber() && newData.val() > 1900 && newData.val() < 2015 || newData.val() == null)"
+            }
+          }
+        }, 
+        ".read": "true"
+      }
+    }
+  }
+}

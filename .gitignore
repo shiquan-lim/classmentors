@@ -1,5 +1,8 @@
 node_modules/
 src/jspm_packages/
 dist/
+coverage/
 *.sublime-project
 *.sublime-workspace
+npm-debug.log
+worker/*.env

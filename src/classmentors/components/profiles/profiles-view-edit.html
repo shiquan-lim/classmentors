@@ -33,85 +33,107 @@
 
         <div flex="67" flex-sm="100">
 
-            <div clm-spf-profile="ctrl.profile.$id"></div>
+            <!-- Commenting out SingPath profile card
+                <div clm-spf-profile="ctrl.profile.$id"></div>
+
+             
             <div clm-profile="ctrl.profile" clm-service-id="codeCombat" clm-current-user="ctrl.currentUserProfile"></div>
             <div clm-profile="ctrl.profile" clm-service-id="codeSchool" clm-current-user="ctrl.currentUserProfile"></div>
             <div clm-profile="ctrl.profile" clm-service-id="treeHouse" clm-current-user="ctrl.currentUserProfile"></div>
+             -->
+            <button type="submit" ng-click="ctrl.refreshAchievements(ctrl.profile.$id)">Refresh Achievements</button>
+            <div id="register-freecodecamp" class="register-service md-whiteframe-z1">
+                <h2>FreeCodeCamp</h2>
 
-            <div id="register-codecombat" ng-if="!ctrl.profile.services.codeCombat.details.id" class="register-service md-whiteframe-z1">
+                <div ng-hide="ctrl.profile.services.freeCodeCamp.details.id">
+                  <p>
+                    <a href="https://www.freecodecamp.com" target="_blank">
+                        FreeCodeCamp
+                    </a> is an open source community of busy people who learn to code and help nonprofits.
+                  </p>  
+                  <form ng-submit="ctrl.updateFreeCodeCampUsername(ctrl.newFreeCodeCampUsername)">
+                    Enter your FreeCodeCamp username.<br>
+                    https://www.freecodecamp.com/<input ng-model="ctrl.newFreeCodeCampUsername" />
+                    <button type="submit">Save</button>
+                  </form>
+                </div>
+                <div ng-show="ctrl.profile.services.freeCodeCamp.details.id">
+                  {{ctrl.profile.services.freeCodeCamp.totalAchievements}} achievements<br>
+                  Registered as <a href="https://www.freecodecamp.com/{{ctrl.profile.services.freeCodeCamp.details.id}}">{{ctrl.profile.services.freeCodeCamp.details.id}}</a> on Free Code Camp.
+                  <button type="submit" ng-click="ctrl.removeFreeCodeCamp()">Remove</button>
+                </div>
+            </div>
+            
+            <div id="register-pivotalexpert" class="register-service md-whiteframe-z1">
+                <h2>Pivotal Expert</h2>
+                
+                <div ng-hide="ctrl.profile.services.pivotalExpert.details.id">
+                    <p>
+                     <a href="https://pivotal-expert.firebaseapp.com" target="_blank">
+                        Pivotal Expert
+                     </a> helps you to learn just enough programming to make yourself a more productive professional.
+                   </p>
+                    <form ng-submit="ctrl.updatePivotalExpertUsername(ctrl.newPivotalExpertUsername)">
+                        Enter your Pivotal Expert username.<br>
+                        https://pivotal-expert.firebaseapp.com/#/profile/<input ng-model="ctrl.newPivotalExpertUsername" />
+                        <button type="submit">Save</button>
+                    </form>
+                </div>
+                <div ng-show="ctrl.profile.services.pivotalExpert.details.id">
+                  {{ctrl.profile.services.pivotalExpert.totalAchievements}}  achievements<br>
+                  Registered as <a href="https://pivotal-expert.firebaseapp.com/#/profile/{{ctrl.profile.services.pivotalExpert.details.id}}">{{ctrl.profile.services.pivotalExpert.details.id}}</a> on Pivotal Expert.
+                    <button type="submit" ng-click="ctrl.removePivotalExpert()">Remove</button>
+                </div>
+            </div>
+            <!--- until API corrected 
+            <div id="register-codecombat" class="register-service md-whiteframe-z1">
                 <h2>Code Combat</h2>
 
-                <p>
-                    <a href="http://codecombat.com/" target="_blank">Code Combat</a>,
-                    learn to Code JavaScript by Playing a Game.
-                </p>
-
-                <p ng-if="!ctrl.lookUp.codeCombat.id">
-                    <a href="" ng-click="ctrl.lookUp.codeCombat.find()">
-                        Look up my Code Combat details
-                    </a>
-                </p>
+                <div ng-hide="ctrl.profile.services.codeCombat.details.id">  
+                    <p>
+                        <a href="http://codecombat.com/" target="_blank">Code Combat</a>,
+                        learn to Code JavaScript by Playing a Game.
+                    </p>
+                    <form ng-submit="ctrl.updateCodeCombatUsername(ctrl.newCodeCombatUsername)">
+                            Enter your Code Combat username.<br>
+                            https://codecombat.com/user/<input ng-model="ctrl.newCodeCombatUsername" />
+                            <button type="submit">Save</button>
+                    </form>
+                </div>   
+                <div ng-show="ctrl.profile.services.codeCombat.details.id">
+                   {{ctrl.profile.services.codeCombat.totalAchievements}}  achievements<br>
+                   Registered as <a href="https://codecombat.com/user/{{ctrl.profile.services.codeCombat.details.id}}">{{ctrl.profile.services.codeCombat.details.id}}</a> on Code Combat.
+                    <button type="submit" ng-click="ctrl.removeCodeCombat()">Remove</button>
+                </div>
             </div>
-
-            <div id="register-codeschool" ng-if="!ctrl.profile.services.codeSchool.details.id" class="register-service md-whiteframe-z1">
+            --> 
+            <div id="register-codeschool" class="register-service md-whiteframe-z1">
                 <h2>Code School</h2>
 
-                <p>
+                <div ng-hide="ctrl.profile.services.codeSchool.details.id">  
+                    <p>
                     <a href="https://www.codeschool.com/" target="_blank">Code School</a>
-                    teaches web technologies in the comfort of your browser with video lessons,
-                    coding challenges, and screencasts. Registering is free, and the provides
-                    free content to try out.
-                </p>
-
-                <form name="codeSchoolForm" class="form-horizontal" ng-submit="ctrl.lookUp.codeSchool.save()">
-                    <div layout="row">
-                        <md-input-container flex>
-                            <label for="cc-username">Username</label>
-                            <input
-                                type="text" id="cc-username"
-                                name="ccUsername" placeholder="Your Code School username"
-                                ng-model="ctrl.lookUp.codeSchool.id"
-                                ng-model-options="{ updateOn: 'default blur', debounce: {'default': 1000, 'blur': 0} }"
-                                clm-service-user-id-exists="codeSchool"
-                                clm-service-user-id-uniq="codeSchool"
-                            />
-
-                            <div ng-messages="codeSchoolForm.ccUsername.$error">
-                                <div ng-message="clmServiceUserIdExists">
-                                    We couldn't find the profile for this username on Code School.
-                                    Misspell? Is it public?
-                                </div>
-                            </div>
-                        </md-input-container>
-
-                        <md-button type="submit" class="md-raised md-primary" ng-disabled="!codeSchoolForm.$valid || codeSchoolForm.$pristine">
-                            Save
-                        </md-button>
-                    </div>
-                    <p ng-if="!codeSchoolForm.ccUsername.$valid || codeSchoolForm.ccUsername.$pristine">
-                        You should visit your
-                        <a href="https://www.codeschool.com/account/edit" target="_blank">Code School profile page</a>,
-                        set a username,
-                        set your report card as public by unticking the "Keep Report Card Private?"
-                        and save.
+                        teaches web technologies in the comfort of your browser with video lessons,
+                        coding challenges, and screencasts. Registering is free, and the provides
+                        free content to try out.
                     </p>
-                </form>
+                    <form ng-submit="ctrl.updateCodeSchoolUsername(ctrl.newCodeSchoolUsername)">
+                            Enter your Code School username.<br>
+                            https://www.codeschool.com/users/<input ng-model="ctrl.newCodeSchoolUsername" />
+                            <button type="submit">Save</button>
+                    </form>
+                </div>   
+                <div ng-show="ctrl.profile.services.codeSchool.details.id">
+                    <div ng-show="ctrl.profile.services.codeSchool.totalAchievements<0">
+                        <font color="red">{{ctrl.profile.services.codeSchool.details.id}} does not have a public profile on Code School.</font>
+                    </div>
+                    
+                    {{ctrl.profile.services.codeSchool.totalAchievements}}  achievements<br>
+                   Registered as <a href="https://www.codeschool.com/users/{{ctrl.profile.services.codeSchool.details.id}}">{{ctrl.profile.services.codeSchool.details.id}}</a> on Code School.
+                    <button type="submit" ng-click="ctrl.removeCodeSchool()">Remove</button>
+                </div>
             </div>
-            <!--
-            <div id="register-treehouse" class="register-service md-whiteframe-z1">
-                <h2>Treehouse</h2>
-
-                <p>
-                    Learn HTML, CSS, iPhone apps &amp; more at
-                    <a href="http://www.teamtreehouse.com/signup_code/singapore" target="_blank">
-                        Treehouse
-                    </a>.
-                    Treehouse offers a 14 days free trial.
-                </p>
-
-            </div>
-            -->
-
+           
         </div>
     </div>
 

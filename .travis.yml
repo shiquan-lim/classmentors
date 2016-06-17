@@ -1,11 +1,10 @@
 language: node_js
 node_js:
-  - '4.2'
+  - '4'
 script:
-  - npm run lint
   - npm run test
-before_deploy:
-  - npm run build
+after_success:
+  - ./bin/build-gh-pages-travis
 deploy:
   provider: releases
   skip_cleanup: true

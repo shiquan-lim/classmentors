@@ -1,0 +1,2156 @@
+{
+  "auth" : {
+    "publicIds" : {
+      "cboesch" : "google:110893970871115341770"
+    },
+    "usedPublicIds" : {
+      "cboesch" : true
+    },
+    "users" : {
+      "google:110893970871115341770" : {
+        "country" : {
+          "code" : "SG",
+          "name" : "Singapore"
+        },
+        "createdAt" : 1460273127178,
+        "displayName" : "Chris Boesch",
+        "email" : "scboesch@gmail.com",
+        "fullName" : "Chris Boesch",
+        "gravatar" : "//www.gravatar.com/avatar/6e64bb2cab5367fd6e201df2aa722512",
+        "id" : "google:110893970871115341770",
+        "publicId" : "cboesch",
+        "yearOfBirth" : 1990
+      }
+    }
+  },
+  "classMentors" : {
+    "admins" : {
+      "google:110893970871115341770" : true
+    },
+    "badges" : {
+      "codeCombat" : {
+        "arcane-ally" : {
+          "iconUrl" : "/assets/icons/taunt_15.png",
+          "id" : "arcane-ally",
+          "name" : "Arcane Ally",
+          "url" : "http://codecombat.com/play/level/arcane-ally"
+        },
+        "back-to-back" : {
+          "iconUrl" : "/assets/icons/taunt_6.png",
+          "id" : "back-to-back",
+          "name" : "Back to Back",
+          "url" : "http://codecombat.com/play/level/back-to-back"
+        },
+        "bonemender" : {
+          "iconUrl" : "/assets/icons/taunt_17.png",
+          "id" : "bonemender",
+          "name" : "Bonemender",
+          "url" : "http://codecombat.com/play/level/bonemender"
+        },
+        "closing-the-distance" : {
+          "iconUrl" : "/assets/icons/commanding_followers_13.png",
+          "id" : "closing-the-distance",
+          "name" : "Closing the Distance",
+          "url" : "http://codecombat.com/play/level/closing-the-distance"
+        },
+        "coinucopia" : {
+          "iconUrl" : "/assets/icons/taunt_18.png",
+          "id" : "coinucopia",
+          "name" : "Coinucopia",
+          "url" : "http://codecombat.com/play/level/coinucopia"
+        },
+        "commanding-followers" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525ef8ef06e1ab0962000003/commanding_followers_icon.png",
+          "id" : "commanding-followers",
+          "name" : "Commanding Followers",
+          "url" : "http://codecombat.com/play/level/commanding-followers"
+        },
+        "copper-meadows" : {
+          "iconUrl" : "/assets/icons/taunt_19.png",
+          "id" : "copper-meadows",
+          "name" : "Copper Meadows",
+          "url" : "http://codecombat.com/play/level/copper-meadows"
+        },
+        "cowardly-taunt" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525abfd9b12777d78e000009/cowardly_taunt_icon.png",
+          "id" : "cowardly-taunt",
+          "name" : "Cowardly Taunt",
+          "url" : "http://codecombat.com/play/level/cowardly-taunt"
+        },
+        "danger-minefield" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/526bda3fe79aefde2a003e36/mobile_artillery_icon.png",
+          "id" : "danger-minefield",
+          "name" : "Danger! Minefield",
+          "url" : "http://codecombat.com/play/level/danger-minefield"
+        },
+        "deadly-pursuit" : {
+          "iconUrl" : "/assets/icons/taunt_21.png",
+          "id" : "deadly-pursuit",
+          "name" : "Deadly Pursuit",
+          "url" : "http://codecombat.com/play/level/deadly-pursuit"
+        },
+        "defense-of-plainswood" : {
+          "iconUrl" : "/assets/icons/taunt_1.png",
+          "id" : "defense-of-plainswood",
+          "name" : "Defense of Plainswood",
+          "url" : "http://codecombat.com/play/level/defense-of-plainswood"
+        },
+        "dread-door" : {
+          "iconUrl" : "/assets/icons/commanding_followers_9.png",
+          "id" : "dread-door",
+          "name" : "Dread Door",
+          "url" : "http://codecombat.com/play/level/dread-door"
+        },
+        "drink-me" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525dc5589a0765e496000006/drink_me_icon.png",
+          "id" : "drink-me",
+          "name" : "Drink Me",
+          "url" : "http://codecombat.com/play/level/drink-me"
+        },
+        "drop-the-flag" : {
+          "iconUrl" : "/assets/icons/taunt_20.png",
+          "id" : "drop-the-flag",
+          "name" : "Drop the Flag",
+          "url" : "http://codecombat.com/play/level/drop-the-flag"
+        },
+        "dueling-grounds" : {
+          "iconUrl" : "/assets/icons/taunt_25.png",
+          "id" : "dueling-grounds",
+          "name" : "Dueling Grounds",
+          "url" : "http://codecombat.com/play/level/dueling-grounds"
+        },
+        "dungeons-of-kithgard" : {
+          "iconUrl" : "/assets/icons/commanding_followers_1.png",
+          "id" : "dungeons-of-kithgard",
+          "name" : "Dungeons of Kithgard",
+          "url" : "http://codecombat.com/play/level/dungeons-of-kithgard"
+        },
+        "endangered-burl" : {
+          "iconUrl" : "/assets/icons/taunt_3.png",
+          "id" : "endangered-burl",
+          "name" : "Endangered Burl",
+          "url" : "http://codecombat.com/play/level/endangered-burl"
+        },
+        "forgetful-gemsmith" : {
+          "iconUrl" : "/assets/icons/commanding_followers_4.png",
+          "id" : "forgetful-gemsmith",
+          "name" : "Forgetful Gemsmith",
+          "url" : "http://codecombat.com/play/level/forgetful-gemsmith"
+        },
+        "gems-in-the-deep" : {
+          "iconUrl" : "/assets/icons/commanding_followers_2.png",
+          "id" : "gems-in-the-deep",
+          "name" : "Gems in the Deep",
+          "url" : "http://codecombat.com/play/level/gems-in-the-deep"
+        },
+        "grab-the-mushroom" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/529662dfe0df8f0000000007/grab_the_mushroom_icon.png",
+          "id" : "grab-the-mushroom",
+          "name" : "Grab the Mushroom",
+          "url" : "http://codecombat.com/play/level/grab-the-mushroom"
+        },
+        "gridmancer" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/52ae2460ef42c52f13000008/gridmancer_icon.png",
+          "id" : "gridmancer",
+          "name" : "Gridmancer",
+          "url" : "http://codecombat.com/play/level/gridmancer"
+        },
+        "haunted-kithmaze" : {
+          "iconUrl" : "/assets/icons/commanding_followers_7.png",
+          "id" : "haunted-kithmaze",
+          "name" : "Haunted Kithmaze",
+          "url" : "http://codecombat.com/play/level/haunted-kithmaze"
+        },
+        "hunter-triplets" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/526711d9add4f8965f000002/hunter_triplets_icon.png",
+          "id" : "hunter-triplets",
+          "name" : "Hunter Triplets",
+          "url" : "http://codecombat.com/play/level/hunter-triplets"
+        },
+        "its-a-trap" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/528aea2d7f37fc4e0700016b/its_a_trap_icon.png",
+          "id" : "its-a-trap",
+          "name" : "It's a Trap!",
+          "url" : "http://codecombat.com/play/level/its-a-trap"
+        },
+        "kithgaurd-gates" : {
+          "iconUrl" : "/assets/icons/commanding_followers_15.png",
+          "id" : "kithgaurd-gates",
+          "name" : "Kithgaurd Gates",
+          "url" : "http://codecombat.com/play/level/kithgaurd-gates"
+        },
+        "known-enemy" : {
+          "iconUrl" : "/assets/icons/commanding_followers_10.png",
+          "id" : "known-enemy",
+          "name" : "Known Enemy",
+          "url" : "http://codecombat.com/play/level/known-enemy"
+        },
+        "lowly-kithmen" : {
+          "iconUrl" : "/assets/icons/commanding_followers_12.png",
+          "id" : "lowly-kithmen",
+          "name" : "Lowly Kithmen",
+          "url" : "http://codecombat.com/play/level/lowly-kithmen"
+        },
+        "master-of-names" : {
+          "iconUrl" : "/assets/icons/commanding_followers_11.png",
+          "id" : "master-of-names",
+          "name" : "Master of Names",
+          "url" : "http://codecombat.com/play/level/master-of-names"
+        },
+        "mobile-artillery" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525085419851b83f4b000001/mobile_artillery_icon.png",
+          "id" : "mobile-artillery",
+          "name" : "Mobile Artillery",
+          "url" : "http://codecombat.com/play/level/mobile-artillery"
+        },
+        "multiplayer-treasure-grove" : {
+          "iconUrl" : "/assets/icons/taunt_24.png",
+          "id" : "multiplayer-treasure-grove",
+          "name" : "Multiplayer Treasure Grove",
+          "url" : "http://codecombat.com/play/level/multiplayer-treasure-grove"
+        },
+        "munchkin-harvest" : {
+          "iconUrl" : "/assets/icons/taunt_12.png",
+          "id" : "munchkin-harvest",
+          "name" : "Munchkin Harvest",
+          "url" : "http://codecombat.com/play/level/munchkin-harvest"
+        },
+        "munchkin-swarm" : {
+          "iconUrl" : "/assets/icons/taunt_11.png",
+          "id" : "munchkin-swarm",
+          "name" : "Munchkin Swarm",
+          "url" : "http://codecombat.com/play/level/munchkin-swarm"
+        },
+        "ogre-encampment" : {
+          "iconUrl" : "/assets/icons/taunt_7.png",
+          "id" : "ogre-encampment",
+          "name" : "Ogre Encampment",
+          "url" : "http://codecombat.com/play/level/ogre-encampment"
+        },
+        "peasant-protection" : {
+          "iconUrl" : "/assets/icons/taunt_10.png",
+          "id" : "peasant-protection",
+          "name" : "Peasant Protection",
+          "url" : "http://codecombat.com/play/level/peasant-protection"
+        },
+        "rescue-mission" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/52740644904ac0411700067c/rescue_mission_icon.png",
+          "id" : "rescue-mission",
+          "name" : "Rescue Mission",
+          "url" : "http://codecombat.com/play/level/rescue-mission"
+        },
+        "rich-forager" : {
+          "iconUrl" : "/assets/icons/taunt_22.png",
+          "id" : "rich-forager",
+          "name" : "Rich Forager",
+          "url" : "http://codecombat.com/play/level/rich-forager"
+        },
+        "shadow-guard" : {
+          "iconUrl" : "/assets/icons/commanding_followers_3.png",
+          "id" : "shadow-guard",
+          "name" : "Shadow Guard",
+          "url" : "http://codecombat.com/play/level/shadow-guard"
+        },
+        "shield-rush" : {
+          "iconUrl" : "/assets/icons/taunt_9.png",
+          "id" : "shield-rush",
+          "name" : "Shield Rush",
+          "url" : "http://codecombat.com/play/level/shield-rush"
+        },
+        "shrapnel" : {
+          "iconUrl" : "/assets/icons/taunt_14.png",
+          "id" : "shrapnel",
+          "name" : "Shrapnel",
+          "url" : "http://codecombat.com/play/level/shrapnel"
+        },
+        "siege-of-stonehold" : {
+          "iconUrl" : "/assets/icons/taunt_23.png",
+          "id" : "siege-of-stonehold",
+          "name" : "Siege of Stonehold",
+          "url" : "http://codecombat.com/play/level/siege-of-stonehold"
+        },
+        "swift-dagger" : {
+          "iconUrl" : "/assets/icons/taunt_13.png",
+          "id" : "swift-dagger",
+          "name" : "Swift Dagger",
+          "url" : "http://codecombat.com/play/level/swift-dagger"
+        },
+        "sword-loop" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525dc5589a0765e496000006/drink_me_icon.png",
+          "id" : "sword-loop",
+          "name" : "Sword Loop",
+          "url" : "http://codecombat.com/play/level/sword-loop"
+        },
+        "taunt" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/525f150306e1ab0962000018/taunt_icon.png",
+          "id" : "taunt",
+          "name" : "Taunt",
+          "url" : "http://codecombat.com/play/level/taunt"
+        },
+        "taunt-the-guards" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/5276c9bdcf83207a2801ff8f/taunt_icon.png",
+          "id" : "taunt-the-guards",
+          "name" : "Taunt the Guards",
+          "url" : "http://codecombat.com/play/level/taunt-the-guards"
+        },
+        "the-final-kithmaze" : {
+          "iconUrl" : "/assets/icons/commanding_followers_14.png",
+          "id" : "the-final-kithmaze",
+          "name" : "The Final Kithmaze",
+          "url" : "http://codecombat.com/play/level/the-final-kithmaze"
+        },
+        "the-raised-sword" : {
+          "iconUrl" : "/assets/icons/commanding_followers_6.png",
+          "id" : "the-raised-sword",
+          "name" : "The Raised Sword",
+          "url" : "http://codecombat.com/play/level/the-raised-sword"
+        },
+        "the-right-route" : {
+          "iconUrl" : "http://codecombat.com/file/db/level/526fd3043c637ece50001bb2/the_herd_icon.png",
+          "id" : "the-right-route",
+          "name" : "The Right Route",
+          "url" : "http://codecombat.com/play/level/the-right-route"
+        },
+        "the-second-kithmaze" : {
+          "iconUrl" : "/assets/icons/commanding_followers_8.png",
+          "id" : "the-second-kithmaze",
+          "name" : "The Second Kithmaze",
+          "url" : "http://codecombat.com/play/level/the-second-kithmaze"
+        },
+        "thornbush-farm" : {
+          "iconUrl" : "/assets/icons/taunt_5.png",
+          "id" : "thornbush-farm",
+          "name" : "Thornbush Farm",
+          "url" : "http://codecombat.com/play/level/thornbush-farm"
+        },
+        "touch-of-death" : {
+          "iconUrl" : "/assets/icons/taunt_16.png",
+          "id" : "touch-of-death",
+          "name" : "Touch of Death",
+          "url" : "http://codecombat.com/play/level/touch-of-death"
+        },
+        "true-names" : {
+          "iconUrl" : "/assets/icons/commanding_followers_5.png",
+          "id" : "true-names",
+          "name" : "True Names",
+          "url" : "http://codecombat.com/play/level/true-names"
+        },
+        "village-guard" : {
+          "iconUrl" : "/assets/icons/taunt_4.png",
+          "id" : "village-guard",
+          "name" : "Village Guard",
+          "url" : "http://codecombat.com/play/level/village-guard"
+        },
+        "winding-trail" : {
+          "iconUrl" : "/assets/icons/taunt_2.png",
+          "id" : "winding-trail",
+          "name" : "Winding Trail",
+          "url" : "http://codecombat.com/play/level/winding-trail"
+        },
+        "woodland-cleaver" : {
+          "iconUrl" : "/assets/icons/taunt_8.png",
+          "id" : "woodland-cleaver",
+          "name" : "Woodland Cleaver",
+          "url" : "http://codecombat.com/play/level/woodland-cleaver"
+        }
+      },
+      "codeSchool" : {
+        "anatomy-of-backbone-js-part-2-level-1-on-anatomy-of-backbone-js-part-2" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/184/level-1-on-anatomy-of-backbone-js-part-2-8f767bef5eff75d1bd09aa5354d8108f.png",
+          "id" : "anatomy-of-backbone-js-part-2-level-1-on-anatomy-of-backbone-js-part-2",
+          "name" : "Level 1 on Anatomy of Backbone.JS Part 2",
+          "url" : "https://www.codeschool.com/courses/anatomy-of-backbone-js-part-2"
+        },
+        "assembling-sass-part-2-level-1-on-assembling-sass-part-2" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/178/level-1-on-assembling-sass-part-2-4e2c92173d4863bed99b94f3fc2aa218.png",
+          "id" : "assembling-sass-part-2-level-1-on-assembling-sass-part-2",
+          "name" : "Level 1 on Assembling Sass Part 2",
+          "url" : "https://www.codeschool.com/courses/assembling-sass-part-2"
+        },
+        "blasting-off-with-bootstrap-blasting-off-with-bootstrap-level-1-badge" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/476/level-1-complete-de745560878ebb460fba573e79046c16.png",
+          "id" : "blasting-off-with-bootstrap-blasting-off-with-bootstrap-level-1-badge",
+          "name" : "Blasting Off with Bootstrap Level 1 Badge",
+          "url" : "https://www.codeschool.com/courses/blasting-off-with-bootstrap"
+        },
+        "building-blocks-of-express-js-level-1-on-building-blocks-of-express-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/470/level-1-on-building-blocks-of-express-js-e9373438816eeb01a39ccea4ce56c36a.png",
+          "id" : "building-blocks-of-express-js-level-1-on-building-blocks-of-express-js",
+          "name" : "Level 1 on Building Blocks of Express.js",
+          "url" : "https://www.codeschool.com/courses/building-blocks-of-express-js"
+        },
+        "coffeescript-level-1-on-coffeescript" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/35/level-1-on-coffeescript-f77bf03f7bfbe6c7c80e824edc4694b8.png",
+          "id" : "coffeescript-level-1-on-coffeescript",
+          "name" : "Level 1 on CoffeeScript",
+          "url" : "https://www.codeschool.com/courses/coffeescript"
+        },
+        "core-ios-7-level-1-on-core-ios-7" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/307/level-1-on-core-ios-7-45046cadb933cc707038d10dccb28110.png",
+          "id" : "core-ios-7-level-1-on-core-ios-7",
+          "name" : "Level 1 on Core iOS 7",
+          "url" : "https://www.codeschool.com/courses/core-ios-7"
+        },
+        "discover-devtools-level-1-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/198/level-1-on-discover-devtools-f048aefdc0cede79cff1a4ba6dcf3498.png",
+          "id" : "discover-devtools-level-1-on-discover-devtools",
+          "name" : "Level 1 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-2-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/199/level-2-on-discover-devtools-52287c443e9bdd209aa663f2806b110f.png",
+          "id" : "discover-devtools-level-2-on-discover-devtools",
+          "name" : "Level 2 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-3-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/200/level-3-on-discover-devtools-c8de9b66f985af73c84dc5316ba5f0a7.png",
+          "id" : "discover-devtools-level-3-on-discover-devtools",
+          "name" : "Level 3 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-4-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/201/level-4-on-discover-devtools-1db49f4cc579cc46c699d40d9030c6e6.png",
+          "id" : "discover-devtools-level-4-on-discover-devtools",
+          "name" : "Level 4 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-5-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/202/level-5-on-discover-devtools-cc71130225e45bd429d527a05391f52f.png",
+          "id" : "discover-devtools-level-5-on-discover-devtools",
+          "name" : "Level 5 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-6-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/203/level-6-on-discover-devtools-a3f29b28168635896ed33b944b0f7c7f.png",
+          "id" : "discover-devtools-level-6-on-discover-devtools",
+          "name" : "Level 6 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-devtools-level-7-on-discover-devtools" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/204/level-7-on-discover-devtools-9c04cfa5b5c8350b1810fded35a62c45.png",
+          "id" : "discover-devtools-level-7-on-discover-devtools",
+          "name" : "Level 7 on Discover DevTools",
+          "url" : "https://www.codeschool.com/courses/discover-devtools"
+        },
+        "discover-drive-level-1-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/367/level-1-complete-on-discover-drive-a796f7534a1d5e1b0f15789a044b1a45.png",
+          "id" : "discover-drive-level-1-complete-on-discover-drive",
+          "name" : "Level 1 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-10-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/376/level-10-complete-on-discover-drive-12a96be2f136fa1f815d6efe4c56c8d8.png",
+          "id" : "discover-drive-level-10-complete-on-discover-drive",
+          "name" : "Level 10 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-2-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/368/level-2-complete-on-discover-drive-3fd770b015efc75365b659827d6f698c.png",
+          "id" : "discover-drive-level-2-complete-on-discover-drive",
+          "name" : "Level 2 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-3-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/369/level-3-complete-on-discover-drive-f078612e3b457f210117e194e39338eb.png",
+          "id" : "discover-drive-level-3-complete-on-discover-drive",
+          "name" : "Level 3 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-4-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/370/level-4-complete-on-discover-drive-27bb46160768e75d8e2ed31152859dd6.png",
+          "id" : "discover-drive-level-4-complete-on-discover-drive",
+          "name" : "Level 4 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-5-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/371/level-5-complete-on-discover-drive-2914420552e0f690d1c18b77b261d110.png",
+          "id" : "discover-drive-level-5-complete-on-discover-drive",
+          "name" : "Level 5 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-6-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/372/level-6-complete-on-discover-drive-f734ef2ba75df838bd8941eec4c6fd57.png",
+          "id" : "discover-drive-level-6-complete-on-discover-drive",
+          "name" : "Level 6 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-7-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/373/level-7-complete-on-discover-drive-1901438d03d870d87554d9419e70abf6.png",
+          "id" : "discover-drive-level-7-complete-on-discover-drive",
+          "name" : "Level 7 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-8-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/374/level-8-complete-on-discover-drive-c5b087de3970a888c22ab33e601bb392.png",
+          "id" : "discover-drive-level-8-complete-on-discover-drive",
+          "name" : "Level 8 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "discover-drive-level-9-complete-on-discover-drive" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/375/level-9-complete-on-discover-drive-1c30cc8853a6ab75ad84818d7161d9e1.png",
+          "id" : "discover-drive-level-9-complete-on-discover-drive",
+          "name" : "Level 9 Complete on Discover Drive",
+          "url" : "https://www.codeschool.com/courses/discover-drive"
+        },
+        "exploring-google-maps-for-ios-level-1-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/386/level-1-on-exploring-google-maps-for-ios-dbfa0ad4713cff5a1289f2595aa4c4e9.png",
+          "id" : "exploring-google-maps-for-ios-level-1-on-exploring-google-maps-for-ios",
+          "name" : "Level 1 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "exploring-google-maps-for-ios-level-2-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/387/level-2-on-exploring-google-maps-for-ios-17fc498c2408cb0114337494661de089.png",
+          "id" : "exploring-google-maps-for-ios-level-2-on-exploring-google-maps-for-ios",
+          "name" : "Level 2 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "exploring-google-maps-for-ios-level-3-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/388/level-3-on-exploring-google-maps-for-ios-6ad05da541c62e603f343df8b9241bb3.png",
+          "id" : "exploring-google-maps-for-ios-level-3-on-exploring-google-maps-for-ios",
+          "name" : "Level 3 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "exploring-google-maps-for-ios-level-4-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/389/level-4-on-exploring-google-maps-for-ios-d3965d3a5fe915e2103171b2095eedad.png",
+          "id" : "exploring-google-maps-for-ios-level-4-on-exploring-google-maps-for-ios",
+          "name" : "Level 4 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "exploring-google-maps-for-ios-level-5-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/390/level-5-on-exploring-google-maps-for-ios-5671afecc1ae3a005cc51c137bbdd474.png",
+          "id" : "exploring-google-maps-for-ios-level-5-on-exploring-google-maps-for-ios",
+          "name" : "Level 5 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "exploring-google-maps-for-ios-level-6-on-exploring-google-maps-for-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/391/level-6-on-exploring-google-maps-for-ios-23911c4e57b34fcda197ff2465263293.png",
+          "id" : "exploring-google-maps-for-ios-level-6-on-exploring-google-maps-for-ios",
+          "name" : "Level 6 on Exploring Google Maps for iOS",
+          "url" : "https://www.codeschool.com/courses/exploring-google-maps-for-ios"
+        },
+        "front-end-formations-level-1-on-front-end-formations" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/316/level-1-on-front-end-formations-c27483b64148275c96bb8d0c999893d9.png",
+          "id" : "front-end-formations-level-1-on-front-end-formations",
+          "name" : "Level 1 on Front-end Formations",
+          "url" : "https://www.codeschool.com/courses/front-end-formations"
+        },
+        "front-end-foundations-level-1-complete" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/444/level-1-complete-a14a15c153bbe32611fca5be835923bf.png",
+          "id" : "front-end-foundations-level-1-complete",
+          "name" : "Level 1 Complete",
+          "url" : "https://www.codeschool.com/courses/front-end-foundations"
+        },
+        "fundamentals-of-design-level-1-on-fundamentals-of-design" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/278/level-1-on-fundamentals-of-design-6aee5bf14eccf277d180785ad70f0d18.png",
+          "id" : "fundamentals-of-design-level-1-on-fundamentals-of-design",
+          "name" : "Level 1 on Fundamentals of Design",
+          "url" : "https://www.codeschool.com/courses/fundamentals-of-design"
+        },
+        "git-real-2-level-1-on-git-real-2" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/253/level-1-on-git-real-2-2097ab2494d2f2c17341e76cc5f8830a.png",
+          "id" : "git-real-2-level-1-on-git-real-2",
+          "name" : "Level 1 on Git Real 2",
+          "url" : "https://www.codeschool.com/courses/git-real-2"
+        },
+        "git-real-level-1-on-git-real" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/126/level-1-on-git-real-408eb3872930209fd4b302fb2f2ccb3c.png",
+          "id" : "git-real-level-1-on-git-real",
+          "name" : "Level 1 on Git Real",
+          "url" : "https://www.codeschool.com/courses/git-real"
+        },
+        "ios-operation-mapkit-level-1-on-ios-operation-mapkit" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/260/level-1-on-ios-operation-mapkit-52545a04e0d5ea3af4d8d90fe3ad1af3.png",
+          "id" : "ios-operation-mapkit-level-1-on-ios-operation-mapkit",
+          "name" : "Level 1 on iOS Operation: MapKit",
+          "url" : "https://www.codeschool.com/courses/ios-operation-mapkit"
+        },
+        "ios-operation-models-level-1-on-ios-operation-models" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/240/level-1-on-ios-operation-models-8c44953b6d47160162b8fb5a541aeb79.png",
+          "id" : "ios-operation-models-level-1-on-ios-operation-models",
+          "name" : "Level 1 on iOS: Operation Models",
+          "url" : "https://www.codeschool.com/courses/ios-operation-models"
+        },
+        "javascript-best-practices-badge-for-level-1-on-javascript-best-practices" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/431/level-1-on-javascript-best-practices-dbf4a18275286110037ee1051cbe3f6a.png",
+          "id" : "javascript-best-practices-badge-for-level-1-on-javascript-best-practices",
+          "name" : "Badge for level 1 on JavaScript Best Practices",
+          "url" : "https://www.codeschool.com/courses/javascript-best-practices"
+        },
+        "javascript-road-trip-part-1-level-1-on-javascript-road-trip-part-1" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/297/level-1-on-javascript-road-trip-part-1-ff645bd94243922a90b775da5ee2647c.png",
+          "id" : "javascript-road-trip-part-1-level-1-on-javascript-road-trip-part-1",
+          "name" : "Level 1 on JavaScript Road Trip Part 1",
+          "url" : "https://www.codeschool.com/courses/javascript-road-trip-part-1"
+        },
+        "javascript-road-trip-part-1-level-2-on-javascript-road-trip-part-1" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/298/level-2-on-javascript-road-trip-part-1-e568b2c31b1fd0da0dc94cc4d5452150.png",
+          "id" : "javascript-road-trip-part-1-level-2-on-javascript-road-trip-part-1",
+          "name" : "Level 2 on JavaScript Road Trip Part 1",
+          "url" : "https://www.codeschool.com/courses/javascript-road-trip-part-1"
+        },
+        "javascript-road-trip-part-1-level-3-on-javascript-road-trip-part-1" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/299/level-3-on-javascript-road-trip-part-1-ae7652ab8f363e27fea8afe06cee30e3.png",
+          "id" : "javascript-road-trip-part-1-level-3-on-javascript-road-trip-part-1",
+          "name" : "Level 3 on JavaScript Road Trip Part 1",
+          "url" : "https://www.codeschool.com/courses/javascript-road-trip-part-1"
+        },
+        "journey-into-mobile-level-1-on-journey-into-mobile" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/103/level-1-on-journey-into-mobile-38943a0dda8082a17e2bcc254325e729.png",
+          "id" : "journey-into-mobile-level-1-on-journey-into-mobile",
+          "name" : "Level 1 on Journey into Mobile",
+          "url" : "https://www.codeschool.com/courses/journey-into-mobile"
+        },
+        "mastering-github-fork-based-workflows" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/436/level-1-complete-36984e038d896fdaa0d5ce47c8942331.png",
+          "id" : "mastering-github-fork-based-workflows",
+          "name" : "Fork Based Workflows",
+          "url" : "https://www.codeschool.com/courses/mastering-github"
+        },
+        "rails-4-zombie-outlaws-level-1-on-rails-4-zombie-outlaws" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/206/level-1-on-rails-4-zombie-outlaws-9c9f5b842d2807ead0bbe80eb3f8f666.png",
+          "id" : "rails-4-zombie-outlaws-level-1-on-rails-4-zombie-outlaws",
+          "name" : "Level 1 on Rails 4: Zombie Outlaws",
+          "url" : "https://www.codeschool.com/courses/rails-4-zombie-outlaws"
+        },
+        "rails-for-zombies-redux-level-1-on-rails-for-zombies-redux" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/134/level-1-on-rails-for-zombies-redux-2ba020b1379910903e2f8724a8199404.png",
+          "id" : "rails-for-zombies-redux-level-1-on-rails-for-zombies-redux",
+          "name" : "Level 1 on Rails for Zombies Redux",
+          "url" : "https://www.codeschool.com/courses/rails-for-zombies-redux"
+        },
+        "rails-for-zombies-redux-level-2-on-rails-for-zombies-redux" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/135/level-2-on-rails-for-zombies-redux-84161b6c606aa55fc878380c3680b572.png",
+          "id" : "rails-for-zombies-redux-level-2-on-rails-for-zombies-redux",
+          "name" : "Level 2 on Rails for Zombies Redux",
+          "url" : "https://www.codeschool.com/courses/rails-for-zombies-redux"
+        },
+        "rails-for-zombies-redux-level-3-on-rails-for-zombies-redux" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/136/level-3-on-rails-for-zombies-redux-f3ccde89280aa8d6a325e97390fabcd0.png",
+          "id" : "rails-for-zombies-redux-level-3-on-rails-for-zombies-redux",
+          "name" : "Level 3 on Rails for Zombies Redux",
+          "url" : "https://www.codeschool.com/courses/rails-for-zombies-redux"
+        },
+        "rails-for-zombies-redux-level-4-on-rails-for-zombies-redux" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/137/level-4-on-rails-for-zombies-redux-60c9d341a1b0853a359ce6d19275df03.png",
+          "id" : "rails-for-zombies-redux-level-4-on-rails-for-zombies-redux",
+          "name" : "Level 4 on Rails for Zombies Redux",
+          "url" : "https://www.codeschool.com/courses/rails-for-zombies-redux"
+        },
+        "rails-for-zombies-redux-level-5-on-rails-for-zombies-redux" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/451/level-5-on-rails-for-zombies-redux-8540dc699ec3063b5c20387ffbed1389.png",
+          "id" : "rails-for-zombies-redux-level-5-on-rails-for-zombies-redux",
+          "name" : "Level 5 on Rails for Zombies Redux",
+          "url" : "https://www.codeschool.com/courses/rails-for-zombies-redux"
+        },
+        "rails-testing-for-zombies-level-1-on-rails-testing" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/58/level-1-on-rails-testing-4f21d8dae646526d3ce0510d2f01e035.png",
+          "id" : "rails-testing-for-zombies-level-1-on-rails-testing",
+          "name" : "Level 1 on Rails Testing",
+          "url" : "https://www.codeschool.com/courses/rails-testing-for-zombies"
+        },
+        "real-time-web-with-node-js-level-1-on-real-time-web-with-node-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/108/level-1-on-real-time-web-with-node-js-a10449b7ff71615313f1ae8895a063c9.png",
+          "id" : "real-time-web-with-node-js-level-1-on-real-time-web-with-node-js",
+          "name" : "Level 1 on Real-time Web with Node.js",
+          "url" : "https://www.codeschool.com/courses/real-time-web-with-node-js"
+        },
+        "ruby-bits-part-2-level-1-on-ruby-bits-part-2" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/156/level-1-on-ruby-bits-part-2-dbbd14b6ac8c5fabcde41e7d486498f3.png",
+          "id" : "ruby-bits-part-2-level-1-on-ruby-bits-part-2",
+          "name" : "Level 1 on Ruby Bits Part 2",
+          "url" : "https://www.codeschool.com/courses/ruby-bits-part-2"
+        },
+        "shaping-up-with-angular-js-level-1-on-shaping-up-with-angular-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/393/level-1-on-shaping-up-with-angular-js-692c3614fa425d233878a702003d2f98.png",
+          "id" : "shaping-up-with-angular-js-level-1-on-shaping-up-with-angular-js",
+          "name" : "Level 1 on Shaping up with Angular.js",
+          "url" : "https://www.codeschool.com/courses/shaping-up-with-angular-js"
+        },
+        "shaping-up-with-angular-js-level-2-on-shaping-up-with-angular-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/394/level-2-on-shaping-up-with-angular-js-e87b03dfe5b569bc9c1a67769f8bec3a.png",
+          "id" : "shaping-up-with-angular-js-level-2-on-shaping-up-with-angular-js",
+          "name" : "Level 2 on Shaping up with Angular.js",
+          "url" : "https://www.codeschool.com/courses/shaping-up-with-angular-js"
+        },
+        "shaping-up-with-angular-js-level-3-on-shaping-up-with-angular-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/395/level-3-on-shaping-up-with-angular-js-4f55a8624ff150ec2bdfae93c5dcb687.png",
+          "id" : "shaping-up-with-angular-js-level-3-on-shaping-up-with-angular-js",
+          "name" : "Level 3 on Shaping up with Angular.js",
+          "url" : "https://www.codeschool.com/courses/shaping-up-with-angular-js"
+        },
+        "shaping-up-with-angular-js-level-4-on-shaping-up-with-angular-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/396/level-4-on-shaping-up-with-angular-js-5964ff970d4f869304b754366a3c92a2.png",
+          "id" : "shaping-up-with-angular-js-level-4-on-shaping-up-with-angular-js",
+          "name" : "Level 4 on Shaping up with Angular.js",
+          "url" : "https://www.codeschool.com/courses/shaping-up-with-angular-js"
+        },
+        "shaping-up-with-angular-js-level-5-on-shaping-up-with-angular-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/397/level-5-on-shaping-up-with-angular-js-742684cfda41644aecdeda714ad70952.png",
+          "id" : "shaping-up-with-angular-js-level-5-on-shaping-up-with-angular-js",
+          "name" : "Level 5 on Shaping up with Angular.js",
+          "url" : "https://www.codeschool.com/courses/shaping-up-with-angular-js"
+        },
+        "surviving-apis-with-rails-level-1-on-surviving-apis-with-rails" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/379/level-1-on-surviving-apis-with-rails-927d1d6ff2b7f315053c16d074afcfd3.png",
+          "id" : "surviving-apis-with-rails-level-1-on-surviving-apis-with-rails",
+          "name" : "Level 1 on Surviving APIs with Rails",
+          "url" : "https://www.codeschool.com/courses/surviving-apis-with-rails"
+        },
+        "testing-with-rspec-level-1-on-testing-with-rspec" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/116/level-1-on-testing-with-rspec-55874cfdcb796de326c49a977104cae9.png",
+          "id" : "testing-with-rspec-level-1-on-testing-with-rspec",
+          "name" : "Level 1 on Testing with RSpec",
+          "url" : "https://www.codeschool.com/courses/testing-with-rspec"
+        },
+        "try-git-completed-try-git" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/121/completed-try-git-b54d1cd9fa940e4a3c1925056d38eca2.png",
+          "id" : "try-git-completed-try-git",
+          "name" : "Completed Try Git",
+          "url" : "https://www.codeschool.com/courses/try-git"
+        },
+        "try-ios-level-1-on-try-ios" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/163/level-1-on-try-ios-da10353e219106b302165a15a1b1341f.png",
+          "id" : "try-ios-level-1-on-try-ios",
+          "name" : "Level 1 on Try iOS",
+          "url" : "https://www.codeschool.com/courses/try-ios"
+        },
+        "try-jquery-level-1-on-try-jquery" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/192/level-1-on-try-jquery-195852b5089f07d0a4ec66634dbc3285.png",
+          "id" : "try-jquery-level-1-on-try-jquery",
+          "name" : "Level 1 on Try jQuery",
+          "url" : "https://www.codeschool.com/courses/try-jquery"
+        },
+        "try-jquery-level-2-on-try-jquery" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/193/level-2-on-try-jquery-804e03c59fd757dbe7c3964d238e37a2.png",
+          "id" : "try-jquery-level-2-on-try-jquery",
+          "name" : "Level 2 on Try jQuery",
+          "url" : "https://www.codeschool.com/courses/try-jquery"
+        },
+        "try-jquery-level-3-on-try-jquery" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/194/level-3-on-try-jquery-0fd4605995b2b2aed756dcd55ba3c3c8.png",
+          "id" : "try-jquery-level-3-on-try-jquery",
+          "name" : "Level 3 on Try jQuery",
+          "url" : "https://www.codeschool.com/courses/try-jquery"
+        },
+        "try-jquery-level-4-on-try-jquery" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/195/level-4-on-try-jquery-2e887987593d69f5d7a9c3888abbf797.png",
+          "id" : "try-jquery-level-4-on-try-jquery",
+          "name" : "Level 4 on Try jQuery",
+          "url" : "https://www.codeschool.com/courses/try-jquery"
+        },
+        "try-jquery-level-5-on-try-jquery" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/196/level-5-on-try-jquery-d932a0a14a14f5b274c820948ad048c6.png",
+          "id" : "try-jquery-level-5-on-try-jquery",
+          "name" : "Level 5 on Try jQuery",
+          "url" : "https://www.codeschool.com/courses/try-jquery"
+        },
+        "try-objective-c-level-1-on-try-objective-c" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/247/level-1-on-try-objective-c-11755b8fe723f3186699116d4997d36c.png",
+          "id" : "try-objective-c-level-1-on-try-objective-c",
+          "name" : "Level 1 on Try Objective-C",
+          "url" : "https://www.codeschool.com/courses/try-objective-c"
+        },
+        "try-objective-c-level-2-on-try-objective-c" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/248/level-2-on-try-objective-c-eb7fc97ab60c09066184efcc9b59064a.png",
+          "id" : "try-objective-c-level-2-on-try-objective-c",
+          "name" : "Level 2 on Try Objective-C",
+          "url" : "https://www.codeschool.com/courses/try-objective-c"
+        },
+        "try-objective-c-level-3-on-try-objective-c" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/249/level-3-on-try-objective-c-eb6eb18f34044444af8be55253a496ed.png",
+          "id" : "try-objective-c-level-3-on-try-objective-c",
+          "name" : "Level 3 on Try Objective-C",
+          "url" : "https://www.codeschool.com/courses/try-objective-c"
+        },
+        "try-objective-c-level-4-on-try-objective-c" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/250/level-4-on-try-objective-c-4f070ee5a338c4fad949e42ea0d21b7b.png",
+          "id" : "try-objective-c-level-4-on-try-objective-c",
+          "name" : "Level 4 on Try Objective-C",
+          "url" : "https://www.codeschool.com/courses/try-objective-c"
+        },
+        "try-objective-c-level-5-on-try-objective-c" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/251/level-5-on-try-objective-c-f86ad56ea2b33997a08e7782f9d12ffb.png",
+          "id" : "try-objective-c-level-5-on-try-objective-c",
+          "name" : "Level 5 on Try Objective-C",
+          "url" : "https://www.codeschool.com/courses/try-objective-c"
+        },
+        "try-r-completed-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/169/completed-try-r-ca79ab8225e0b8f81bdfbb622f278f29.png",
+          "id" : "try-r-completed-try-r",
+          "name" : "Completed Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-1-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/398/level-1-on-try-r-4e63910f06a5b6b1f93433378f27c1e5.png",
+          "id" : "try-r-level-1-on-try-r",
+          "name" : "Level 1 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-2-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/171/level-2-on-try-r-1cfcc8e45a6a9e76a993fa1be5e34ffb.png",
+          "id" : "try-r-level-2-on-try-r",
+          "name" : "Level 2 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-3-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/172/level-3-on-try-r-0c5645d0a3466ad9436513206e0cc5c6.png",
+          "id" : "try-r-level-3-on-try-r",
+          "name" : "Level 3 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-4-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/173/level-4-on-try-r-6b38c8d3db1668a9289a34bbebf5e6bd.png",
+          "id" : "try-r-level-4-on-try-r",
+          "name" : "Level 4 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-5-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/174/level-5-on-try-r-d17d09553b76065061a7aaf79c5648a2.png",
+          "id" : "try-r-level-5-on-try-r",
+          "name" : "Level 5 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-6-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/175/level-6-on-try-r-915ee507d445363194add7029433c9c0.png",
+          "id" : "try-r-level-6-on-try-r",
+          "name" : "Level 6 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-r-level-7-on-try-r" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/176/level-7-on-try-r-4b071e224b3d6fe9e6f47e38d731c503.png",
+          "id" : "try-r-level-7-on-try-r",
+          "name" : "Level 7 on Try R",
+          "url" : "https://www.codeschool.com/courses/try-r"
+        },
+        "try-ruby-level-1-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/463/level-1-on-try-ruby-8f8cc28e53daef6fe36a6b8b94bbef47.png",
+          "id" : "try-ruby-level-1-on-try-ruby",
+          "name" : "Level 1 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-ruby-level-2-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/464/level-2-on-try-ruby-bf5966ddc34f9845341e38c5c3fe3986.png",
+          "id" : "try-ruby-level-2-on-try-ruby",
+          "name" : "Level 2 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-ruby-level-3-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/465/level-3-on-try-ruby-8ca933ada1d70b7475054e647126d5ae.png",
+          "id" : "try-ruby-level-3-on-try-ruby",
+          "name" : "Level 3 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-ruby-level-4-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/466/level-4-on-try-ruby-5995aa3d90b4dfb9faae1eb1c4ba8868.png",
+          "id" : "try-ruby-level-4-on-try-ruby",
+          "name" : "Level 4 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-ruby-level-5-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/467/level-5-on-try-ruby-333c6e45375f4851ff31be67e27522c8.png",
+          "id" : "try-ruby-level-5-on-try-ruby",
+          "name" : "Level 5 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-ruby-level-6-on-try-ruby" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/468/level-6-on-try-ruby-27d94753bf1d50003f5d9ee6fa3aff7a.png",
+          "id" : "try-ruby-level-6-on-try-ruby",
+          "name" : "Level 6 on Try Ruby",
+          "url" : "https://www.codeschool.com/courses/try-ruby"
+        },
+        "try-sql-try-sql-level-1-badge" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/487/level-1-on-try-sql-68a76aafef4bc08e8b2715d63ee1fa79.png",
+          "id" : "try-sql-try-sql-level-1-badge",
+          "name" : "Try SQL Level 1 Badge",
+          "url" : "https://www.codeschool.com/courses/try-sql"
+        },
+        "try-sql-try-sql-level-2-badge" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/488/level-2-on-try-sql-e66f986bc557122ddc6d9a9f1dbb75d2.png",
+          "id" : "try-sql-try-sql-level-2-badge",
+          "name" : "Try SQL Level 2 Badge",
+          "url" : "https://www.codeschool.com/courses/try-sql"
+        },
+        "try-sql-try-sql-level-3-badge" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/489/level-3-on-try-sql-742329712308c860e3b37ab1a46bb78f.png",
+          "id" : "try-sql-try-sql-level-3-badge",
+          "name" : "Try SQL Level 3 Badge",
+          "url" : "https://www.codeschool.com/courses/try-sql"
+        },
+        "warming-up-with-ember-js-level-1-on-warming-up-with-ember-js" : {
+          "iconUrl" : "https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/328/level-1-on-warming-up-with-ember-js-ea15dee44473a7f94b5f27a256229345.png",
+          "id" : "warming-up-with-ember-js-level-1-on-warming-up-with-ember-js",
+          "name" : "Level 1 on Warming Up With Ember.js",
+          "url" : "https://www.codeschool.com/courses/warming-up-with-ember-js"
+        }
+      }
+    },
+    "eventApplications" : {
+      "-KC7xbDhz3giVsukIgYj" : {
+        "google:111928276044909699907" : "e638fd8b5278aae725bee7c55413f257b7798954a91851fbf7230ec476ac3c82"
+      }
+    },
+    "eventParticipants" : {
+    
+    },
+    "eventPasswords" : {
+      "-KC7xbDhz3giVsukIgYj" : {
+        "hash" : "e638fd8b5278aae725bee7c55413f257b7798954a91851fbf7230ec476ac3c82",
+        "options" : {
+          "hasher" : "PBKDF2",
+          "iterations" : 1012,
+          "keySize" : 8,
+          "prf" : "SHA256",
+          "salt" : "2c45114c54d1b4aa988f4b583cc8b826"
+        }
+      },
+      "-KJiQi8IBdEK6azah_uj" : {
+        "hash" : "377d540e50d70cd541ac90f0211a4cdb5e1f676d139922c4856f2a9f34db93a6",
+        "options" : {
+          "hasher" : "PBKDF2",
+          "iterations" : 1012,
+          "keySize" : 8,
+          "prf" : "SHA256",
+          "salt" : "f5ab8d31cd432bf732f736a768a8e555"
+        }
+      }
+    },
+    "eventProgress" : {
+ 
+      }
+    },
+    "eventRankings" : {
+    },
+    "eventSolutions" : {
+ 
+    },
+    "eventTasks" : {
+ 
+    },
+    "events" : {
+      "-KJiQi8IBdEK6azah_uj" : {
+        "createdAt" : 1465362866984,
+        "owner" : {
+          "displayName" : "Chris Boesch",
+          "gravatar" : "//www.gravatar.com/avatar/6e64bb2cab5367fd6e201df2aa722512",
+          "publicId" : "cboesch"
+        },
+        "title" : "Fun Event (fun)"
+      }
+    },
+    "premiumUsers" : {
+      "google:110893970871115341770" : true
+    },
+    "schools" : {
+      "Admiralty Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Admiralty Secondary School",
+        "name" : "Admiralty Secondary School",
+        "type" : "Secondary"
+      },
+      "Ahmad Ibrahim Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Ahmad Ibrahim Secondary School",
+        "name" : "Ahmad Ibrahim Secondary School",
+        "type" : "Secondary"
+      },
+      "Anderson Junior College" : {
+        "iconUrl" : "/assets/crests/Anderson_Junior_College_crest.jpg",
+        "id" : "Anderson Junior College",
+        "name" : "Anderson Junior College",
+        "type" : "Junior College"
+      },
+      "Anderson Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Anderson Secondary School",
+        "name" : "Anderson Secondary School",
+        "type" : "Secondary"
+      },
+      "Ang Mo Kio Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Ang Mo Kio Secondary School",
+        "name" : "Ang Mo Kio Secondary School",
+        "type" : "Secondary"
+      },
+      "Anglican High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Anglican High School",
+        "name" : "Anglican High School",
+        "type" : "Secondary"
+      },
+      "Anglo Chinese School (Independent)" : {
+        "iconUrl" : "/assets/crests/Anglo-Chinese_School_Independent.png",
+        "id" : "Anglo Chinese School (Independent)",
+        "name" : "Anglo Chinese School (Independent)",
+        "type" : "Junior College"
+      },
+      "Anglo-Chinese Junior College" : {
+        "iconUrl" : "/assets/crests/Anglo-Chinese_School_JC.png",
+        "id" : "Anglo-Chinese Junior College",
+        "name" : "Anglo-Chinese Junior College",
+        "type" : "Junior College"
+      },
+      "Anglo-Chinese School (Barker Road)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Anglo-Chinese School (Barker Road)",
+        "name" : "Anglo-Chinese School (Barker Road)",
+        "type" : "Secondary"
+      },
+      "Assumption English School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Assumption English School",
+        "name" : "Assumption English School",
+        "type" : "Secondary"
+      },
+      "Assumption Pathway School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Assumption Pathway School",
+        "name" : "Assumption Pathway School",
+        "type" : "Secondary"
+      },
+      "Balestier Hill Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Balestier Hill Secondary School",
+        "name" : "Balestier Hill Secondary School",
+        "type" : "Secondary"
+      },
+      "Bartley Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bartley Secondary School",
+        "name" : "Bartley Secondary School",
+        "type" : "Secondary"
+      },
+      "Beatty Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Beatty Secondary School",
+        "name" : "Beatty Secondary School",
+        "type" : "Secondary"
+      },
+      "Bedok Green Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bedok Green Secondary School",
+        "name" : "Bedok Green Secondary School",
+        "type" : "Secondary"
+      },
+      "Bedok North Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bedok North Secondary School",
+        "name" : "Bedok North Secondary School",
+        "type" : "Secondary"
+      },
+      "Bedok South Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bedok South Secondary School",
+        "name" : "Bedok South Secondary School",
+        "type" : "Secondary"
+      },
+      "Bedok Town Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bedok Town Secondary School",
+        "name" : "Bedok Town Secondary School",
+        "type" : "Secondary"
+      },
+      "Bedok View Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bedok View Secondary School",
+        "name" : "Bedok View Secondary School",
+        "type" : "Secondary"
+      },
+      "Bendemeer Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bendemeer Secondary School",
+        "name" : "Bendemeer Secondary School",
+        "type" : "Secondary"
+      },
+      "Bishan Park Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bishan Park Secondary School",
+        "name" : "Bishan Park Secondary School",
+        "type" : "Secondary"
+      },
+      "Boon Lay Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Boon Lay Secondary School",
+        "name" : "Boon Lay Secondary School",
+        "type" : "Secondary"
+      },
+      "Bowen Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bowen Secondary School",
+        "name" : "Bowen Secondary School",
+        "type" : "Secondary"
+      },
+      "Broadrick Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Broadrick Secondary School",
+        "name" : "Broadrick Secondary School",
+        "type" : "Secondary"
+      },
+      "Bukit Batok Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bukit Batok Secondary School",
+        "name" : "Bukit Batok Secondary School",
+        "type" : "Secondary"
+      },
+      "Bukit Merah Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bukit Merah Secondary School",
+        "name" : "Bukit Merah Secondary School",
+        "type" : "Secondary"
+      },
+      "Bukit Panjang Govt High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bukit Panjang Govt High School",
+        "name" : "Bukit Panjang Govt. High School",
+        "type" : "Secondary"
+      },
+      "Bukit View Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Bukit View Secondary School",
+        "name" : "Bukit View Secondary School",
+        "type" : "Secondary"
+      },
+      "CHIJ Katong Convent" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "CHIJ Katong Convent",
+        "name" : "CHIJ Katong Convent",
+        "type" : "Secondary"
+      },
+      "CHIJ Secondary (Toa Payoh)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "CHIJ Secondary (Toa Payoh)",
+        "name" : "CHIJ Secondary (Toa Payoh)",
+        "type" : "Secondary"
+      },
+      "CHIJ St Josephs Convent" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "CHIJ St Josephs Convent",
+        "name" : "CHIJ St. Josephs Convent",
+        "type" : "Secondary"
+      },
+      "CHIJ St Nicholas Girls School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "CHIJ St Nicholas Girls School",
+        "name" : "CHIJ St. Nicholas Girls' School",
+        "type" : "Secondary"
+      },
+      "CHIJ St Theresas Convent" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "CHIJ St Theresas Convent",
+        "name" : "CHIJ St. Theresas Convent",
+        "type" : "Secondary"
+      },
+      "Canberra Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Canberra Secondary School",
+        "name" : "Canberra Secondary School",
+        "type" : "Secondary"
+      },
+      "Catholic High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Catholic High School",
+        "name" : "Catholic High School",
+        "type" : "Secondary"
+      },
+      "Catholic Junior College" : {
+        "iconUrl" : "/assets/crests/Catholic_JC_Crest.png",
+        "id" : "Catholic Junior College",
+        "name" : "Catholic Junior College",
+        "type" : "Junior College"
+      },
+      "Cedar Girls Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Cedar Girls Secondary School",
+        "name" : "Cedar Girls' Secondary School",
+        "type" : "Secondary"
+      },
+      "Changkat Changi Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Changkat Changi Secondary School",
+        "name" : "Changkat Changi Secondary School",
+        "type" : "Secondary"
+      },
+      "Chestnut Drive Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Chestnut Drive Secondary School",
+        "name" : "Chestnut Drive Secondary School",
+        "type" : "Secondary"
+      },
+      "Chong Boon Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Chong Boon Secondary School",
+        "name" : "Chong Boon Secondary School",
+        "type" : "Secondary"
+      },
+      "Christ Church Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Christ Church Secondary School",
+        "name" : "Christ Church Secondary School",
+        "type" : "Secondary"
+      },
+      "Chua Chu Kang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Chua Chu Kang Secondary School",
+        "name" : "Chua Chu Kang Secondary School",
+        "type" : "Secondary"
+      },
+      "Chung Cheng High School (Main)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Chung Cheng High School (Main)",
+        "name" : "Chung Cheng High School (Main)",
+        "type" : "Secondary"
+      },
+      "Chung Cheng High School (Yishun)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Chung Cheng High School (Yishun)",
+        "name" : "Chung Cheng High School (Yishun)",
+        "type" : "Secondary"
+      },
+      "Church Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Church Secondary School",
+        "name" : "Church Secondary School",
+        "type" : "Secondary"
+      },
+      "Clementi Town Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Clementi Town Secondary School",
+        "name" : "Clementi Town Secondary School",
+        "type" : "Secondary"
+      },
+      "Clementi Woods Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Clementi Woods Secondary School",
+        "name" : "Clementi Woods Secondary School",
+        "type" : "Secondary"
+      },
+      "Commonwealth Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Commonwealth Secondary School",
+        "name" : "Commonwealth Secondary School",
+        "type" : "Secondary"
+      },
+      "Compassvale Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Compassvale Secondary School",
+        "name" : "Compassvale Secondary School",
+        "type" : "Secondary"
+      },
+      "Coral Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Coral Secondary School",
+        "name" : "Coral Secondary School",
+        "type" : "Secondary"
+      },
+      "Crescent Girls School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Crescent Girls School",
+        "name" : "Crescent Girls' School",
+        "type" : "Secondary"
+      },
+      "Crest Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Crest Secondary School",
+        "name" : "Crest Secondary School",
+        "type" : "Secondary"
+      },
+      "Damai Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Damai Secondary School",
+        "name" : "Damai Secondary School",
+        "type" : "Secondary"
+      },
+      "Deyi Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Deyi Secondary School",
+        "name" : "Deyi Secondary School",
+        "type" : "Secondary"
+      },
+      "Dunearn Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Dunearn Secondary School",
+        "name" : "Dunearn Secondary School",
+        "type" : "Secondary"
+      },
+      "Dunman High School" : {
+        "iconUrl" : "/assets/crests/DunmanHighSchoolCrest.png",
+        "id" : "Dunman High School",
+        "name" : "Dunman High School",
+        "type" : "Junior College"
+      },
+      "Dunman Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Dunman Secondary School",
+        "name" : "Dunman Secondary School",
+        "type" : "Secondary"
+      },
+      "East Spring Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "East Spring Secondary School",
+        "name" : "East Spring Secondary School",
+        "type" : "Secondary"
+      },
+      "East View Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "East View Secondary School",
+        "name" : "East View Secondary School",
+        "type" : "Secondary"
+      },
+      "Edgefield Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Edgefield Secondary School",
+        "name" : "Edgefield Secondary School",
+        "type" : "Secondary"
+      },
+      "Evergreen Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Evergreen Secondary School",
+        "name" : "Evergreen Secondary School",
+        "type" : "Secondary"
+      },
+      "Fairfield Methodist Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Fairfield Methodist Secondary School",
+        "name" : "Fairfield Methodist Secondary School",
+        "type" : "Secondary"
+      },
+      "Fajar Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Fajar Secondary School",
+        "name" : "Fajar Secondary School",
+        "type" : "Secondary"
+      },
+      "First Toa Payoh Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "First Toa Payoh Secondary School",
+        "name" : "First Toa Payoh Secondary School",
+        "type" : "Secondary"
+      },
+      "Fuchun Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Fuchun Secondary School",
+        "name" : "Fuchun Secondary School",
+        "type" : "Secondary"
+      },
+      "Fuhua Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Fuhua Secondary School",
+        "name" : "Fuhua Secondary School",
+        "type" : "Secondary"
+      },
+      "Gan Eng Seng School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Gan Eng Seng School",
+        "name" : "Gan Eng Seng School",
+        "type" : "Secondary"
+      },
+      "Geylang Methodist School (Secondary)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Geylang Methodist School (Secondary)",
+        "name" : "Geylang Methodist School (Secondary)",
+        "type" : "Secondary"
+      },
+      "Greendale Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Greendale Secondary School",
+        "name" : "Greendale Secondary School",
+        "type" : "Secondary"
+      },
+      "Greenridge Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Greenridge Secondary School",
+        "name" : "Greenridge Secondary School",
+        "type" : "Secondary"
+      },
+      "Greenview Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Greenview Secondary School",
+        "name" : "Greenview Secondary School",
+        "type" : "Secondary"
+      },
+      "Guangyang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Guangyang Secondary School",
+        "name" : "Guangyang Secondary School",
+        "type" : "Secondary"
+      },
+      "Hai Sing Catholic School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hai Sing Catholic School",
+        "name" : "Hai Sing Catholic School",
+        "type" : "Secondary"
+      },
+      "Henderson Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Henderson Secondary School",
+        "name" : "Henderson Secondary School",
+        "type" : "Secondary"
+      },
+      "Hillgrove Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hillgrove Secondary School",
+        "name" : "Hillgrove Secondary School",
+        "type" : "Secondary"
+      },
+      "Holy Innocents High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Holy Innocents High School",
+        "name" : "Holy Innocents' High School",
+        "type" : "Secondary"
+      },
+      "Hong Kah Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hong Kah Secondary School",
+        "name" : "Hong Kah Secondary School",
+        "type" : "Secondary"
+      },
+      "Hougang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hougang Secondary School",
+        "name" : "Hougang Secondary School",
+        "type" : "Secondary"
+      },
+      "Hua Yi Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hua Yi Secondary School",
+        "name" : "Hua Yi Secondary School",
+        "type" : "Secondary"
+      },
+      "Hwa Chong Institution" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Hwa Chong Institution",
+        "name" : "Hwa Chong Institution",
+        "type" : "Secondary"
+      },
+      "Innova Junior College" : {
+        "iconUrl" : "/assets/crests/Innova_Junior_College.png",
+        "id" : "Innova Junior College",
+        "name" : "Innova Junior College",
+        "type" : "Junior College"
+      },
+      "Junyuan Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Junyuan Secondary School",
+        "name" : "Junyuan Secondary School",
+        "type" : "Secondary"
+      },
+      "Jurong Junior College" : {
+        "iconUrl" : "/assets/crests/Jurong_JC.png",
+        "id" : "Jurong Junior College",
+        "name" : "Jurong Junior College",
+        "type" : "Junior College"
+      },
+      "Jurong Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Jurong Secondary School",
+        "name" : "Jurong Secondary School",
+        "type" : "Secondary"
+      },
+      "Jurong West Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Jurong West Secondary School",
+        "name" : "Jurong West Secondary School",
+        "type" : "Secondary"
+      },
+      "Jurongville Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Jurongville Secondary School",
+        "name" : "Jurongville Secondary School",
+        "type" : "Secondary"
+      },
+      "Juying Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Juying Secondary School",
+        "name" : "Juying Secondary School",
+        "type" : "Secondary"
+      },
+      "Kent Ridge Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Kent Ridge Secondary School",
+        "name" : "Kent Ridge Secondary School",
+        "type" : "Secondary"
+      },
+      "Kranji Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Kranji Secondary School",
+        "name" : "Kranji Secondary School",
+        "type" : "Secondary"
+      },
+      "Kuo Chuan Presbyterian Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Kuo Chuan Presbyterian Secondary School",
+        "name" : "Kuo Chuan Presbyterian Secondary School",
+        "type" : "Secondary"
+      },
+      "Loyang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Loyang Secondary School",
+        "name" : "Loyang Secondary School",
+        "type" : "Secondary"
+      },
+      "MacPherson Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "MacPherson Secondary School",
+        "name" : "MacPherson Secondary School",
+        "type" : "Secondary"
+      },
+      "Manjusri Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Manjusri Secondary School",
+        "name" : "Manjusri Secondary School",
+        "type" : "Secondary"
+      },
+      "Maris Stella High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Maris Stella High School",
+        "name" : "Maris Stella High School",
+        "type" : "Secondary"
+      },
+      "Marsiling Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Marsiling Secondary School",
+        "name" : "Marsiling Secondary School",
+        "type" : "Secondary"
+      },
+      "Mayflower Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Mayflower Secondary School",
+        "name" : "Mayflower Secondary School",
+        "type" : "Secondary"
+      },
+      "Meridian Junior College" : {
+        "iconUrl" : "/assets/crests/Meridian_JC_Crest.png",
+        "id" : "Meridian Junior College",
+        "name" : "Meridian Junior College",
+        "type" : "Junior College"
+      },
+      "Methodist Girls School (Secondary)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Methodist Girls School (Secondary)",
+        "name" : "Methodist Girls' School (Secondary)",
+        "type" : "Secondary"
+      },
+      "Millennia Institute" : {
+        "iconUrl" : "/assets/crests/Millennia_institute.jpg",
+        "id" : "Millennia Institute",
+        "name" : "Millennia Institute",
+        "type" : "Junior College"
+      },
+      "Montfort Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Montfort Secondary School",
+        "name" : "Montfort Secondary School",
+        "type" : "Secondary"
+      },
+      "NUS High School" : {
+        "iconUrl" : "/assets/crests/NUS_HS.jpeg",
+        "id" : "NUS High School",
+        "name" : "NUS High School",
+        "type" : "Junior College"
+      },
+      "Nan Chiau High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Nan Chiau High School",
+        "name" : "Nan Chiau High School",
+        "type" : "Secondary"
+      },
+      "Nan Hua High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Nan Hua High School",
+        "name" : "Nan Hua High School",
+        "type" : "Secondary"
+      },
+      "Nanyang Girls High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Nanyang Girls High School",
+        "name" : "Nanyang Girls' High School",
+        "type" : "Secondary"
+      },
+      "Nanyang Junior College" : {
+        "iconUrl" : "/assets/crests/Nanyang_JC.png",
+        "id" : "Nanyang Junior College",
+        "name" : "Nanyang Junior College",
+        "type" : "Junior College"
+      },
+      "Nanyang Polytechnic" : {
+        "iconUrl" : "/assets/crests/Nanyang_Poly.jpg",
+        "id" : "Nanyang Polytechnic",
+        "name" : "Nanyang Polytechnic",
+        "type" : "Polytechnic"
+      },
+      "National Junior College" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "National Junior College",
+        "name" : "National Junior College",
+        "type" : "Secondary"
+      },
+      "Naval Base Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Naval Base Secondary School",
+        "name" : "Naval Base Secondary School",
+        "type" : "Secondary"
+      },
+      "New Town Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "New Town Secondary School",
+        "name" : "New Town Secondary School",
+        "type" : "Secondary"
+      },
+      "Ngee Ann Polytechnic" : {
+        "iconUrl" : "/assets/crests/Ngee-Ann-Poly.jpeg",
+        "id" : "Ngee Ann Polytechnic",
+        "name" : "Ngee Ann Polytechnic",
+        "type" : "Polytechnic"
+      },
+      "Ngee Ann Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Ngee Ann Secondary School",
+        "name" : "Ngee Ann Secondary School",
+        "type" : "Secondary"
+      },
+      "North View Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "North View Secondary School",
+        "name" : "North View Secondary School",
+        "type" : "Secondary"
+      },
+      "North Vista Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "North Vista Secondary School",
+        "name" : "North Vista Secondary School",
+        "type" : "Secondary"
+      },
+      "Northbrooks Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Northbrooks Secondary School",
+        "name" : "Northbrooks Secondary School",
+        "type" : "Secondary"
+      },
+      "Northland Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Northland Secondary School",
+        "name" : "Northland Secondary School",
+        "type" : "Secondary"
+      },
+      "Northlight School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Northlight School",
+        "name" : "Northlight School",
+        "type" : "Secondary"
+      },
+      "Orchid Park Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Orchid Park Secondary School",
+        "name" : "Orchid Park Secondary School",
+        "type" : "Secondary"
+      },
+      "Other" : {
+        "id" : "Other",
+        "name" : "Other",
+        "type" : "Other"
+      },
+      "Outram Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Outram Secondary School",
+        "name" : "Outram Secondary School",
+        "type" : "Secondary"
+      },
+      "Pasir Ris Crest Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Pasir Ris Crest Secondary School",
+        "name" : "Pasir Ris Crest Secondary School",
+        "type" : "Secondary"
+      },
+      "Pasir Ris Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Pasir Ris Secondary School",
+        "name" : "Pasir Ris Secondary School",
+        "type" : "Secondary"
+      },
+      "Paya Lebar Methodist Girls School (Secondary)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Paya Lebar Methodist Girls School (Secondary)",
+        "name" : "Paya Lebar Methodist Girls' School (Secondary)",
+        "type" : "Secondary"
+      },
+      "Pei Hwa Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Pei Hwa Secondary School",
+        "name" : "Pei Hwa Secondary School",
+        "type" : "Secondary"
+      },
+      "Peicai Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Peicai Secondary School",
+        "name" : "Peicai Secondary School",
+        "type" : "Secondary"
+      },
+      "Peirce Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Peirce Secondary School",
+        "name" : "Peirce Secondary School",
+        "type" : "Secondary"
+      },
+      "Ping Yi Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Ping Yi Secondary School",
+        "name" : "Ping Yi Secondary School",
+        "type" : "Secondary"
+      },
+      "Pioneer Junior College" : {
+        "iconUrl" : "/assets/crests/Pionerr_JC.jpg",
+        "id" : "Pioneer Junior College",
+        "name" : "Pioneer Junior College",
+        "type" : "Junior College"
+      },
+      "Pioneer Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Pioneer Secondary School",
+        "name" : "Pioneer Secondary School",
+        "type" : "Secondary"
+      },
+      "Presbyterian High School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Presbyterian High School",
+        "name" : "Presbyterian High School",
+        "type" : "Secondary"
+      },
+      "Punggol Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Punggol Secondary School",
+        "name" : "Punggol Secondary School",
+        "type" : "Secondary"
+      },
+      "Queenstown Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Queenstown Secondary School",
+        "name" : "Queenstown Secondary School",
+        "type" : "Secondary"
+      },
+      "Queensway Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Queensway Secondary School",
+        "name" : "Queensway Secondary School",
+        "type" : "Secondary"
+      },
+      "Raffles Girls School (Secondary)" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Raffles Girls School (Secondary)",
+        "name" : "Raffles Girls' School (Secondary)",
+        "type" : "Secondary"
+      },
+      "Raffles Institution" : {
+        "iconUrl" : "/assets/crests/Raffles_Institute.png",
+        "id" : "Raffles Institution",
+        "name" : "Raffles Institution",
+        "type" : "Junior College"
+      },
+      "Regent Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Regent Secondary School",
+        "name" : "Regent Secondary School",
+        "type" : "Secondary"
+      },
+      "Republic Polytechnic" : {
+        "iconUrl" : "/assets/crests/Republic_Poly.jpg",
+        "id" : "Republic Polytechnic",
+        "name" : "Republic Polytechnic",
+        "type" : "Polytechnic"
+      },
+      "River Valley High School" : {
+        "iconUrl" : "/assets/crests/River_Valley_HS.png",
+        "id" : "River Valley High School",
+        "name" : "River Valley High School",
+        "type" : "Junior College"
+      },
+      "Riverside Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Riverside Secondary School",
+        "name" : "Riverside Secondary School",
+        "type" : "Secondary"
+      },
+      "Saint Andrews Junior College" : {
+        "iconUrl" : "/assets/crests/Saint_Andrews.jpg",
+        "id" : "Saint Andrews Junior College",
+        "name" : "Saint Andrew's Junior College",
+        "type" : "Junior College"
+      },
+      "School of Science and Technology, Singapore" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "School of Science and Technology, Singapore",
+        "name" : "School of Science and Technology, Singapore",
+        "type" : "Secondary"
+      },
+      "School of the Arts" : {
+        "iconUrl" : "/assets/crests/Sota.jpg",
+        "id" : "School of the Arts",
+        "name" : "School of the Arts",
+        "type" : "Junior College"
+      },
+      "Sembawang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Sembawang Secondary School",
+        "name" : "Sembawang Secondary School",
+        "type" : "Secondary"
+      },
+      "Seng Kang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Seng Kang Secondary School",
+        "name" : "Seng Kang Secondary School",
+        "type" : "Secondary"
+      },
+      "Serangoon Garden Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Serangoon Garden Secondary School",
+        "name" : "Serangoon Garden Secondary School",
+        "type" : "Secondary"
+      },
+      "Serangoon Junior College" : {
+        "iconUrl" : "/assets/crests/Serangoon_JC.jpg",
+        "id" : "Serangoon Junior College",
+        "name" : "Serangoon Junior College",
+        "type" : "Junior College"
+      },
+      "Serangoon Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Serangoon Secondary School",
+        "name" : "Serangoon Secondary School",
+        "type" : "Secondary"
+      },
+      "Shuqun Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Shuqun Secondary School",
+        "name" : "Shuqun Secondary School",
+        "type" : "Secondary"
+      },
+      "Si Ling Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Si Ling Secondary School",
+        "name" : "Si Ling Secondary School",
+        "type" : "Secondary"
+      },
+      "Siglap Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Siglap Secondary School",
+        "name" : "Siglap Secondary School",
+        "type" : "Secondary"
+      },
+      "Singapore Chinese Girls School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Singapore Chinese Girls School",
+        "name" : "Singapore Chinese Girls' School",
+        "type" : "Secondary"
+      },
+      "Singapore Polytechnic" : {
+        "iconUrl" : "/assets/crests/Singapore_Poly.png",
+        "id" : "Singapore Polytechnic",
+        "name" : "Singapore Polytechnic",
+        "type" : "Polytechnic"
+      },
+      "Singapore Sports School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Singapore Sports School",
+        "name" : "Singapore Sports School",
+        "type" : "Secondary"
+      },
+      "Springfield Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Springfield Secondary School",
+        "name" : "Springfield Secondary School",
+        "type" : "Secondary"
+      },
+      "St Andrews Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Andrews Secondary School",
+        "name" : "St. Andrew's Secondary School",
+        "type" : "Secondary"
+      },
+      "St Anthonys Canossian Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Anthonys Canossian Secondary School",
+        "name" : "St. Anthony's Canossian Secondary School",
+        "type" : "Secondary"
+      },
+      "St Gabriels Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Gabriels Secondary School",
+        "name" : "St. Gabriel's Secondary School",
+        "type" : "Secondary"
+      },
+      "St Hildas Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Hildas Secondary School",
+        "name" : "St. Hilda's Secondary School",
+        "type" : "Secondary"
+      },
+      "St Josephs Institution" : {
+        "iconUrl" : "/assets/crests/St_Josephs.png",
+        "id" : "St Josephs Institution",
+        "name" : "St Joseph's Institution",
+        "type" : "Junior College"
+      },
+      "St Margarets Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Margarets Secondary School",
+        "name" : "St. Margaret's Secondary School",
+        "type" : "Secondary"
+      },
+      "St Patricks School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "St Patricks School",
+        "name" : "St. Patrick's School",
+        "type" : "Secondary"
+      },
+      "Swiss Cottage Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Swiss Cottage Secondary School",
+        "name" : "Swiss Cottage Secondary School",
+        "type" : "Secondary"
+      },
+      "Tampines Junior College" : {
+        "iconUrl" : "/assets/crests/Tampines_JC.jpg",
+        "id" : "Tampines Junior College",
+        "name" : "Tampines Junior College",
+        "type" : "Junior College"
+      },
+      "Tampines Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Tampines Secondary School",
+        "name" : "Tampines Secondary School",
+        "type" : "Secondary"
+      },
+      "Tanglin Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Tanglin Secondary School",
+        "name" : "Tanglin Secondary School",
+        "type" : "Secondary"
+      },
+      "Tanjong Katong Girls School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Tanjong Katong Girls School",
+        "name" : "Tanjong Katong Girls' School",
+        "type" : "Secondary"
+      },
+      "Tanjong Katong Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Tanjong Katong Secondary School",
+        "name" : "Tanjong Katong Secondary School",
+        "type" : "Secondary"
+      },
+      "Teck Whye Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Teck Whye Secondary School",
+        "name" : "Teck Whye Secondary School",
+        "type" : "Secondary"
+      },
+      "Temasek Academy" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Temasek Academy",
+        "name" : "Temasek Academy",
+        "type" : "Secondary"
+      },
+      "Temasek Junior College" : {
+        "iconUrl" : "/assets/crests/Temasek_Junior_College.jpg",
+        "id" : "Temasek Junior College",
+        "name" : "Temasek Junior College",
+        "type" : "Junior College"
+      },
+      "Temasek Polytechnic" : {
+        "iconUrl" : "/assets/crests/Temasek_Poly.png",
+        "id" : "Temasek Polytechnic",
+        "name" : "Temasek Polytechnic",
+        "type" : "Polytechnic"
+      },
+      "Temasek Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Temasek Secondary School",
+        "name" : "Temasek Secondary School",
+        "type" : "Secondary"
+      },
+      "Unity Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Unity Secondary School",
+        "name" : "Unity Secondary School",
+        "type" : "Secondary"
+      },
+      "Victoria Junior College" : {
+        "iconUrl" : "/assets/crests/Victoria_JC.png",
+        "id" : "Victoria Junior College",
+        "name" : "Victoria Junior College",
+        "type" : "Junior College"
+      },
+      "Victoria School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Victoria School",
+        "name" : "Victoria School",
+        "type" : "Secondary"
+      },
+      "West Spring Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "West Spring Secondary School",
+        "name" : "West Spring Secondary School",
+        "type" : "Secondary"
+      },
+      "Westwood Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Westwood Secondary School",
+        "name" : "Westwood Secondary School",
+        "type" : "Secondary"
+      },
+      "Whitley Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Whitley Secondary School",
+        "name" : "Whitley Secondary School",
+        "type" : "Secondary"
+      },
+      "Woodgrove Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Woodgrove Secondary School",
+        "name" : "Woodgrove Secondary School",
+        "type" : "Secondary"
+      },
+      "Woodlands Ring Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Woodlands Ring Secondary School",
+        "name" : "Woodlands Ring Secondary School",
+        "type" : "Secondary"
+      },
+      "Woodlands Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Woodlands Secondary School",
+        "name" : "Woodlands Secondary School",
+        "type" : "Secondary"
+      },
+      "Xinmin Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Xinmin Secondary School",
+        "name" : "Xinmin Secondary School",
+        "type" : "Secondary"
+      },
+      "Yio Chu Kang Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yio Chu Kang Secondary School",
+        "name" : "Yio Chu Kang Secondary School",
+        "type" : "Secondary"
+      },
+      "Yishun Junior College" : {
+        "iconUrl" : "/assets/crests/Yishun_JC.jpg",
+        "id" : "Yishun Junior College",
+        "name" : "Yishun Junior College",
+        "type" : "Junior College"
+      },
+      "Yishun Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yishun Secondary School",
+        "name" : "Yishun Secondary School",
+        "type" : "Secondary"
+      },
+      "Yishun Town Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yishun Town Secondary School",
+        "name" : "Yishun Town Secondary School",
+        "type" : "Secondary"
+      },
+      "Yuan Ching Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yuan Ching Secondary School",
+        "name" : "Yuan Ching Secondary School",
+        "type" : "Secondary"
+      },
+      "Yuhua Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yuhua Secondary School",
+        "name" : "Yuhua Secondary School",
+        "type" : "Secondary"
+      },
+      "Yusof Ishak Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yusof Ishak Secondary School",
+        "name" : "Yusof Ishak Secondary School",
+        "type" : "Secondary"
+      },
+      "Yuying Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Yuying Secondary School",
+        "name" : "Yuying Secondary School",
+        "type" : "Secondary"
+      },
+      "Zhenghua Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Zhenghua Secondary School",
+        "name" : "Zhenghua Secondary School",
+        "type" : "Secondary"
+      },
+      "Zhonghua Secondary School" : {
+        "iconUrl" : "/assets/crests/tempbadge.png",
+        "id" : "Zhonghua Secondary School",
+        "name" : "Zhonghua Secondary School",
+        "type" : "Secondary"
+      }
+    },
+    "servicesUserIds" : {
+      "codeCombat" : {
+   
+      },
+      "codeSchool" : {
+        "ChrisBoesch" : "cboesch"
+      }
+    },
+    "userProfiles" : {
+      "cboesch" : {
+        "createdEvents" : {
+          "-KJiQi8IBdEK6azah_uj" : {
+            "createdAt" : 1465362866984,
+            "featured" : false,
+            "title" : "Fun Event (fun)"
+          }
+        },
+        "services" : {
+          "codeCombat" : {
+            "details" : {
+              "id" : "profboesch",
+              "name" : "profboesch",
+              "registeredBefore" : 1465207054640
+            },
+            "lastUpdate" : 1465362880109
+          },
+          "codeSchool" : {
+            "details" : {
+              "id" : "chrisboesch",
+              "name" : "chrisboesch",
+              "registeredBefore" : 1465207059853
+            },
+            "lastUpdate" : 1465362879987
+          },
+          "freeCodeCamp" : {
+            "details" : {
+              "id" : "singaporeclouds",
+              "name" : "singaporeclouds",
+              "registeredBefore" : 1465207026228
+            }
+          },
+          "pivotalExpert" : {
+            "details" : {
+              "id" : "Chris",
+              "name" : "Chris",
+              "registeredBefore" : 1465207456423
+            }
+          }
+        },
+        "user" : {
+          "country" : {
+            "code" : "SG",
+            "name" : "Singapore"
+          },
+          "displayName" : "Chris Boesch",
+          "gravatar" : "//www.gravatar.com/avatar/6e64bb2cab5367fd6e201df2aa722512",
+          "isAdmin" : true,
+          "isPremium" : true,
+          "yearOfBirth" : 1990
+        }
+    }
+  },
+  "meta" : {
+    "version" : 2
+  }
+}

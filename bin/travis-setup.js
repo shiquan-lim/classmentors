@@ -13,8 +13,8 @@ node_js:
 script:
 - npm run lint
 - npm run test
-before_deploy:
-- 'npm run build'
+after_success:
+- ./bin/build-gh-pages-travis
 `.trimLeft();
 const travis = sh.spawnSync('which', ['travis']);
 
