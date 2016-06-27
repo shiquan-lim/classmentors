@@ -1,0 +1,40 @@
+extends: xo/esnext
+env:
+  es6: true
+  mocha: true
+  shared-node-browser: true
+rules:
+  max-len:
+    - error
+    - 120
+  indent:
+    - error
+    - 2
+  space-before-function-paren:
+    - error
+    - never
+  no-unused-expressions: "off"
+  padded-blocks: 
+    - error
+    - classes: always
+  one-var:
+    - error
+    - uninitialized: always
+      initialized: never
+  new-cap:
+    - error
+    - newIsCapExceptions:
+      - controller
+  eqeqeq: 
+    - error
+    - smart
+  no-eq-null: "off"
+  no-var: "off"
+  no-negated-condition: "off"
+  no-prototype-builtins: "off"
+  no-console: warn
+  prefer-template: warn
+  prefer-arrow-callback: "off"
+  babel/new-cap: "off"
+  babel/object-shorthand: "off"
+  no-warning-comments: warn

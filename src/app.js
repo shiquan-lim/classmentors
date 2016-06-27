@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-env browser */
 import angular from 'angular';
 import {classMentors} from './classmentors/index.js';
 
@@ -8,7 +7,7 @@ classMentors.config([
   'routes',
   'spfFirebaseRefProvider',
   function($routeProvider, routes, spfFirebaseRefProvider) {
-    const id = window.SINGPATH && window.SINGPATH.firebaseId || 'singpath';
+    const id = (window.SINGPATH && window.SINGPATH.firebaseId) || 'singpath';
 
     spfFirebaseRefProvider.setBaseUrl(`https://${id}.firebaseio.com/`);
 
@@ -22,8 +21,8 @@ classMentors.run([
   '$window',
   'clmServicesUrl',
   function($window, clmServicesUrl) {
-    const singpath = $window.SINGPATH && $window.SINGPATH.singpathURL || 'http://www.singpath.com';
-    const backend = $window.SINGPATH && $window.SINGPATH.backendURL || 'http://api.singpath.com';
+    const singpath = ($window.SINGPATH && $window.SINGPATH.singpathURL) || 'http://www.singpath.com';
+    const backend = ($window.SINGPATH && $window.SINGPATH.backendURL) || 'http://api.singpath.com';
 
     clmServicesUrl.singPath = singpath.replace(/\/$/, '');
     clmServicesUrl.backend = backend.replace(/\/$/, '');

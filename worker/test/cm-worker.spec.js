@@ -12,6 +12,7 @@ var worker = proxyquire("../src/cm-worker", {
     return (mock = new MockFirebase(url));
   }
 });
+worker.initiateFirebase("http://home.com", "1234");
 //mock.flush();
 // data is logged
 
@@ -33,6 +34,7 @@ describe("Worker", function() {
     //Todo: Add tests
     it("update achievements", function() {
         var location = "classMentors/userAchievements/chris/services/codeCombat";
+        
         //update_achievements_and_clear_queue(location, theData, data, reject, resolve);
         worker.update_achievements_and_clear_queue(location, {}, {}, function (data){}, function (data){});
     });

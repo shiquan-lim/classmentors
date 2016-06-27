@@ -21,91 +21,90 @@ classMentors.config([
   '$routeProvider',
   'routes',
   function($routeProvider, routes) {
-    $routeProvider.when(routes.events, {
-      template: listTmpl,
-      controller: 'ClmListEvent',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'clmListEventResolver',
-          function(clmListEventResolver) {
-            return clmListEventResolver();
-          }
-        ]
-      }
-    }).
+    $routeProvider
+      .when(routes.events, {
+        template: listTmpl,
+        controller: 'ClmListEvent',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'clmListEventResolver',
+            function(clmListEventResolver) {
+              return clmListEventResolver();
+            }
+          ]
+        }
+      })
 
-    when(routes.newEvent, {
-      template: newTmpl,
-      controller: 'NewEventCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'newEventCtrlInitialData',
-          function(newEventCtrlInitialData) {
-            return newEventCtrlInitialData();
-          }
-        ]
-      }
-    }).
+      .when(routes.newEvent, {
+        template: newTmpl,
+        controller: 'NewEventCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'newEventCtrlInitialData',
+            function(newEventCtrlInitialData) {
+              return newEventCtrlInitialData();
+            }
+          ]
+        }
+      })
 
-    when(routes.oneEvent, {
-      template: eventTmpl,
-      controller: 'ViewEventCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'viewEventCtrlInitialData',
-          function(viewEventCtrlInitialData) {
-            return viewEventCtrlInitialData();
-          }
-        ]
-      }
-    }).
+      .when(routes.oneEvent, {
+        template: eventTmpl,
+        controller: 'ViewEventCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'viewEventCtrlInitialData',
+            function(viewEventCtrlInitialData) {
+              return viewEventCtrlInitialData();
+            }
+          ]
+        }
+      })
 
-    when(routes.editEvent, {
-      template: editTmpl,
-      controller: 'EditEventCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'editEventCtrllInitialData',
-          function(editCtrlInitialData) {
-            return editCtrlInitialData();
-          }
-        ]
-      }
-    }).
+      .when(routes.editEvent, {
+        template: editTmpl,
+        controller: 'EditEventCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'editEventCtrllInitialData',
+            function(editCtrlInitialData) {
+              return editCtrlInitialData();
+            }
+          ]
+        }
+      })
 
-    when(routes.addEventTask, {
-      template: eventTaskFormTmpl,
-      controller: 'AddEventTaskCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'addEventTaskCtrlInitialData',
-          function(addEventTaskCtrlInitialData) {
-            return addEventTaskCtrlInitialData();
-          }
-        ]
-      }
-    }).
+      .when(routes.addEventTask, {
+        template: eventTaskFormTmpl,
+        controller: 'AddEventTaskCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'addEventTaskCtrlInitialData',
+            function(addEventTaskCtrlInitialData) {
+              return addEventTaskCtrlInitialData();
+            }
+          ]
+        }
+      })
 
-    when(routes.editEventTask, {
-      template: eventTaskFormTmpl,
-      controller: 'EditEventTaskCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'editEventTaskCtrlInitialData',
-          function(editEventTaskCtrlInitialData) {
-            return editEventTaskCtrlInitialData();
-          }
-        ]
-      }
-    })
-
-    ;
+      .when(routes.editEventTask, {
+        template: eventTaskFormTmpl,
+        controller: 'EditEventTaskCtrl',
+        controllerAs: 'ctrl',
+        resolve: {
+          initialData: [
+            'editEventTaskCtrlInitialData',
+            function(editEventTaskCtrlInitialData) {
+              return editEventTaskCtrlInitialData();
+            }
+          ]
+        }
+      });
   }
 ]);
 
@@ -159,7 +158,7 @@ classMentors.controller('ClmListEvent', [
     ) {
       opts.push({
         title: 'New event',
-        url: '#' + urlFor('newEvent'),
+        url: `#${urlFor('newEvent')}`,
         icon: 'add'
       });
     }
@@ -244,7 +243,7 @@ classMentors.controller('NewEventCtrl', [
       'New Events',
       {
         title: 'Events',
-        url: '#' + urlFor('events')
+        url: `#${urlFor('events')}`
       }, []
     );
 
@@ -442,7 +441,7 @@ classMentors.controller('ViewEventCtrl', [
       spfNavBarService.update(
         self.event.title, {
           title: 'Events',
-          url: '#' + urlFor('events')
+          url: `#${urlFor('events')}`
         }, getOptions()
       );
     }
@@ -480,7 +479,7 @@ classMentors.controller('ViewEventCtrl', [
       if (self.event.owner.publicId === self.currentUser.publicId) {
         options.push({
           title: 'Edit',
-          url: '#' + urlFor('editEvent', {eventId: self.event.$id}),
+          url: `#${urlFor('editEvent', {eventId: self.event.$id})}`,
           icon: 'create'
         });
         options.push({
@@ -524,7 +523,7 @@ classMentors.controller('ViewEventCtrl', [
             $mdDialog.hide();
             $route.reload();
           }).catch(function(err) {
-            spfAlert.error('Failed to add you: ' + err);
+            spfAlert.error(`Failed to add you: ${err}`);
           });
         };
 
@@ -555,7 +554,7 @@ classMentors.controller('ViewEventCtrl', [
     this.removeParticipant = function(e, event, participant) {
       var confirm = $mdDialog.confirm()
         .parent(angular.element($document.body))
-        .title('Would you like to remove ' + participant.user.displayName + '?')
+        .title(`Would you like to remove ${participant.user.displayName}?`)
         .content('The participant progress will be kept but he/she will not show as participant')
         .ariaLabel('Remove participant')
         .ok('Remove')
@@ -612,9 +611,9 @@ classMentors.factory('baseEditCtrlInitialData', [
           result.event.owner.publicId !== result.currentUser.publicId
         ) {
           return $q.reject(errNotAuthaurized);
-        } else {
-          return result;
         }
+
+        return result;
       });
 
       return data;
@@ -665,13 +664,13 @@ classMentors.controller('EditEventCtrl', [
     spfNavBarService.update(
       'Edit', [{
         title: 'Events',
-        url: '#' + urlFor('events')
+        url: `#${urlFor('events')}`
       }, {
         title: this.event.title,
-        url: '#' + urlFor('oneEvent', {eventId: this.event.$id})
+        url: `#${urlFor('oneEvent', {eventId: this.event.$id})}`
       }], [{
         title: 'New Challenge',
-        url: '#' + urlFor('addEventTask', {eventId: this.event.$id}),
+        url: `#${urlFor('addEventTask', {eventId: this.event.$id})}`,
         icon: 'create'
       }]
     );
@@ -781,13 +780,13 @@ classMentors.controller('AddEventTaskCtrl', [
     spfNavBarService.update(
       'New Challenge', [{
         title: 'Events',
-        url: '#' + urlFor('events')
+        url: `#${urlFor('events')}`
       }, {
         title: this.event.title,
-        url: '#' + urlFor('oneEvent', {eventId: this.event.$id})
+        url: `#${urlFor('oneEvent', {eventId: this.event.$id})}`
       }, {
         title: 'Challenges',
-        url: '#' + urlFor('editEvent', {eventId: this.event.$id})
+        url: `#${urlFor('editEvent', {eventId: this.event.$id})}`
       }]
     );
 
@@ -890,9 +889,9 @@ classMentors.factory('editEventTaskCtrlInitialData', [
           data.event.owner.publicId !== data.currentUser.publicId
         ) {
           return $q.reject(errNotAuthaurized);
-        } else {
-          return data;
         }
+
+        return data;
       });
     };
   }
@@ -916,7 +915,7 @@ classMentors.controller('EditEventTaskCtrl', [
     this.badges = initialData.badges;
     this.taskId = initialData.taskId;
     this.task = initialData.task;
-    this.isOpen = !!this.task.openedAt;
+    this.isOpen = Boolean(this.task.openedAt);
     this.savingTask = false;
 
     if (this.task.serviceId) {
@@ -941,13 +940,13 @@ classMentors.controller('EditEventTaskCtrl', [
     spfNavBarService.update(
       this.task.title, [{
         title: 'Events',
-        url: '#' + urlFor('events')
+        url: `#${urlFor('events')}`
       }, {
         title: this.event.title,
-        url: '#' + urlFor('oneEvent', {eventId: this.event.$id})
+        url: `#${urlFor('oneEvent', {eventId: this.event.$id})}`
       }, {
         title: 'Challenges',
-        url: '#' + urlFor('editEvent', {eventId: this.event.$id})
+        url: `#${urlFor('editEvent', {eventId: this.event.$id})}`
       }]
     );
 
@@ -984,9 +983,9 @@ classMentors.controller('EditEventTaskCtrl', [
           return;
         } else if (isOpen) {
           return clmDataStore.events.openTask(event.$id, taskId);
-        } else {
-          return clmDataStore.events.closeTask(event.$id, taskId);
         }
+
+        return clmDataStore.events.closeTask(event.$id, taskId);
       }).then(function() {
         spfAlert.success('Task saved');
       }).catch(function() {
@@ -1152,9 +1151,9 @@ classMentors.controller('ClmEventTableCtrl', [
           return 0;
         } else if (aP) {
           return 1;
-        } else {
-          return -1;
         }
+
+        return -1;
       };
     }
 
@@ -1170,23 +1169,21 @@ classMentors.controller('ClmEventTableCtrl', [
         var aS = (
           self.solutions &&
           self.solutions[a.$id] &&
-          self.solutions[a.$id][taskId] ||
-          ''
-        );
+          self.solutions[a.$id][taskId]
+        ) || '';
         var bS = (
           self.solutions &&
           self.solutions[b.$id] &&
-          self.solutions[b.$id][taskId] ||
-          ''
-        );
+          self.solutions[b.$id][taskId]
+        ) || '';
 
         return aS.localeCompare(bS);
       };
     }
 
     function _compareName(a, b) {
-      var aN = a.user && a.user.displayName || '';
-      var bN = b.user && b.user.displayName || '';
+      var aN = (a.user && a.user.displayName) || '';
+      var bN = (b.user && b.user.displayName) || '';
 
       return aN.localeCompare(bN);
     }
@@ -1256,7 +1253,7 @@ classMentors.controller('ClmEventTableCtrl', [
         !task.badge ||
         !task.badge.url
       ) {
-        return '#' + urlFor('editProfile');
+        return `#${urlFor('editProfile')}`;
       }
 
       return task.badge.url;
@@ -1313,7 +1310,7 @@ classMentors.controller('ClmEventTableCtrl', [
     };
 
     this.mustRegister = function(task, profile) {
-      return (
+      return Boolean(
         task &&
         task.serviceId &&
         trackedServices[task.serviceId] && (
@@ -1322,7 +1319,7 @@ classMentors.controller('ClmEventTableCtrl', [
           !profile.services[task.serviceId] ||
           !profile.services[task.serviceId].details ||
           !profile.services[task.serviceId].details.id
-        ) || false
+        )
       );
     };
 
@@ -1394,8 +1391,9 @@ classMentors.controller('ClmEventTableCtrl', [
       }
     };
 
+    this.update = function() {};
+    /*
     this.update = function(event, tasks, userSolutions, profile) {
-      /*
       return clmDataStore.events.updateCurrentUserProfile(
         event, tasks, userSolutions, profile
       ).then(function() {
@@ -1404,13 +1402,12 @@ classMentors.controller('ClmEventTableCtrl', [
         $log.error(err);
         spfAlert.error('Failed to update profile');
       });
-      */
-    };
+    };*/
 
     this.removeParticipant = function(e, event, participant) {
       var confirm = $mdDialog.confirm()
         .parent(angular.element($document.body))
-        .title('Would you like to remove ' + participant.user.displayName + '?')
+        .title(`Would you like to remove ${participant.user.displayName}?`)
         .content('The participant progress will be kept but he/she will not show as participant')
         .ariaLabel('Remove participant')
         .ok('Remove')
@@ -1510,166 +1507,177 @@ classMentors.directive('clmEventRankTable', [
 classMentors.controller('ClmEventRankTableCtrl', [
   '$scope',
   '$log',
-   'spfFirebase',
+  'spfFirebase',
   'clmDataStore',
   'clmPagerOption',
   function ClmEventRankTableCtrl($scope, $log, spfFirebase, clmDataStore, clmPagerOption) {
-    
+
     var self = this;
     var unwatchers = [];
-    var rankingList = [];
-    var _comparers = {
-      name: function(a, b) {
-        var aN = a.user && a.user.displayName || '';
-        var bN = b.user && b.user.displayName || '';
+    // var rankingList = [];
+    // var _comparers = {
+    //   name: function(a, b) {
+    //     var aN = (a.user && a.user.displayName) || '';
+    //     var bN = (b.user && b.user.displayName) || '';
 
-        return aN.localeCompare(bN);
-      },
+    //     return aN.localeCompare(bN);
+    //   },
 
-      schoolName: function(a, b) {
-        var aN = a.user && a.user.school && a.user.school.name || '';
-        var bN = b.user && b.user.school && b.user.school.name || '';
+    //   schoolName: function(a, b) {
+    //     var aN = (a.user && a.user.school && a.user.school.name) || '';
+    //     var bN = (b.user && b.user.school && b.user.school.name) || '';
 
-        return aN.localeCompare(bN);
-      },
+    //     return aN.localeCompare(bN);
+    //   },
 
-      schoolRank: function(a, b) {
-        var aR = a.$rankInSchool || 2147483648;
-        var bR = b.$rankInSchool || 2147483648;
+    //   schoolRank: function(a, b) {
+    //     var aR = a.$rankInSchool || 2147483648;
+    //     var bR = b.$rankInSchool || 2147483648;
 
-        return aR - bR;
-      },
+    //     return aR - bR;
+    //   },
 
-      total: badgeComparer('total'),
-      codeCombat: badgeComparer('codeCombat'),
-      codeSchool: badgeComparer('codeSchool'),
-      singPath: badgeComparer('singPath')
-    };
+    //   total: badgeComparer('total'),
+    //   codeCombat: badgeComparer('codeCombat'),
+    //   codeSchool: badgeComparer('codeSchool'),
+    //   singPath: badgeComparer('singPath')
+    // };
 
-    //this.rankingView = [];
-    
-    // June 2016 
+    // this.rankingView = [];
+
+    // June 2016
     this.rankingView2 = []; // 2016 update to new cm-worker
-    //If there are no ranked services on the event, use the default.
-    //Add this after the event is fetched if rankedServices is null.
+    // If there are no ranked services on the event, use the default.
+    // Add this after the event is fetched if rankedServices is null.
 
-    var addRankedServices = function (parentScope) {
+    var addRankedServices = function(parentScope) {
       if (parentScope.event.rankedServices) {
         parentScope.rankedServices = [];
         for (var property in parentScope.event.rankedServices) {
           if (parentScope.event.rankedServices.hasOwnProperty(property)) {
             // do stuff
-            parentScope.rankedServices.push({ id: property, name: property });
+            parentScope.rankedServices.push({id: property, name: property});
           }
         }
-      }
-      else { // load the default services to list in ranking table. 
+      } else { // load the default services to list in ranking table.
         parentScope.rankedServices = [
-          { id: 'freeCodeCamp', name: 'Free Code Camp' },
-          { id: 'pivotalExpert', name: 'Pivotal Expert' },
-          //{id: 'codeCombat',name: 'Code Combat Levels'},
-          //{id: 'singPath',name:  'SingPath Problems'},
-          { id: 'codeSchool', name: 'Code School' }
+          {id: 'freeCodeCamp', name: 'Free Code Camp'},
+          {id: 'pivotalExpert', name: 'Pivotal Expert'},
+          {id: 'codeCombat',name: 'Code Combat'},
+          // {id: 'singPath',name:  'SingPath Problems'},
+          {id: 'codeSchool', name: 'Code School'}
         ];
       }
 
-    }
-    // Update the list of services to show in table. 
+    };
+    // Update the list of services to show in table.
     addRankedServices(this);
-    
-    var getUserProfile = function(publicId, parentScope){
-      
-      spfFirebase.loadedObj(['classMentors/userProfiles', publicId]).then(function (promise) {
+
+    var getUserProfile = function(publicId, parentScope) {
+      // console.log(publicId);
+      spfFirebase.loadedObj(['classMentors/userProfiles', publicId]).then(function(promise) {
         return promise;
-      }).then(function (result) {
-          var temp = {};
-          temp["$id"]=publicId;
-          temp["$ranking"]=parentScope.rankingView2.length + 1;
-          temp['services'] = result.services;
-          var total = 0; 
-          //For each ranked service in the event.  
-          for (var i=0; i<self.rankedServices.length; i++){
-            //console.log(self.rankedServices[i].id);
-            //If the user has registered for the service and has a totoalAchievements value.  
-            if(result.services[self.rankedServices[i].id] && result.services[self.rankedServices[i].id].totalAchievements){
-                 temp[self.rankedServices[i].id] = parseInt(result.services[self.rankedServices[i].id].totalAchievements);
-                 total += parseInt(result.services[self.rankedServices[i].id].totalAchievements);
-            }
-            else{
-              temp[self.rankedServices[i].id] = 0;
-            }
+      }).then(function(result) {
+        var temp = {};
+
+        temp.$id = publicId;
+        temp.$ranking = parentScope.rankingView2.length + 1;
+        temp.services = result.services;
+
+        // console.log("In user profile fetch with services", result.services);
+        var total = 0;
+
+        // If the user has no registered services, add an empty object to support the following logic.
+        if (!result.services) {
+          result.services = {};
+        }
+
+        // For each ranked service in the event.
+        for (var i = 0; i < self.rankedServices.length; i++) {
+          // console.log(self.rankedServices[i].id);
+          // If the user has registered for the service and has a totoalAchievements value.
+          if (
+            result.services[self.rankedServices[i].id] &&
+            result.services[self.rankedServices[i].id].totalAchievements
+          ) {
+            temp[self.rankedServices[i].id] = parseInt(
+              result.services[self.rankedServices[i].id].totalAchievements, 10
+            );
+            total += parseInt(result.services[self.rankedServices[i].id].totalAchievements, 10);
+          } else {
+            temp[self.rankedServices[i].id] = 0;
           }
-          
-          temp['total'] = total; 
-          temp['displayName'] = result['user']['displayName'];
-          temp['name'] = result['user']['displayName'];
-          temp['user'] = result['user'];
-          parentScope.rankingView2.push(temp);
-      }, function (reason) {
-        console.log("Failed " + reason);
+        }
+
+        temp.total = total;
+        temp.displayName = result.user.displayName;
+        temp.name = result.user.displayName;
+        temp.user = result.user;
+        parentScope.rankingView2.push(temp);
+      }, function(reason) {
+        console.log(`Failed ${reason}`);
       });
-    }
-    
-    var refreshAchievements = function(profileId, service){
-      //TODO: Only request updates for the services that users have registered for.
-      console.log("Requesting achievement update for "+profileId);
-      spfFirebase.push(['queue/tasks'], { id: profileId, service: service });            
-      //spfFirebase.push(['queue/tasks'], { id: profileId, service: "freeCodeCamp" });      
-    }
-    
-    this.updateAllParticipantUserProfiles = function () {
-      //console.log("Requesting all users in ranking to be updated.");
-      //For each user in the ranking
+    };
+
+    var refreshAchievements = function(profileId, service) {
+      // TODO: Only request updates for the services that users have registered for.
+      console.log(`Requesting achievement update for ${profileId}`);
+      spfFirebase.push(['queue/tasks'], {id: profileId, service: service});
+      // spfFirebase.push(['queue/tasks'], { id: profileId, service: "freeCodeCamp" });
+    };
+
+    this.updateAllParticipantUserProfiles = function() {
+      // console.log("Requesting all users in ranking to be updated.");
+      // For each user in the ranking
       for (var i = 0; i < self.rankingView2.length; i++) {
         var publicId = self.rankingView2[i].$id;
-        //for service in ranked services
-        for (var j=0; j< self.rankedServices.length; j++) {
-            //console.log(self.rankedServices[j].id);
-            //If the user in the ranking has the key for a service (has registered)
-            if( self.rankingView2[i].services[self.rankedServices[j].id]){
-              //console.log("Adding "+self.rankedServices[j].id+ " for user "+publicId);
-              refreshAchievements(publicId, self.rankedServices[j].id);    
-            }
-            else{
-              //console.log("Skipping "+self.rankedServices[j].id+ " for user "+publicId+ " since not registered");
-            }      
+        // for service in ranked services
+        for (var j = 0; j < self.rankedServices.length; j++) {
+            // console.log(self.rankedServices[j].id);
+            // If the user in the ranking has the key services and key for a service
+          if (self.rankingView2[i].services && self.rankingView2[i].services[self.rankedServices[j].id]) {
+              // console.log("Adding "+self.rankedServices[j].id+ " for user "+publicId);
+            refreshAchievements(publicId, self.rankedServices[j].id);
+          } else {
+              // console.log("Skipping "+self.rankedServices[j].id+ " for user "+publicId+ " since not registered");
+          }
         }
       }
     };
-    
-    var getUserProfilesFromEventParticipants = function(parentScope){
+
+    var getUserProfilesFromEventParticipants = function(parentScope) {
       // Clear ranking and re-rank
       parentScope.rankingView2 = [];
-      console.log("Fetching participants for event");
-      for(var i=0; i<parentScope.eventParticipants.length; i++){
+      console.log('Fetching participants for event');
+      for (var i = 0; i < parentScope.eventParticipants.length; i++) {
         var publicId = parentScope.eventParticipants[i].$id;
         getUserProfile(publicId, parentScope);
       }
     };
-   
-    this.getParticipants = function (parentScope) {
+
+    this.getParticipants = function(parentScope) {
       spfFirebase.loadedArray(['classMentors/eventParticipants', parentScope.event.$id], {
-            //orderByChild: 'featured',
-            //equalTo: true,
-            limitToLast: 100
-          }).then(function (promise) {
+            // orderByChild: 'featured',
+            // equalTo: true,
+        limitToLast: 100
+      }).then(function(promise) {
         return promise;
-      }).then(function (data) {
+      }).then(function(data) {
         var result = data;
-        //console.log(result);
+        // console.log(result);
         parentScope.eventParticipants = result;
         getUserProfilesFromEventParticipants(parentScope);
-        
-      }, function (reason) {
-        console.log("Failed " + reason);
+
+      }, function(reason) {
+        console.log('Failed ' + reason);
       });
-      
-    }
+
+    };
 
     this.getParticipants(this);
-    this.loading = true; //This will hide the table view. 
+    this.loading = true; // This will hide the table view.
     this.loading = false;
-    
+
     this.currentUserRanking = undefined;
     this.orderOpts = [{
       key: 'total',
@@ -1714,72 +1722,74 @@ classMentors.controller('ClmEventRankTableCtrl', [
       });
     }
    */
-    function badgeComparer(propId) {
-      return function(a, b) {
-        var aB = a[propId] || 0;
-        var bB = b[propId] || 0;
+    // function badgeComparer(propId) {
+    //   return function(a, b) {
+    //     var aB = a[propId] || 0;
+    //     var bB = b[propId] || 0;
 
-        return aB - bB;
-      };
-    }
+    //     return aB - bB;
+    //   };
+    // }
 
-    function comparer(options) {
-      return chainComparer(options.map(function(opt) {
-        return reverseComparer(opt.reversed, _comparers[opt.key] || _comparers.total);
-      }));
-    }
+    // function comparer(options) {
+    //   return chainComparer(options.map(function(opt) {
+    //     return reverseComparer(opt.reversed, _comparers[opt.key] || _comparers.total);
+    //   }));
+    // }
 
-    function currentUserRanking() {
-      self.currentUserRanking = undefined;
-      rankingList.some(function(p) {
-        if (!self.profile) {
-          return true;
-        }
+    // function currentUserRanking() {
+    //   self.currentUserRanking = undefined;
+    //   rankingList.some(function(p) {
+    //     if (!self.profile) {
+    //       return true;
+    //     }
 
-        if (p.$id === self.profile.$id) {
-          self.currentUserRanking = p;
-          return true;
-        }
-      });
-    }
+    //     if (p.$id === self.profile.$id) {
+    //       self.currentUserRanking = p;
+    //       return true;
+    //     }
 
-    function rankingView() {
-      console.log("In ranking view")
-      rankingList.sort(comparer(self.orderOpts)).forEach(function(p, i) {
-        p.$ranking = i + 1;
-      });
+    //     return false;
+    //   });
+    // }
 
-      self.rankingView2 = rankingList.slice(
-        self.pagerOpts.range.start,
-        self.pagerOpts.range.end
-      );
+    // function rankingView() {
+    //   console.log('In ranking view');
+    //   rankingList.sort(comparer(self.orderOpts)).forEach(function(p, i) {
+    //     p.$ranking = i + 1;
+    //   });
 
-      currentUserRanking();
-    }
+    //   self.rankingView2 = rankingList.slice(
+    //     self.pagerOpts.range.start,
+    //     self.pagerOpts.range.end
+    //   );
+
+    //   currentUserRanking();
+    // }
 
     // Update pager's row count
     // (the pager should trigger a range update and call rankingView)
-    function updateRowCount() {
-      if (!self.ranking) {
-        rankingList = [];
-        self.pagerOpts.setRowCount(0);
-        return;
-      }
+    // function updateRowCount() {
+    //   if (!self.ranking) {
+    //     rankingList = [];
+    //     self.pagerOpts.setRowCount(0);
+    //     return;
+    //   }
 
-      rankingList = Object.keys(self.ranking).filter(function(publicId) {
-        return self.ranking[publicId] && self.ranking[publicId].user;
-      }).map(function(publicId) {
-        self.ranking[publicId].$id = publicId;
-        return self.ranking[publicId];
-      });
+    //   rankingList = Object.keys(self.ranking).filter(function(publicId) {
+    //     return self.ranking[publicId] && self.ranking[publicId].user;
+    //   }).map(function(publicId) {
+    //     self.ranking[publicId].$id = publicId;
+    //     return self.ranking[publicId];
+    //   });
 
-      self.pagerOpts.setRowCount(rankingList.length);
-    }
+    //   self.pagerOpts.setRowCount(rankingList.length);
+    // }
 
-    this.orderBy = function (key) {
-      //Adjust this to support new ordering mechanism. 
-    
-      console.log("orderBy " + key);
+    this.orderBy = function(key) {
+      // Adjust this to support new ordering mechanism.
+
+      console.log('orderBy ' + key);
 
       if (self.orderOpts[0] && self.orderOpts[0].key === key) {
         self.orderOpts[0].reversed = !self.orderOpts[0].reversed;
@@ -1790,43 +1800,43 @@ classMentors.controller('ClmEventRankTableCtrl', [
         });
         self.orderOpts = self.orderOpts.slice(0, 2);
       }
-      
-      //TODO: Revisit when 2nd order ranking becomes a priority. 
-      //There was an issue with getting both strings and numbers to rank properly. 
-      //Just leaving the array as is and allowing the view to do the sorting. 
-      //console.log(self.orderOpts);
-      // Can we use > rather than - to deal with strings? 
+
+      // TODO: Revisit when 2nd order ranking becomes a priority.
+      // There was an issue with getting both strings and numbers to rank properly.
+      // Just leaving the array as is and allowing the view to do the sorting.
+      // console.log(self.orderOpts);
+      // Can we use > rather than - to deal with strings?
       /*
       if(self.orderOpts[1].reversed){
          self.rankingView2.sort(function(a, b) {
-          return b[self.orderOpts[1].key] - a[self.orderOpts[1].key]; 
+          return b[self.orderOpts[1].key] - a[self.orderOpts[1].key];
          });
       }
       else{
          self.rankingView2.sort(function(a, b) {
           return a[self.orderOpts[1].key] - b[self.orderOpts[1].key];
-         });       
+         });
       }
-      
+
       if(self.orderOpts[0].reversed){
          self.rankingView2.sort(function(a, b) {
-          return b[self.orderOpts[0].key] - a[self.orderOpts[0].key]; 
+          return b[self.orderOpts[0].key] - a[self.orderOpts[0].key];
          });
       }
       else{
          self.rankingView2.sort(function(a, b) {
           return a[self.orderOpts[0].key] - b[self.orderOpts[0].key];
-         });       
+         });
       }
-           
+
       //Update ordering
       for(var i=0; i<self.rankingView2.length; i++){
-        self.rankingView2[i]["$ranking"] = i+1; 
+        self.rankingView2[i]["$ranking"] = i+1;
       }
       */
 
-      //rankingView();
-     
+      // rankingView();
+
     };
 
   }
@@ -1942,7 +1952,7 @@ classMentors.factory('clmPagerOption', [
             start = 0;
           }
 
-          start = start - (start % clmRowPerPage.value);
+          start -= (start % clmRowPerPage.value);
           if (start > opts.rowCount) {
             start = opts.rowCount;
           }

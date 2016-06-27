@@ -74,11 +74,10 @@ var get_service_url = function (service, serviceID) {
     theUrl = "https://www.freecodecamp.com/" + serviceID;
   }
  
- //TODO: Add back support for codeCombat once the user API is updated.
   else if (service == "codeCombat") {
      theUrl = "https://codecombat.com/db/user/" + serviceID + "/level.sessions?project=state.complete,levelID,levelName";
      //theUrl= "https://codecombat.com/db/user/"+serviceID;
-    //console.log("Using codeCombat url "+theUrl); 
+    console.log("Using codeCombat url "+theUrl); 
   }
   
   else if (service == "pivotalExpert") {
@@ -229,7 +228,7 @@ var get_profile = function (service_response_body, task_data, reject, resolve) {
   
   //console.log("services",services);
   // If the user does not have the service it will be skipped. 
-  if(!services.hasOwnProperty(service)){
+  if(!services || !services.hasOwnProperty(service)){
     console.log(task_data['id']+" has not registered for " + task_data['service']);
     resolve("User has not registered for " + service);
   }
@@ -340,6 +339,7 @@ if (require.main === module) {
 
   module.exports = {
     "handler": handler,
+    "initiateFirebase":initiateFirebase,
     "get_service_url": get_service_url,
     "get_achievements_from_response": get_achievements_from_response,
     "update_achievements_and_clear_queue": update_achievements_and_clear_queue,

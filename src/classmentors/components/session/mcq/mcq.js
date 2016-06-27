@@ -45,10 +45,8 @@
         $scope.questions = retrieveMCQItems.getQuestions();
         $scope.applyClass = function(type){
             if(type == 'multiple'){
-                console.log(type, 'YOOHOO?');
                 return 'checkbox';
             }else{
-                console.log('TEST');
                 return 'radio';
             }
         }

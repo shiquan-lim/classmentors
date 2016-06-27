@@ -13,7 +13,7 @@ classMentors.filter('cmTruncate', [
         return s;
       }
 
-      return s.slice(0, limit) + '...';
+      return `${s.slice(0, limit)}...`;
     };
   }
 ]);

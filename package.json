@@ -8,14 +8,15 @@
   "devDependencies": {
     "angular": "^1.5.6",
     "angular-mocks": "^1.5.6",
-    "babel-eslint": "^5.0.0-beta8",
+    "babel-eslint": "^6.0.4",
     "compression": "^1.6.1",
-    "eslint": "^1.10.3",
+    "eslint": "^2.13.0",
+    "eslint-config-xo": "^0.15.2",
+    "eslint-plugin-babel": "^3.2.0",
     "finalhandler": "^0.4.1",
     "firebase-tools": "^3.0.2",
     "http2": "^3.3.2",
     "js-yaml": "^3.5.5",
-    "jscs": "^2.9.0",
     "jspm": "0.17.0-beta.16",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
@@ -42,22 +43,19 @@
       "lib": "src/classmentors"
     },
     "dependencies": {
-      "css": "github:systemjs/plugin-css@^0.1.22",
-      "singpath-core": "github:singpath/singpath-core@^0.3.0",
-      "sinon-chai": "npm:sinon-chai@^2.8.0",
-      "text": "github:systemjs/plugin-text@^0.0.8"
+      "singpath-core": "github:singpath/singpath-core@^0.3.2"
     },
     "devDependencies": {
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
     },
     "peerDependencies": {
       "ace": "github:ajaxorg/ace-builds@^1.2.3",
-      "angular": "github:angular/bower-angular@^1.5.0",
-      "angular-animate": "github:angular/bower-angular-animate@^1.5.0",
+      "angular": "github:angular/bower-angular@^1.5.7",
+      "angular-animate": "github:angular/bower-angular-animate@^1.5.7",
       "angular-loading-bar": "github:chieffancypants/angular-loading-bar@^0.8.0",
       "angular-material": "github:angular/bower-material@^1.0.9",
-      "angular-messages": "github:angular/bower-angular-messages@^1.5.0",
-      "angular-route": "github:angular/bower-angular-route@^1.5.0",
+      "angular-messages": "github:angular/bower-angular-messages@^1.5.7",
+      "angular-route": "github:angular/bower-angular-route@^1.5.7",
       "angularfire": "github:firebase/angularfire@1.1.4",
       "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
       "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
@@ -65,11 +63,14 @@
       "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
       "core-js": "npm:core-js@^1.1.4",
       "cryptojs": "github:sytelus/cryptojs@^3.1.2",
+      "css": "github:systemjs/plugin-css@^0.1.22",
       "firebase": "github:firebase/firebase-bower@^2.4.1",
       "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
       "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
       "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
       "sinon": "npm:sinon@^1.17.4",
+      "sinon-chai": "npm:sinon-chai@^2.8.0",
+      "text": "github:systemjs/plugin-text@^0.0.8",
       "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
       "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
     },
@@ -96,7 +97,7 @@
           }
         }
       },
-      "github:angular/bower-angular-animate@1.5.5": {
+      "github:angular/bower-angular-animate@1.5.7": {
         "main": "angular-animate",
         "registry": "jspm",
         "dependencies": {
@@ -111,7 +112,7 @@
           }
         }
       },
-      "github:angular/bower-angular-aria@1.5.5": {
+      "github:angular/bower-angular-aria@1.5.7": {
         "main": "angular-aria",
         "registry": "jspm",
         "dependencies": {
@@ -126,7 +127,7 @@
           }
         }
       },
-      "github:angular/bower-angular-messages@1.5.5": {
+      "github:angular/bower-angular-messages@1.5.7": {
         "main": "angular-messages",
         "registry": "jspm",
         "dependencies": {
@@ -141,7 +142,7 @@
           }
         }
       },
-      "github:angular/bower-angular-route@1.5.5": {
+      "github:angular/bower-angular-route@1.5.7": {
         "main": "angular-route",
         "registry": "jspm",
         "dependencies": {
@@ -156,7 +157,7 @@
           }
         }
       },
-      "github:angular/bower-angular@1.5.5": {
+      "github:angular/bower-angular@1.5.7": {
         "main": "angular",
         "meta": {
           "angular.js": {
@@ -490,7 +491,7 @@
     "build:gh-pages": "./bin/build-gh-pages",
     "clean": "test -d $npm_package_config_build_dir && rm -r $npm_package_config_build_dir || echo 'Nothing to clean.'",
     "keygen": "openssl req -x509 -nodes -newkey rsa:4096 -new -days 1024 -subj \"/C=SG/ST=Denial/L=Singapore/O=Dis/CN=localhost\" -keyout bin/localhost.key -out bin/localhost.cert",
-    "lint": "eslint src/ && jscs src/",
+    "lint": "eslint src/",
     "postinstall": "jspm install",
     "serve": "./bin/server.js src/",
     "serve-build": "./bin/server.js dist/${npm_package_name}",

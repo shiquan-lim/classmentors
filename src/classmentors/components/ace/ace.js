@@ -1,64 +1,77 @@
-'use strict';
-
-import {classMentors} from '../../module.js';
-
-import tmpl from './2015-ace-view.html!text';
-
-classMentors.config([
-  '$routeProvider',
-  'routes',
-  function($routeProvider, routes) {
-    $routeProvider.
-
-    when(routes.aceOfCoders, {
-      template: tmpl,
-      controller: 'ClmAceOfCodersCtrl',
-      controllerAs: 'ctrl',
-      resolve: {
-        'initialData': [
-          'clmAceOfCodersCtrlInitialData',
-          function(clmAceOfCodersCtrlInitialData) {
-            return clmAceOfCodersCtrlInitialData();
-          }
-        ]
-      }
-    })
-
-    ;
-
-  }
-]);
+/**
+ * classmentors/components/ace/ace.js - Define the ace component.
+ */
+import template from './2015-ace-view.html!text';
 
 /**
- * Use to resolve `initialData` of `ClmAceOfCodersCtrl`.
+ * Update navBar with a title and no action.
  *
+ * @param {spfNavBarService} spfNavBarService
  */
-classMentors.factory('clmAceOfCodersCtrlInitialData', [
-  '$q',
-  function clmAceOfCodersCtrlInitialDataFactory($q) {
-    return function clmAceOfCodersCtrlInitialData() {
-      return $q.all({});
-    };
-  }
-]);
+function AceController(spfNavBarService) {
+  spfNavBarService.update('Ace of Coders');
+}
+
+AceController.$inject = ['spfNavBarService'];
 
 /**
- * ClmAceOfCodersCtrl
+ * ace component.
  *
+ * @type {Object}
  */
-classMentors.controller('ClmAceOfCodersCtrl', [
-  'initialData',
-  'spfNavBarService',
-  '$http',
-  function ClmAceOfCodersCtrl(initialData, spfNavBarService, $http) {
-    spfNavBarService.update('Ace of Coders');
-    this.stats = {};
-    var parent = this;
-    $http.get('https://dl.dropboxusercontent.com/u/4972572/ace_of_coders_stats.json').
-      then(function(response) {
-        parent.stats = response.data;
-      }
-      //, function(response) { // called asynchronously if an error occurs}
-      );
-  }
-]);
+export const component = {
+  template,
+  bindings: {
+    // binds $ctrl.stats to the value of the stats attribute.
+    stats: '<'
+  },
+  controller: AceController
+};
+
+/**
+ * Configure ace of coders route
+ *
+ * @param  {$routeProvider} $routeProvider
+ * @param  {Object}         routes
+ */
+export function configRoute($routeProvider, routes) {
+  $routeProvider.when(routes.aceOfCoders, {
+    template: '<ace stats="$resolve.stats"></ace>',
+    resolve: {
+      // ngRoute will wait for the promise aceStats to resolve before assigning
+      // it to $resolve.stats. Once, it's resolved, the template will be run.
+      stats: ['aceStats', aceStats => aceStats()]
+    }
+  });
+}
+
+configRoute.$inject = ['$routeProvider', 'routes'];
+
+export const ACE_STATS_URL = 'https://dl.dropboxusercontent.com/u/4972572/ace_of_coders_stats.json';
+
+/**
+ * aceStats factory
+ *
+ * return the aceStats function.
+ *
+ * @param  {$http}    $http
+ * @return {function}
+ */
+export function factory($http, aceStatsUrl) {
+
+  /**
+   * aceStats service
+   *
+   * Resolve to the Ace stats
+   *
+   * @return {Promise}
+   */
+  return function aceStats() {
+    return $http.get(aceStatsUrl).then(
+      response => response.data
+    );
+  };
+}
+
+factory.$inject = ['$http', 'aceStatsUrl'];
+

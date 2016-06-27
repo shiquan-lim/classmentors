@@ -7,16 +7,18 @@
 </head>
 <body ng-controller="MCQController as MQC">
 <div class="container-fluid">
-    <div class="well well-lg" ng-repeat="q in questions">
-        <h3>{{q.question}}</h3>
+    <div class="row">
+        <div class="well well-lg" ng-repeat="q in questions">
+            <h3>{{q.question}}</h3>
 
-        <div class={{applyClass(q.type)}} ng-repeat="option in q.options">
+            <div class={{applyClass(q.type)}} ng-repeat="option in q.options">
 
-            <label>
+                <label>
 
-                <input type={{applyClass(q.type)}} name="optionsRadios" id="{{$index}}" value="option1" checked>
-                {{option}}
-            </label>
+                    <input type={{applyClass(q.type)}} name="options" id="{{$index}}">
+                    {{option}}
+                </label>
+            </div>
         </div>
     </div>
 </div>
@@ -29,11 +31,11 @@
 <!-- <script/> tags added last for better performance-->
 <!-- Angular etc dependencies must be added first before mcq.js -->
 <script type="text/javascript" src="../lib/angular/angular.js"></script>
-<script src="../lib/firebase/firebase.js"></script>
+<script type="text/javascript" src="../lib/firebase/firebase.js"></script>
 <script type="text/javascript" src="../lib/angularfire/dist/angularfire.js"></script>
 <script type="text/javascript" src="../lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<!-- To be safe, always place the 'app' js file as the last one to be loaded. -->
+
 <script type="text/javascript" src="mcq.js"></script>
 
 </body>

@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular';
 import {classMentors} from '../module.js';
 
@@ -17,7 +15,7 @@ classMentors.factory('clmService', [
       this.serviceId = serviceId;
       this.userId = userId;
       this.owner = ownerPublicId;
-      this.message = 'This account is already registered with ' + ownerPublicId;
+      this.message = `This account is already registered with ${ownerPublicId}`;
     }
 
     UserIdTakenError.prototype = Object.create(Error.prototype);
@@ -64,9 +62,9 @@ classMentors.factory('clmService', [
             profile.services[serviceId].badges
           ) {
             return profile.services[serviceId].badges;
-          } else {
-            return {};
           }
+
+          return {};
         },
 
         /**
@@ -106,7 +104,7 @@ classMentors.factory('clmService', [
 
           if (!details || !details.id) {
             return $q.reject(new Error(
-              'The user details for ' + serviceId + ' should include an id.'
+              `The user details for ${serviceId} should include an id.`
             ));
           }
 
@@ -120,7 +118,7 @@ classMentors.factory('clmService', [
               }
 
               if (obj.$value === publicId) {
-                $log.error('Claiming user id reported failed but seems to be rightly set: ' + err);
+                $log.error(`Claiming user id reported failed but seems to be rightly set: ${err}`);
                 return;
               }
 
@@ -141,7 +139,7 @@ classMentors.factory('clmService', [
             if (err.constructor === UserIdTakenError) {
               return $q.reject(err);
             }
-            return $q.reject(new Error('Failed to save your details for ' + serviceId));
+            return $q.reject(new Error(`Failed to save your details for ${serviceId}`));
           });
         },
 
@@ -232,7 +230,7 @@ classMentors.factory('clmService', [
           }).then(function(newBadges) {
             var patchRoot = ['classMentors/userProfiles', profile.$id, 'services', serviceId];
             var patch = newBadges.reduce(function(patch, badge) {
-              patch['badges/' + badge.id] = badge;
+              patch[`badges/${badge.id}`] = badge;
               return patch;
             }, {lastUpdate: {'.sv': 'timestamp'}});
 
@@ -333,11 +331,9 @@ classMentors.factory('clmDataStore', [
             this.joinedEvents[obj.$id]
           ) {
             return true;
-          } else {
-            return false;
           }
 
-          return; //undefined for other kind
+          return false;
         }
       }),
 
@@ -444,7 +440,7 @@ classMentors.factory('clmDataStore', [
               limitToLast: 50
             });
           }).catch(function(err) {
-            $log.error('Failed to list created events: ' + err);
+            $log.error(`Failed to list created events: ${err}`);
             return [];
           });
         },
@@ -460,7 +456,7 @@ classMentors.factory('clmDataStore', [
               limitToLast: 50
             });
           }).catch(function(err) {
-            $log.error('Failed to list created events: ' + err);
+            $log.error(`Failed to list created events: ${err}`);
             return [];
           });
         },
@@ -543,7 +539,7 @@ classMentors.factory('clmDataStore', [
                   return all;
                 }
 
-                schoolId = participant.user.school.type + '/' + participant.user.school.name;
+                schoolId = `${participant.user.school.type}/${participant.user.school.name}`;
                 if (!all[schoolId]) {
                   all[schoolId] = [];
                 }
@@ -783,15 +779,15 @@ classMentors.factory('clmDataStore', [
           }
 
           if (serviceId === 'singPath') {
-            return !!spfProfile;
-          } else {
-            return (
-              clmProfile.services &&
-              clmProfile.services[serviceId] &&
-              clmProfile.services[serviceId].details &&
-              clmProfile.services[serviceId].details.id
-            );
+            return Boolean(spfProfile);
           }
+
+          return (
+            clmProfile.services &&
+            clmProfile.services[serviceId] &&
+            clmProfile.services[serviceId].details &&
+            clmProfile.services[serviceId].details.id
+          );
         },
 
         _hasBadge: function(task, badges) {
@@ -936,7 +932,7 @@ classMentors.factory('clmDataStore', [
                 event, tasks, solutions, participant.$id, progress[participant.$id]
               );
             });
-            
+
           }
 
           function debouncedUpdate() {
@@ -1014,7 +1010,7 @@ classMentors.factory('clmDataStore', [
               })
             ]);
           }).catch(function(err) {
-            $log.error('Failed to update progress of ' + publicId + ': ' + err.toString());
+            $log.error(`Failed to update progress of ${publicId}: ${err.toString()}`);
           });
         },
 
@@ -1030,7 +1026,7 @@ classMentors.factory('clmDataStore', [
           }
 
           function solvedTask(task, solutions) {
-            return !!(solutions[task.$id]);
+            return Boolean(solutions[task.$id]);
           }
 
           return $q.all({
@@ -1068,7 +1064,7 @@ classMentors.factory('clmDataStore', [
 
             return updatedTasks;
           }).catch(function(err) {
-            $log.error('Failed to update profile and soltuions of ' + profile.$id + ': ' + err.toString());
+            $log.error(`Failed to update profile and soltuions of ${profile.$id}: { err.toString()}`);
           });
         },
 
@@ -1124,13 +1120,13 @@ classMentors.factory('clmDataStore', [
            */
           fetchBadges: function(profile) {
             var details = clmDataStore.services.codeCombat.details(profile);
-            //2016 Stop badges from being fetched via backend url. 
+            // 2016 Stop badges from being fetched via backend url.
             return $q.when([]);
             /*
             if (!details) {
               return $q.when([]);
             }
-            
+
             return $q.all({
               ccProfile: clmDataStore.services.codeCombat.fetchProfile(details.id),
               badges: clmDataStore.services.codeCombat.availableBadges()
@@ -1174,7 +1170,7 @@ classMentors.factory('clmDataStore', [
                 name: resp.data.name
               };
             }, function(e) {
-              $log.error('Failed request to //codecombat.com/auth/whoami: ' + e.toString());
+              $log.error(`Failed request to //codecombat.com/auth/whoami: ${e.toString()}`);
               return $q.reject(clmDataStore.services.codeCombat.errServerError);
             });
           },
@@ -1195,7 +1191,7 @@ classMentors.factory('clmDataStore', [
               var port = $location.port();
 
               if (port !== 80) {
-                cbUrl.push(':' + port);
+                cbUrl.push(`:${port}`);
               }
 
               $window.location.replace([
@@ -1228,7 +1224,7 @@ classMentors.factory('clmDataStore', [
 
               return $http.get([
                 clmServicesUrl.backend,
-                'proxy/codecombat.com/db/user', encodedName , 'nameToID'
+                'proxy/codecombat.com/db/user', encodedName, 'nameToID'
               ].join('/')).then(function(resp) {
                 return {
                   auth: authData,
@@ -1238,14 +1234,12 @@ classMentors.factory('clmDataStore', [
             }).catch(function(err) {
               $log.error(err);
               return $q.reject(new Error(
-                'We failed to look up your Code Combat user id (user name ' +
-                userName + ').'
+                `We failed to look up your Code Combat user id (user name ${userName}).`
               ));
             }).then(function(data) {
               if (!data.userId) {
                 return $q.reject(new Error(
-                  'We failed to lookup your Code Combat user id (user name ' +
-                  userName + ').'
+                  `We failed to look up your Code Combat user id (user name ${userName}).`
                 ));
               }
 
@@ -1270,14 +1264,12 @@ classMentors.factory('clmDataStore', [
               $log.error(clmDataStore.services.codeSchool.errNoBadgeUrl);
               return;
             } else if (url.startsWith('http://www.codeschool.com/courses/')) {
-              id = url.slice(34) + '-' + name;
+              id = `${url.slice(34)}-${name}`;
             } else if (url.startsWith('https://www.codeschool.com/courses/')) {
-              id = url.slice(35) + '-' + name;
+              id = `${url.slice(35)}-${name}`;
             } else {
               $log.error(new Error(
-                'A code school badge URL should start with ' +
-                '"http://www.codeschool.com/courses/" (' +
-                url + ').'
+                `A code school badge URL should start with "http://www.codeschool.com/courses/" (${url}).`
               ));
               return;
             }
@@ -1286,9 +1278,9 @@ classMentors.factory('clmDataStore', [
           },
 
           fetchProfile: function(userId) {
-            // 2016 skip fetching profiles from backend url. 
+            // 2016 skip fetching profiles from backend url.
             return $q.when([]);
-            
+
             /*
             if (!userId) {
               return $q.reject(clmDataStore.services.codeSchool.errNoUserId);
@@ -1315,24 +1307,24 @@ classMentors.factory('clmDataStore', [
               var badges = csProfile.badges || [];
 
               return badges.map(function(badge) {
-                //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+                // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
                 var badgeId = clmDataStore.services.codeSchool._badgeId(badge.course_url, badge.name);
 
                 if (badgeId == null) {
-                  return;
+                  return undefined;
                 }
 
                 return {
-                  'id': badgeId,
-                  'name': badge.name,
-                  'url': badge.course_url,
-                  'iconUrl': badge.badge
+                  id: badgeId,
+                  name: badge.name,
+                  url: badge.course_url,
+                  iconUrl: badge.badge
                 };
               }).filter(function(badge) {
                 return badge !== undefined;
               });
             }).catch(function(err) {
-              $log.error('Failed to fetch code school badges for ' + profile.$id);
+              $log.error(`Failed to fetch code school badges for ${profile.$id}`);
               $log.error(err);
               return [];
             });

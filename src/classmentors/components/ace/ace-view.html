@@ -4,8 +4,8 @@
 		<p>Click here to register and participate in the online portions of the <a href="http://www.classmentors.com/#/events/-Jqh4lFKnAQ3ACi3Crk6">junior</a> 
 		or <a href="http://www.classmentors.com/#/events/-Jqh51g1CR4E00gg3mFl">senior</a> categories. You will need to login with a Google ID and the click on the "Join" button. 
 		<p>There will be lucky draw prizes for online participants who do not qualify to attend the live event. Online qualfication will end on August 26th at 12pm.</p>
-		<p><b>{{ctrl.stats.total_participants}}</b> students have registered so far.</p>
-		<p><b>{{ctrl.stats.total_schools}}</b> schools are participating.</p>
+		<p><b>{{$ctrl.stats.total_participants}}</b> students have registered so far.</p>
+		<p><b>{{$ctrl.stats.total_schools}}</b> schools are participating.</p>
 		<p>If you see a school missing in the rankings below, please encoruage them to participate.</p>
 		<p>You can visit the <a href="http://www.infocommtalent.sg/nic4.aspx">IDA website</a> for more details or visit the <a href="https://www.facebook.com/aceofcoders">Ace of Coders Facebook page</a> to leave comments, questions, and join the conversation.</p>
 		
@@ -13,7 +13,7 @@
    
 	<md-toolbar md-scroll-shrink>
 		<div class="md-toolbar-tools">
-			<h3><span>{{ctrl.stats.junior_schools}} Participating Junior Category Schools</span></h3>
+			<h3><span>{{$ctrl.stats.junior_schools}} Participating Junior Category Schools</span></h3>
 		</div>
 	</md-toolbar>
 	<md-content class="md-padding">
@@ -25,7 +25,7 @@
 				<th>School</th>
 				<th>Second ranked student from school</th> 
 			</tr>
-			<tr ng-repeat="school in ctrl.stats.junior_ranking" bgcolor="{{$index==9?'lightgreen':'white'}}">
+			<tr ng-repeat="school in $ctrl.stats.junior_ranking" bgcolor="{{$index==9?'lightgreen':'white'}}">
 				<td>{{$index+1}}</td>				
 				<td>{{school.total}}</td>
 				<td>{{school.school}}</td>
@@ -38,7 +38,7 @@
 
 	<md-toolbar md-scroll-shrink>
 		<div class="md-toolbar-tools">
-			<h3><span>{{ctrl.stats.senior_ranking.length}} Participating Senior Category Schools</span></h3>
+			<h3><span>{{$ctrl.stats.senior_ranking.length}} Participating Senior Category Schools</span></h3>
 		</div>
 	</md-toolbar>
 	<md-content class="md-padding">
@@ -50,7 +50,7 @@
 				<th>School</th>
 				<th>Second ranked student from school</th> 
 			</tr>
-			<tr ng-repeat="school in ctrl.stats.senior_ranking"  bgcolor="{{$index==9?'lightgreen':'white'}}">
+			<tr ng-repeat="school in $ctrl.stats.senior_ranking"  bgcolor="{{$index==9?'lightgreen':'white'}}">
 				<td>{{$index+1}}</td>
 				<td>{{school.total}}</td>
 				<td>{{school.school}}</td>
@@ -71,7 +71,7 @@
 				<th>Registered Students</th> 
 				<th>School</th>
 			</tr>
-			<tr ng-repeat="school in ctrl.stats.juniorSchoolRanking | limitTo:5">
+			<tr ng-repeat="school in $ctrl.stats.juniorSchoolRanking | limitTo:5">
 				<td>{{school.total}}</td>
 				<td>{{school.school}}</td>				
 			</tr>
@@ -89,7 +89,7 @@
 				<th>Registered Students</th> 
 				<th>School</th>
 			</tr>
-			<tr ng-repeat="school in ctrl.stats.seniorSchoolRanking | limitTo:5">
+			<tr ng-repeat="school in $ctrl.stats.seniorSchoolRanking | limitTo:5">
 				<td>{{school.total}}</td>
 				<td>{{school.school}}</td>				
 			</tr>
