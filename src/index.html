@@ -9,19 +9,17 @@
     <script src="jspm_packages/system.js"></script>
     <script src="jspm.config.js"></script>
 
-		<script>
-			window.SINGPATH = {
-				firebaseId: 'singpath-play',
-        singpathURL: 'https://localhost:8080/',
-        backendURL: 'https://localhost:8081/'
-			};
+    <script>
+      System.import('classmentors').then(function(classmentors) {
+        classmentors.bootstrap({
+          firebaseId: 'singpath-play',
+          singpathURL: 'https://localhost:8080/',
+          backendURL: 'https://localhost:8081/'
+        });
+      }).catch(function(err) {
+        console.error(err);
+      });
+    </script>
 
-      System.import(
-        './app.js'
-      ).catch(
-        console.error.bind(console)
-      );
-		</script>
-  
   </body>
 </html>

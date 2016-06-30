@@ -2,7 +2,7 @@
 
 import angular from 'angular';
 
-import {classMentors} from '../../module.js';
+import module from 'classmentors/module.js';
 
 import editTmpl from './events-view-event-edit.html!text';
 import eventTableParticipantsTmpl from './events-view-event-table-participants.html!text';
@@ -17,7 +17,7 @@ import linkTmpl from './events-view-provide-link.html!text';
 import responseTmpl from './events-view-provide-response.html!text';
 import './events.css!';
 
-classMentors.config([
+module.config([
   '$routeProvider',
   'routes',
   function($routeProvider, routes) {
@@ -112,7 +112,7 @@ classMentors.config([
  * Used to resolve `initialData` of `ClmListEvent`.
  *
  */
-classMentors.factory('clmListEventResolver', [
+module.factory('clmListEventResolver', [
   '$q',
   'spfAuth',
   'spfAuthData',
@@ -137,7 +137,7 @@ classMentors.factory('clmListEventResolver', [
  * ClmListEvent
  *
  */
-classMentors.controller('ClmListEvent', [
+module.controller('ClmListEvent', [
   'initialData',
   'spfNavBarService',
   'urlFor',
@@ -171,7 +171,7 @@ classMentors.controller('ClmListEvent', [
  * Used to resolve `initialData` of `NewEventCtrl`.
  *
  */
-classMentors.factory('newEventCtrlInitialData', [
+module.factory('newEventCtrlInitialData', [
   '$q',
   'spfAuth',
   'spfAuthData',
@@ -217,7 +217,7 @@ classMentors.factory('newEventCtrlInitialData', [
  * NewEventCtrl
  *
  */
-classMentors.controller('NewEventCtrl', [
+module.controller('NewEventCtrl', [
   '$q',
   '$location',
   'initialData',
@@ -319,7 +319,7 @@ classMentors.controller('NewEventCtrl', [
  * Used to resolve `initialData` of `ViewEventCtrl`.
  *
  */
-classMentors.factory('viewEventCtrlInitialData', [
+module.factory('viewEventCtrlInitialData', [
   '$q',
   '$route',
   'spfAuth',
@@ -380,7 +380,7 @@ classMentors.factory('viewEventCtrlInitialData', [
  * ViewEventCtrl
  *
  */
-classMentors.controller('ViewEventCtrl', [
+module.controller('ViewEventCtrl', [
   '$scope',
   'initialData',
   '$document',
@@ -577,7 +577,7 @@ classMentors.controller('ViewEventCtrl', [
  * is not the owner of the event.
  *
  */
-classMentors.factory('baseEditCtrlInitialData', [
+module.factory('baseEditCtrlInitialData', [
   '$q',
   '$route',
   'spfAuthData',
@@ -625,7 +625,7 @@ classMentors.factory('baseEditCtrlInitialData', [
  * Used to resolve `initialData` for `EditCtrl`
  *
  */
-classMentors.factory('editEventCtrllInitialData', [
+module.factory('editEventCtrllInitialData', [
   '$q',
   'baseEditCtrlInitialData',
   'clmDataStore',
@@ -646,7 +646,7 @@ classMentors.factory('editEventCtrllInitialData', [
  * EditEventCtrl
  *
  */
-classMentors.controller('EditEventCtrl', [
+module.controller('EditEventCtrl', [
   'initialData',
   'spfNavBarService',
   'urlFor',
@@ -733,7 +733,7 @@ classMentors.controller('EditEventCtrl', [
   }
 ]);
 
-classMentors.factory('addEventTaskCtrlInitialData', [
+module.factory('addEventTaskCtrlInitialData', [
   '$q',
   'baseEditCtrlInitialData',
   'clmDataStore',
@@ -756,7 +756,7 @@ classMentors.factory('addEventTaskCtrlInitialData', [
  * AddEventTaskCtrl
  *
  */
-classMentors.controller('AddEventTaskCtrl', [
+module.controller('AddEventTaskCtrl', [
   'initialData',
   '$location',
   '$log',
@@ -844,7 +844,7 @@ classMentors.controller('AddEventTaskCtrl', [
  * Used to resolve `initialData` of `EditEventTaskCtrl`.
  *
  */
-classMentors.factory('editEventTaskCtrlInitialData', [
+module.factory('editEventTaskCtrlInitialData', [
   '$q',
   '$route',
   'spfAuthData',
@@ -901,7 +901,7 @@ classMentors.factory('editEventTaskCtrlInitialData', [
  * EditEventTaskCtrl
  *
  */
-classMentors.controller('EditEventTaskCtrl', [
+module.controller('EditEventTaskCtrl', [
   'initialData',
   'spfAlert',
   'urlFor',
@@ -1001,7 +1001,7 @@ classMentors.controller('EditEventTaskCtrl', [
  * Show event tasks and participants progress in a paged table.
  *
  */
-classMentors.directive('clmEventTable', [
+module.directive('clmEventTable', [
   function clmEventTableFactory() {
     return {
       template: eventTableParticipantsTmpl,
@@ -1021,7 +1021,7 @@ classMentors.directive('clmEventTable', [
   }
 ]);
 
-classMentors.controller('ClmEventTableCtrl', [
+module.controller('ClmEventTableCtrl', [
   '$scope',
   '$q',
   '$log',
@@ -1488,7 +1488,7 @@ classMentors.controller('ClmEventTableCtrl', [
   }
 ]);
 
-classMentors.directive('clmEventRankTable', [
+module.directive('clmEventRankTable', [
   function clmEventRankTableFactory() {
     return {
       template: eventTableRankTmpl,
@@ -1504,7 +1504,7 @@ classMentors.directive('clmEventRankTable', [
   }
 ]);
 
-classMentors.controller('ClmEventRankTableCtrl', [
+module.controller('ClmEventRankTableCtrl', [
   '$scope',
   '$log',
   'spfFirebase',
@@ -1842,7 +1842,7 @@ classMentors.controller('ClmEventRankTableCtrl', [
   }
 ]);
 
-classMentors.directive('clmPager', [
+module.directive('clmPager', [
   function clmPagerFactory() {
     return {
       template: pagerTmpl,
@@ -1858,7 +1858,7 @@ classMentors.directive('clmPager', [
 ]);
 
 // Keep row per page selection acrossviews.
-classMentors.factory('clmRowPerPage', [
+module.factory('clmRowPerPage', [
   '$log',
   function clmRowPerPageFactory($log) {
     var cb = [];
@@ -1909,7 +1909,7 @@ classMentors.factory('clmRowPerPage', [
   }
 ]);
 
-classMentors.factory('clmPagerOption', [
+module.factory('clmPagerOption', [
   '$log',
   'clmRowPerPage',
   function clmPagerOptionFactory($log, clmRowPerPage) {
@@ -2016,7 +2016,7 @@ classMentors.factory('clmPagerOption', [
   }
 ]);
 
-classMentors.controller('ClmPagerCtrl', [
+module.controller('ClmPagerCtrl', [
   'clmRowPerPage',
   function ClmPagerCtrl(clmRowPerPage) {
     this.rowPerPage = clmRowPerPage;

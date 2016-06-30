@@ -1,6 +1,6 @@
 'use strict';
 
-import {classMentors} from '../module.js';
+import module from 'classmentors/module.js';
 
 /**
  * Label paths - to be used by each component to configure their route.
@@ -8,7 +8,7 @@ import {classMentors} from '../module.js';
  * See src/app/components/events for example.
  *
  */
-classMentors.constant('routes', {
+module.constant('routes', {
   // home: '/events',
   home: '/profile/',
   aceOfCoders: '/ace-of-coders',

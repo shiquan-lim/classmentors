@@ -1,7 +1,7 @@
 import angular from 'angular';
-import {classMentors} from '../module.js';
+import module from 'classmentors/module.js';
 
-classMentors.factory('clmService', [
+module.factory('clmService', [
   '$q',
   '$log',
   'spfFirebase',
@@ -291,7 +291,7 @@ classMentors.factory('clmService', [
  * Service to interact with singpath firebase db
  *
  */
-classMentors.factory('clmDataStore', [
+module.factory('clmDataStore', [
   '$window',
   '$location',
   '$q',

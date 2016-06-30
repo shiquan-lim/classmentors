@@ -263,6 +263,7 @@ SystemJS.config({
     "ace": "github:ajaxorg/ace-builds@1.2.3",
     "angular": "github:angular/bower-angular@1.5.7",
     "angular-animate": "github:angular/bower-angular-animate@1.5.7",
+    "angular-aria": "github:angular/bower-angular-aria@1.5.7",
     "angular-loading-bar": "github:chieffancypants/angular-loading-bar@0.8.0",
     "angular-material": "github:angular/bower-material@1.0.9",
     "angular-messages": "github:angular/bower-angular-messages@1.5.7",
@@ -279,7 +280,7 @@ SystemJS.config({
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
     "process": "github:jspm/nodelibs-process@0.2.0-alpha",
-    "singpath-core": "github:singpath/singpath-core@0.3.2",
+    "singpath-core": "github:singpath/singpath-core@0.4.0",
     "sinon": "npm:sinon@1.17.4",
     "sinon-chai": "npm:sinon-chai@2.8.0",
     "text": "github:systemjs/plugin-text@0.0.8",
@@ -339,14 +340,7 @@ SystemJS.config({
     },
     "github:jspm/nodelibs-buffer@0.2.0-alpha": {
       "map": {
-        "buffer-browserify": "npm:buffer@4.6.0"
-      }
-    },
-    "npm:buffer@4.6.0": {
-      "map": {
-        "isarray": "npm:isarray@1.0.0",
-        "ieee754": "npm:ieee754@1.1.6",
-        "base64-js": "npm:base64-js@1.1.2"
+        "buffer-browserify": "npm:buffer@4.7.0"
       }
     },
     "github:angular/bower-angular-aria@1.5.7": {
@@ -367,6 +361,13 @@ SystemJS.config({
     "github:angular/bower-angular-route@1.5.7": {
       "map": {
         "angular": "github:angular/bower-angular@1.5.7"
+      }
+    },
+    "npm:buffer@4.7.0": {
+      "map": {
+        "ieee754": "npm:ieee754@1.1.6",
+        "isarray": "npm:isarray@1.0.0",
+        "base64-js": "npm:base64-js@1.1.2"
       }
     }
   }

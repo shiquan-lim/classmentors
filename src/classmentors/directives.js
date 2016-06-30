@@ -1,13 +1,13 @@
 'use strict';
 
-import {classMentors} from './module.js';
+import module from 'classmentors/module.js';
 
 /**
  * Validate that an input value contains a pattern.
  *
  * TODO: replace with ngPattern?
  */
-classMentors.directive('cmContains', [
+module.directive('cmContains', [
   function cmContainsFactory() {
     return {
       restrict: 'A',

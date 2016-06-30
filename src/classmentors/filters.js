@@ -1,8 +1,8 @@
 'use strict';
 
-import {classMentors} from './module.js';
+import module from 'classmentors/module.js';
 
-classMentors.filter('cmTruncate', [
+module.filter('cmTruncate', [
   function cmTruncateFilter() {
     return function cmTruncate(s, limit) {
       if (!s || !s.length || !limit) {

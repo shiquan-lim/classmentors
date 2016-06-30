@@ -6,13 +6,25 @@
   <body>
     <classmentors layout="row"></classmentors>
 
-		<script>
-			window.SINGPATH = {
-				firebaseId: 'singpath',
-        singpathURL: 'http://www.singpath.com/',
-        backendURL: 'http://backend.singpath.com/'
-			};
-		</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-aria.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.min.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.min.js"></script>
+
+    <script src="//cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angularFire/1.1.4/angularfire.min.js"></script>
+
     <script src="app.js"></script>
+		<script>
+      classmentors.bootstrap({
+        firebaseId: 'singpath',
+        singpathURL: 'http://www.singpath.com',
+        backendURL: 'http://api.singpath.com'
+      });
+		</script>
   </body>
 </html>

@@ -10,7 +10,7 @@ import 'angular-messages';
 import 'angular-route';
 import {spfShared} from 'singpath-core';
 
-export const classMentors = angular.module('clm', [
+const classMentors = angular.module('clm', [
   'angular-loading-bar',
   'firebase',
   'ngAnimate',
@@ -25,3 +25,5 @@ classMentors.value('clmServicesUrl', {
   codeCombat: 'https://codecombat.com',
   codeSchool: 'https://www.codeschool.com'
 });
+
+export default classMentors;

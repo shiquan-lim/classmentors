@@ -6,7 +6,7 @@ NODE_ENV=production
 
 
 # Build variables.
-# THEY SHOULD BE SET VIA NPM RUN.
+# SOME SHOULD BE SET VIA NPM RUN.
 if [[ -z "$npm_package_config_build_dir" ]]; then
 	>&2 echo "npm_package_config_build_dir is not set"
 	exit 1
@@ -28,10 +28,22 @@ else
 	APP_NAME=$npm_package_name
 fi
 
-BUILD_DEST=${BUILD_DIR}${APP_NAME}
+if [[ -z "$npm_package_exportAs" ]]; then
+	>&2 echo "npm_package_exportAs is not set"
+	exit 4
+else
+	GLOBAL_NAME=$npm_package_exportAs
+fi
 
 
-echo "Setting up ${BUILD_DEST}..."
+BUILD_DEST="${BUILD_DIR}${APP_NAME}"
+SOURCE=$APP_NAME
+INDEX="${BUILD_DEST}/index.html"
+OUTPUT_MIN="${BUILD_DEST}/app.js"
+OUTPUT_TREE="${BUILD_DEST}/tree.html"
+
+
+echo 'Setting up "'${BUILD_DEST}'"...'
 if [[ -d "$BUILD_DIR" ]]; then
 	rm -rf $BUILD_DIR
 fi
@@ -40,23 +52,49 @@ mkdir -p $BUILD_DEST
 cp -r ${BUILD_ASSETS_DIR}/* $BUILD_DEST
 
 
-echo "Building app bundle..."
-jspm depcache app.js
-jspm build app.js ${BUILD_DEST}/app.js --minify --skip-source-maps
+echo 'Building "'$SOURCE'" bundle in "'$OUTPUT_MIN'"...'
+echo 'The app is exported as "'$GLOBAL_NAME'"'
+jspm build \
+	$SOURCE - angular - angular-route - angular-messages - angular-aria - angular-animate - angular-material - firebase - angularfire \
+	$OUTPUT_MIN \
+	--format umd --minify \
+	--global-name $GLOBAL_NAME \
+	--global-deps "{\
+		'angular/angular.js': 'angular',\
+		'angular-route/angular-route.js': 'angular',\
+		'angular-messages/angular-messages.js': 'angular',\
+		'angular-aria/angular-aria.js': 'angular',\
+		'angular-animate/angular-animate.js': 'angular',\
+		'angular-material/angular-material.js': 'angular',\
+		'firebase/firebase.js': 'Firebase',\
+		'angularfire/dist/angularfire.js': 'angular'\
+	}"
 
-# Append hash to app.js
+
+echo 'Removing source map directive from "'${OUTPUT_MIN}'"...'
+sed '$ d' ${OUTPUT_MIN} > "${OUTPUT_MIN}.temp"
+mv "${OUTPUT_MIN}.temp" ${OUTPUT_MIN}
+
+
+echo 'Building tree dependency in "'${OUTPUT_TREE}'"...'
+source-map-explorer --html "$OUTPUT_MIN"{,.map} > "$OUTPUT_TREE"
+
+
+echo 'Calculating bundle content hash...'
 APP_HASH=$(shasum dist/${APP_NAME}/app.js | cut -c 1-8)
-sed -i.bak 's/app\.js/app.'${APP_HASH}'.js/g' ${BUILD_DEST}/index.html
-mv ${BUILD_DEST}/app.js ${BUILD_DEST}/app.${APP_HASH}.js
+OUTPUT_MIN_WITH_HASH="${BUILD_DEST}/app.${APP_HASH}.js"
 
-# Remove sed backup file(s)
-rm ${BUILD_DEST}/*.bak
 
-echo "Copying Ace editor assets..."
-cp src/jspm_packages/github/ajaxorg/ace-builds@*/worker-html.js       ${BUILD_DEST}/worker-html.js
-cp src/jspm_packages/github/ajaxorg/ace-builds@*/worker-javascript.js ${BUILD_DEST}/worker-javascript.js
+echo 'Renaming "'$OUTPUT_MIN'" to "'$OUTPUT_MIN_WITH_HASH'"...'
+mv $OUTPUT_MIN $OUTPUT_MIN_WITH_HASH
 
-echo "Creating archive..."
+
+echo 'Replacing reference to "'$OUTPUT_MIN'" for "'$OUTPUT_MIN_WITH_HASH'"...'
+sed 's/app\.js/app.'${APP_HASH}'.js/g' $INDEX > "${INDEX}.temp"
+mv "${INDEX}.temp" $INDEX
+
+
+echo 'Creating archive in "'$BUILD_DIR'/'${APP_NAME}'.zip"...'
 cd $BUILD_DIR
-zip -r ${APP_NAME}.zip $APP_NAME
+zip -r "${APP_NAME}.zip" $APP_NAME
 cd $__PWD

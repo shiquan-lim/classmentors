@@ -6,11 +6,15 @@ DEST=_tests
 BUNDLE="${DEST}/bundle.js"
 
 cleanup() {
+	echo 'Removing "'${DEST}/'"...'
 	rm -rf "${DEST}/"
 }
 
 trap cleanup EXIT
 mkdir -p "${DEST}/"
 
-jspm build tests.js "${BUNDLE}"
+echo 'Building test bumdle at "'${BUNDLE}'"...'
+jspm build tests.js "$BUNDLE" --format cjs --skip-rollup
+
+echo 'Running tests with mocha...'
 mocha --require source-map-support/register "${BUNDLE}"
