@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Multiple Choice Questions</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="../lib/angular-material/angular-material.min.css"/>
 </head>
 <style>
@@ -13,73 +14,73 @@
 </style>
 <body ng-controller="MCQController as MQC" layout="row">
 <!--<div class="container-fluid">-->
-    <div layout="column">
-        <md-sidenav  class="md-whiteframe-4dp" md-is-locked-open="true">
-            <md-toolbar style="background-color: #8B563B; height: 88px " >
-                <h3><label style="position:relative; left:20px; color: whitesmoke">Class Mentors</label></h3>
-            </md-toolbar>
-            <md-list>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-src="../lib/images/svg/boy-8.svg" style="width: 90px; height: 90px; position: relative" class="avatar"></md-icon>
-                        <br>
-                        Amos
-                    </md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-src="../lib/images/svg/boy-14.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
-                        <br>
-                        Gideon
-                    </md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-src="../lib/images/svg/boy-1.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
-                        <br>
-                        Kuan Yong
-                    </md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-src="../lib/images/svg/girl-15.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
-                        <br>
-                        Sheryl
-                    </md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-src="../lib/images/svg/boy-2.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
-                        <br>
-                        Shi Quan
-                    </md-button>
-                </md-list-item>
-            </md-list>
-        </md-sidenav>
-    </div>
-    <div layout="column" layout-align="top left" flex>
-        <md-toolbar style="background-color: #633D39;">
-            <div layout="row">
-                <h3><label align="left" style="color: whitesmoke; position: relative; left:20px">Events</label></h3>
-            <div flex="grow"> </div>
-                <md-button class="md-raised" layout-align="right">Login</md-button>
-            </div>
+<div layout="column">
+    <md-sidenav  class="md-whiteframe-4dp" md-is-locked-open="true">
+        <md-toolbar style="background-color: #8B563B; height: 88px " >
+            <h3><label style="position:relative; left:20px; color: whitesmoke">Class Mentors</label></h3>
         </md-toolbar>
-        <div  style="margin-left: 0px;">
-            <div class="well well-lg" ng-repeat="q in questions">
-                <h3>{{q.question}}</h3>
+        <md-list>
+            <md-list-item>
+                <md-button>
+                    <md-icon md-svg-src="../lib/images/svg/boy-8.svg" style="width: 90px; height: 90px; position: relative" class="avatar"></md-icon>
+                    <br>
+                    Amos
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button>
+                    <md-icon md-svg-src="../lib/images/svg/boy-14.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
+                    <br>
+                    Gideon
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button>
+                    <md-icon md-svg-src="../lib/images/svg/boy-1.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
+                    <br>
+                    Kuan Yong
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button>
+                    <md-icon md-svg-src="../lib/images/svg/girl-15.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
+                    <br>
+                    Sheryl
+                </md-button>
+            </md-list-item>
+            <md-list-item>
+                <md-button>
+                    <md-icon md-svg-src="../lib/images/svg/boy-2.svg" style="width: 90px; height: 90px" class="avatar"></md-icon>
+                    <br>
+                    Shi Quan
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+</div>
+<div layout="column" layout-align="top left" flex>
+    <md-toolbar style="background-color: #633D39;">
+        <div layout="row">
+            <h3><label align="left" style="color: whitesmoke; position: relative; left:20px">Events</label></h3>
+            <div flex="grow"> </div>
+            <md-button class="md-raised" layout-align="right">Login</md-button>
+        </div>
+    </md-toolbar>
+    <div  style="margin-left: 0px;">
+        <div class="well well-lg" ng-repeat="q in questions">
+            <h3>{{q.question}}</h3>
 
-                <div class={{applyClass(q.type)}} ng-repeat="option in q.options">
+            <div class={{applyClass(q.type)}} ng-repeat="option in q.options">
 
-                    <label>
+                <label>
 
-                        <input type={{applyClass(q.type)}} name="options" id="{{$index}}">
-                        {{option}}
-                    </label>
-                </div>
+                    <input type={{applyClass(q.type)}} name="options" id="{{$index}}">
+                    {{option}}
+                </label>
             </div>
         </div>
     </div>
+</div>
 
 <!-- IMPORTANT:
     1. When pushing developing, use un-minified version so that error messages will be easier to understand
@@ -93,12 +94,10 @@
 <script type="text/javascript" src="../lib/angularfire/dist/angularfire.js"></script>
 <script type="text/javascript" src="../lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-
 <script src="../lib/angular/angular.min.js"></script>
 <script src="../lib/angular-animate/angular-animate.js"></script>
 <script src="../lib/angular-aria/angular-aria.min.js"></script>
 <script src="../lib/angular-material/angular-material.min.js"></script>
-
 <script type="text/javascript" src="mcq.js"></script>
 
 </body>
