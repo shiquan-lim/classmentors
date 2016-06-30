@@ -1,6 +1,8 @@
 # Project specific files #
 ##########################
+node_modules/
 src/jspm_packages/
+dist/
 coverage/
 npm-debug.log
 worker/*.env
@@ -19,13 +21,3 @@ nbproject/*
 # Sublime
 *.sublime-project
 *.sublime-workspace
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db

@@ -25,7 +25,7 @@
 */
 
 
-var app = angular.module("MyApp", ["firebase"]);
+var app = angular.module("MyApp", ["firebase", "ngMaterial"]);
 app.controller("SampleCtrl", function($scope, $firebaseArray) {
   var newFireBase = new Firebase("https://project-1180774075744369732.firebaseio.com");
   var ref = newFireBase.ref().child('events').child('gidkytest').child('challenges').child('jeopardytest').child('questions');
