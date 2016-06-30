@@ -4,7 +4,6 @@
 (function(){
     var mcq = angular.module('mcq',['firebase', 'ngMaterial']);
 
-
     mcq.config(function () {
         var config = {
             apiKey: "AIzaSyCDxuAaiTyPmosBL6QLgR94yoRswMyZcIg",
