@@ -20,6 +20,5 @@ module.constant('routes', {
   addEventTask: '/events/:eventId/new-task',
   profile: '/profile/:publicId',
   editProfile: '/profile/',
-  setProfileCodeCombatId: '/profile/codeCombat',
-  cohort:'/cohort'
+  setProfileCodeCombatId: '/profile/codeCombat'
 });
