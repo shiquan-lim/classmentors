@@ -2,11 +2,7 @@
  * Created by AMOS on 18/6/16.
  */
 (function(){
-<<<<<<< HEAD
-    var mcq = angular.module('mcq',['firebase']);
-=======
     var mcq = angular.module('mcq',['firebase', 'ngMaterial']);
->>>>>>> origin/master
 
     mcq.config(function () {
         var config = {

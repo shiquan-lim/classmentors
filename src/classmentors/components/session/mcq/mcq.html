@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <title>Multiple Choice Questions</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" />
-<<<<<<< HEAD
-</head>
-<body ng-controller="MCQController as MQC">
-<div class="container-fluid">
-    <div class="row">
-=======
-    <link rel="stylesheet" href="../lib/angular-material/angular-material.min.css"/>
+
+    <!--<link rel="stylesheet" type="text/css" href="../bootstrap-3.3.6-dist/css/bootstrap.min.css" />-->
+
+    <link rel="stylesheet" href="/classmentors/src/jspm_packages/github/angular/bower-material@1.0.6/angular-material.min.css"/>
+
 </head>
 <style>
     .md-button.md-raised:not([disabled]) {
@@ -72,7 +70,6 @@
         </div>
     </md-toolbar>
     <div  style="margin-left: 0px;">
->>>>>>> origin/master
         <div class="well well-lg" ng-repeat="q in questions">
             <h3>{{q.question}}</h3>
 
@@ -95,20 +92,29 @@
  -->
 <!-- <script/> tags added last for better performance-->
 <!-- Angular etc dependencies must be added first before mcq.js -->
-<script type="text/javascript" src="../lib/angular/angular.js"></script>
-<script type="text/javascript" src="../lib/firebase/firebase.js"></script>
-<script type="text/javascript" src="../lib/angularfire/dist/angularfire.js"></script>
-<script type="text/javascript" src="../lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="../bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
-<<<<<<< HEAD
-=======
-<script src="../lib/angular/angular.min.js"></script>
-<script src="../lib/angular-animate/angular-animate.js"></script>
-<script src="../lib/angular-aria/angular-aria.min.js"></script>
-<script src="../lib/angular-material/angular-material.min.js"></script>
+<script type="text/javascript" src="/classmentors/src/jspm_packages/github/angular/angular.min.js"></script>
+<script type="text/javascript" src="/classmentors/src/jspm_packages/github/firebase/firebase-bower@2.4.1/firebase.js"></script>
+<script type="text/javascript" src="/classmentors/src/jspm_packages/github/firebase/angularfire@1.1.4/dist/angularfire.js"></script>
 
->>>>>>> origin/master
+<!--<script type="text/javascript" src="../lib/jquery/dist/jquery.min.js"></script>-->
+<!--<script type="text/javascript" src="../bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>-->
+
+<!--&lt;!&ndash; AngularJS &ndash;&gt;-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.1/angular.min.js"></script>-->
+
+<!--&lt;!&ndash; Firebase &ndash;&gt;-->
+<!--<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>-->
+
+<!--&lt;!&ndash; AngularFire &ndash;&gt;-->
+<!--<script src="https://cdn.firebase.com/libs/angularfire/1.1.4/angularfire.min.js"></script>-->
+
+
+<!--<script src="/classmentors/src/jspm_packages/github/angular/angular.min.js"></script>-->
+
+<script src="/classmentors/src/jspm_packages/github/angular/bower-angular-animate@1.5.1/angular-animate.js"></script>
+<script src="/classmentors/src/jspm_packages/github/angular/bower-angular-aria@1.5.1/angular-aria.min.js"></script>
+<script src="/classmentors/src/jspm_packages/github/angular/bower-material@1.0.6/angular-material.js"></script>
 <script type="text/javascript" src="mcq.js"></script>
 
 </body>
