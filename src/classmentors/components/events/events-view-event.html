@@ -56,12 +56,25 @@
                 </md-switch>
                 <md-input-container flex layout="column">
                     <md-select flex name="selectChallengeResult"
-                               ng-model="ctrl" required placeholder="Select a challenge to view results">
+                               ng-model="ctrl.selected" required placeholder="Select a challenge to view results">
                         <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="!task.archived || ctrl.viewArchived">
                                 {{task.title}}
                         </md-option>
                     </md-select>
                 </md-input-container>
+                <div>Selected challenge: {{ctrl.selected}}</br></br>
+
+                Event Answers: {{ctrl.solutions}}</div>
+                <clm-event-result-table
+                        ng-if="ctrl.selected"
+                        event="ctrl.event"
+                        participants="ctrl.participants"
+                        tasks="ctrl.tasks"
+                        progress="ctrl.progress"
+                        solutions="ctrl.solutions"
+                        profile="ctrl.profile"
+                >
+                </clm-event-result-table>
             </md-content>
         </md-tab>
     </md-tabs>
