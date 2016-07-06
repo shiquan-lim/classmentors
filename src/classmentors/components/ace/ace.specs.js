@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import sinon from 'sinon';
 
 import tmpl from './2015-ace-view.html!text';
-import {component, factory, ACE_STATS_URL} from './ace.js';
+import {component, getStats, ACE_STATS_URL} from './ace.js';
 
 describe('ace component', function() {
 
@@ -39,19 +39,18 @@ describe('aceStatsUrl constant', function() {
 
 });
 
-describe('aceStats service', function() {
+describe('getStats resolver helper', function() {
   const aceStatsUrl = 'http://ace.stats/';
-  let aceStats, http;
+  let http;
 
   beforeEach(function() {
     http = {
       get: sinon.stub().returns(Promise.reject())
     };
-    aceStats = factory(http, aceStatsUrl);
   });
 
   it('should fetch the ace stats', function() {
-    aceStats();
+    getStats(http, aceStatsUrl);
     expect(http.get).to.have.been.calledOnce;
     expect(http.get).to.have.been.calledWithExactly(aceStatsUrl);
   });
@@ -63,7 +62,7 @@ describe('aceStats service', function() {
 
     // By returning a promise, the test runner knows the test asynchronous
     // and will wait for it resolve.
-    return aceStats().then(
+    return getStats(http, aceStatsUrl).then(
       data => expect(data).to.equal(resp.data)
     );
   });

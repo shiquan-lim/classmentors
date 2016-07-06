@@ -1,25 +1,29 @@
-// import module from 'classmentors/module.js';
+/**
+ * classmentors/components/cohort/cohort.js- define cohort component.
+ */
+
 import cohortTmpl from './cohort-view.html!text';
 // import './cohort.css!';
 
-// This here didn't work, not sure why - Amos
-export const component = {
-    cohortTmpl
-};
-//
-export function configRoute($routeProvider, routes){
-    $routeProvider.when(routes.cohort, {
-        template: cohortTmpl
-    });
+class CohortCtrl {
+
+  constructor(spfNavBarService) {
+    const title = 'Cohort';
+    // e.g.: [{title: 'profile', url: '#' + urlFor(editProfile)}]
+    const parentPages = [];
+    // e.g.: [{title: 'edit profile', url: '#' + urlFor(editProfile), icon: 'settings'}]
+    // icon id from icon set from
+    // src/jspm_packages/github/singpath/singpath-core@x.x.x/services/icons/icons.specs.js
+    const menuItems = [];
+
+    spfNavBarService.update(title, parentPages, menuItems);
+  }
+
 }
-configRoute.$inject = ['$routeProvider', 'routes'];
-//
-// module.config([
-//     '$routeProvider',
-//     'routes',
-//     function($routeProvider, routes){
-//         console.log('SOMETHING HAPPENS HERE');
-//         $routeProvider
-//             .when(routes.cohort, {template: cohortTmpl})
-//     }
-// ]);
+
+CohortCtrl.$inject = ['spfNavBarService'];
+
+export const component = {
+  template: cohortTmpl,
+  controller: CohortCtrl
+};
