@@ -23,7 +23,7 @@
                         placeholer="Challenge priority"
                     />
                     <div ng-messages="editTask.editTaskPriority.$error">
-                        <div ng-message="number">The priority should be a possitive number.</div>
+                        <div ng-message="number">The priority should be a positive number.</div>
                     </div>
                 </md-input-container>
             </div>
@@ -98,6 +98,7 @@
                 <md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
                 <md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>
                 <md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>
+                <md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>
             </md-radio-group>
         </div>
 
@@ -192,6 +193,20 @@
                 />
                 <div ng-messages="editTask.editTextResponse.$error">
                     <div ng-message="required">Required.</div>
+                </div>
+            </md-input-container>
+        </div>
+
+        <div ng-if="ctrl.taskType == 'indexCard'">
+            <md-input-container flex>
+                <label for="edit-max-cards">Maximum cards allowed</label>
+                <input type="number" name="editMaxCards" id="edit-max-cards"
+                       ng-model="ctrl.task.priority"
+                       min="0" step="1"
+                       placeholer="Challenge priority"
+                />
+                <div ng-messages="editTask.editTaskPriority.$error">
+                    <div ng-message="number">The max cards allowed should be a positive number.</div>
                 </div>
             </md-input-container>
         </div>

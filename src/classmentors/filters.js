@@ -1,19 +1,18 @@
-'use strict';
+/**
+ * classmentors/filters - shared filter factories.
+ */
 
-import module from 'classmentors/module.js';
+export function cmTruncateFilterFactory() {
+  return function cmTruncate(s, limit) {
+    if (!s || !s.length || !limit) {
+      return '';
+    }
 
-module.filter('cmTruncate', [
-  function cmTruncateFilter() {
-    return function cmTruncate(s, limit) {
-      if (!s || !s.length || !limit) {
-        return '';
-      }
+    if (s.length <= limit) {
+      return s;
+    }
 
-      if (s.length <= limit) {
-        return s;
-      }
-
-      return `${s.slice(0, limit)}...`;
-    };
-  }
-]);
+    return `${s.slice(0, limit)}...`;
+  };
+}
+cmTruncateFilterFactory.$inject = [];

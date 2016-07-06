@@ -1,0 +1,10 @@
+<div ng-if="ctrl.loading" layout="row" layout-align="space-around" class="md-padding">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div ng-if="!ctrl.loading">
+    <md-content class="md-padding">
+
+    </md-content>
+
+    <clm-pager options="ctrl.pagerOpts" class="md-padding"></clm-pager>
+</div>

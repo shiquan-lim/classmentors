@@ -407,6 +407,7 @@ module.controller('ViewEventCtrl', [
     this.progress = initialData.progress;
     this.solutions = initialData.solutions;
     this.canView = initialData.canView;
+    this.viewArchived = false;
 
     if (
       self.event &&

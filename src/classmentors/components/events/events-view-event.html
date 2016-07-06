@@ -24,6 +24,7 @@
         </form>
     </md-content>
     <md-tabs md-dynamic-height="true" md-border-bottom="true">
+
         <md-tab label="Ranking">
             <md-content layout-padding>
                 <clm-event-rank-table
@@ -32,6 +33,7 @@
                 ></clm-event-rank-table>
             </md-content>
         </md-tab>
+
         <md-tab label="Challenges" ng-disabled="!ctrl.participants">
             <md-content layout-padding>
                 <clm-event-table
@@ -44,6 +46,35 @@
                     profile="ctrl.profile"
                 >
                 </clm-event-table>
+            </md-content>
+        </md-tab>
+
+        <md-tab label="Results" ng-disabled="!ctrl.participants">
+            <md-content layout-padding>
+                <md-switch class="md-primary" ng-model="ctrl.viewArchived" aria-label="ViewArchived?">
+                    View archived challenges
+                </md-switch>
+                <md-input-container flex layout="column">
+                    <md-select flex name="selectChallengeResult"
+                               ng-model="ctrl.selected" required placeholder="Select a challenge to view results">
+                        <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="!task.archived || ctrl.viewArchived">
+                                {{task.title}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div>Selected challenge: {{ctrl.selected}}</br></br>
+
+                Event Answers: {{ctrl.solutions}}</div>
+                <clm-event-result-table
+                        ng-if="ctrl.selected"
+                        event="ctrl.event"
+                        participants="ctrl.participants"
+                        tasks="ctrl.tasks"
+                        progress="ctrl.progress"
+                        solutions="ctrl.solutions"
+                        profile="ctrl.profile"
+                >
+                </clm-event-result-table>
             </md-content>
         </md-tab>
     </md-tabs>

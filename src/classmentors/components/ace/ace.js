@@ -28,50 +28,23 @@ export const component = {
   controller: AceController
 };
 
-/**
- * Configure ace of coders route
- *
- * @param  {$routeProvider} $routeProvider
- * @param  {Object}         routes
- */
-export function configRoute($routeProvider, routes) {
-  $routeProvider.when(routes.aceOfCoders, {
-    template: '<ace stats="$resolve.stats"></ace>',
-    resolve: {
-      // ngRoute will wait for the promise aceStats to resolve before assigning
-      // it to $resolve.stats. Once, it's resolved, the template will be run.
-      stats: ['aceStats', aceStats => aceStats()]
-    }
-  });
-}
-
-configRoute.$inject = ['$routeProvider', 'routes'];
-
 export const ACE_STATS_URL = 'https://dl.dropboxusercontent.com/u/4972572/ace_of_coders_stats.json';
 
 /**
- * aceStats factory
+ * Route resolver helper.
  *
- * return the aceStats function.
+ * This is not a service; this is not generating a singleton. If used in a route
+ * configuration "resolve" map, the function will be run on each resolution of
+ * that route.
  *
- * @param  {$http}    $http
- * @return {function}
+ * @param  {Object}  $http       $http service.
+ * @param  {string}  aceStatsUrl URL to fetch stats from
+ * @return {Promise}
  */
-export function factory($http, aceStatsUrl) {
-
-  /**
-   * aceStats service
-   *
-   * Resolve to the Ace stats
-   *
-   * @return {Promise}
-   */
-  return function aceStats() {
-    return $http.get(aceStatsUrl).then(
-      response => response.data
-    );
-  };
+export function getStats($http, aceStatsUrl) {
+  return $http.get(aceStatsUrl).then(
+    response => response.data
+  );
 }
-
-factory.$inject = ['$http', 'aceStatsUrl'];
+getStats.$inject = ['$http', 'aceStatsUrl'];
 
