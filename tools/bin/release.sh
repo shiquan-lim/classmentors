@@ -13,5 +13,5 @@ fi
 git co master
 git pull git@github.com:singpath/classmentors.git master
 
-NEW_VERSION=$(npm version $1)
-git push git@github.com:singpath/classmentors.git master $NEW_VERSION
+NEW_VERSION=$(npm version "$1")
+git push git@github.com:singpath/classmentors.git master "$NEW_VERSION"

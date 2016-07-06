@@ -8,10 +8,16 @@ const path = require('path');
 const serveStatic = require('serve-static');
 const https = require('https');
 
-const www = process.argv.slice(2).pop() || path.join(__dirname, '../src');
-const cert = fs.readFileSync(path.join(__dirname, '/localhost.cert'));
-const key = fs.readFileSync(path.join(__dirname, '/localhost.key'));
-const port = process.env.npm_package_config_port || 8081;
+const defaults = {
+  port: 8081,
+  www: path.join(__dirname, '../../src'),
+  certsDir: path.join(__dirname, '../certs')
+};
+const www = process.argv.slice(2).pop() || defaults.www;
+const port = process.env.npm_package_config_port || defaults.port;
+const certsDir = process.env.npm_package_config_certs_dir || defaults.certsDir;
+const cert = fs.readFileSync(path.join(certsDir, 'localhost.cert'));
+const key = fs.readFileSync(path.join(certsDir, 'localhost.key'));
 
 const logger = morgan('dev');
 const serve = serveStatic(www, {index: ['index.html']});
@@ -25,7 +31,7 @@ const proxy = (req, resp, next) => {
 
   const remote = `https://${url.slice(7)}`;
 
-  https.get(remote, (proxyResp) => {
+  https.get(remote, proxyResp => {
     const allowedHeaders = new Set(['date', 'content-type', 'content-length', 'vary']);
 
     resp.writeHead(proxyResp.statusCode, Object.keys(proxyResp.headers).reduce((headers, k) => {
