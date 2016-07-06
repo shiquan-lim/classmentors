@@ -51,19 +51,17 @@ git pull upstream master
 
 If you don't have access to `singpath` or `singpath-play` Firebase DBs, edit
 `src/index.html` and `dist/classmentors/index.html` to point to the correct
-Firebase DB id; edit the `window.SINGPATH.firebaseId`. E.g.:
+Firebase DB id; edit the `firebaseId` property. E.g.:
 ```javascript
-window.SINGPATH = {
-  firebaseId: 'my-firebase-db',
-  singpathURL: 'https://localhost:8080/',
-  backendURL: 'https://localhost:8081/'
-};
-
-System.import(
-  './app.js'
-).catch(
-  console.error.bind(console)
-);
+System.import('classmentors').then(function(classmentors) {
+  classmentors.bootstrap({
+    firebaseId: 'singpath-play',
+    singpathURL: 'https://localhost:8080/',
+    backendURL: 'https://localhost:8081/'
+  });
+}).catch(function(err) {
+  console.error(err);
+});
 ```
 
 To setup your Firebase DB:

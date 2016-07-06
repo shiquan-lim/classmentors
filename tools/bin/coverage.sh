@@ -11,7 +11,7 @@ cleanup() {
 	rm -rf "${DEST}/"
 }
 
-# trap cleanup EXIT
+trap cleanup EXIT
 mkdir -p "${DEST}/"
 
 echo 'Building test bumdle at "'${BUNDLE}'"...'

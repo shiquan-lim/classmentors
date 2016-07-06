@@ -14,9 +14,8 @@ cd classmentors
 python -m SimpleHTTPServer 8000
 ```
 
-Edit `window.SINGPATH.firebaseId` in `index.html` to point to the correct
-Firebase DB id. By default, the build version points to "singpath"
-(our production DB).
+Edit `firebaseId` in `index.html` to point to the correct Firebase DB id. By
+default, the build version points to "singpath" (our production DB).
 
 
 ## Building from source

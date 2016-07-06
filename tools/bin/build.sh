@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-__DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 __PWD="$(pwd)"
 NODE_ENV=production
 
@@ -56,9 +55,9 @@ echo 'Building "'$SOURCE'" bundle in "'$OUTPUT_MIN'"...'
 echo 'The app is exported as "'$GLOBAL_NAME'"'
 jspm build \
 	$SOURCE - angular - angular-route - angular-messages - angular-aria - angular-animate - angular-material - firebase - angularfire \
-	$OUTPUT_MIN \
+	"$OUTPUT_MIN" \
 	--format umd --minify \
-	--global-name $GLOBAL_NAME \
+	--global-name "$GLOBAL_NAME" \
 	--global-deps "{\
 		'angular/angular.js': 'angular',\
 		'angular-route/angular-route.js': 'angular',\
@@ -72,8 +71,8 @@ jspm build \
 
 
 echo 'Removing source map directive from "'${OUTPUT_MIN}'"...'
-sed '$ d' ${OUTPUT_MIN} > "${OUTPUT_MIN}.temp"
-mv "${OUTPUT_MIN}.temp" ${OUTPUT_MIN}
+sed '$ d' "$OUTPUT_MIN" > "${OUTPUT_MIN}.temp"
+mv "${OUTPUT_MIN}.temp" "$OUTPUT_MIN"
 
 
 echo 'Building tree dependency in "'${OUTPUT_TREE}'"...'
@@ -81,20 +80,24 @@ source-map-explorer --html "$OUTPUT_MIN"{,.map} > "$OUTPUT_TREE"
 
 
 echo 'Calculating bundle content hash...'
-APP_HASH=$(shasum dist/${APP_NAME}/app.js | cut -c 1-8)
+APP_HASH=$(shasum ${BUILD_DIR}/${APP_NAME}/app.js | cut -c 1-8)
 OUTPUT_MIN_WITH_HASH="${BUILD_DEST}/app.${APP_HASH}.js"
 
 
 echo 'Renaming "'$OUTPUT_MIN'" to "'$OUTPUT_MIN_WITH_HASH'"...'
-mv $OUTPUT_MIN $OUTPUT_MIN_WITH_HASH
+mv "$OUTPUT_MIN" "$OUTPUT_MIN_WITH_HASH"
 
 
 echo 'Replacing reference to "'$OUTPUT_MIN'" for "'$OUTPUT_MIN_WITH_HASH'"...'
-sed 's/app\.js/app.'${APP_HASH}'.js/g' $INDEX > "${INDEX}.temp"
-mv "${INDEX}.temp" $INDEX
+sed 's/app\.js/app.'${APP_HASH}'.js/g' "$INDEX" > "${INDEX}.temp"
+mv "${INDEX}.temp" "$INDEX"
 
-
-echo 'Creating archive in "'$BUILD_DIR'/'${APP_NAME}'.zip"...'
-cd $BUILD_DIR
-zip -r "${APP_NAME}.zip" $APP_NAME
-cd $__PWD
+if hash zip 2>/dev/null; then
+	echo 'Creating archive in "'$BUILD_DIR'/'${APP_NAME}'.zip"...'
+	cd "$BUILD_DIR"
+	zip -r "${APP_NAME}.zip" "$APP_NAME"
+	cd "$__PWD"
+else
+	echo '"zip" was not found.'
+	echo 'Skipping creating app archive.'
+fi

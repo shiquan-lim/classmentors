@@ -30,9 +30,10 @@
     "source-map-support": "^0.4.0"
   },
   "config": {
-    "port": 8081,
+    "build_assets_dir": "tools/assets/",
     "build_dir": "dist/",
-    "build_assets_dir": "assets/"
+    "certs_dir": "tools/certs",
+    "port": 8081
   },
   "jspm": {
     "name": "classmentors",
@@ -487,20 +488,19 @@
     }
   },
   "scripts": {
-    "build": "./bin/build",
-    "build:gh-pages": "./bin/build-gh-pages",
-    "clean": "test -d $npm_package_config_build_dir && rm -r $npm_package_config_build_dir || echo 'Nothing to clean.'",
-    "cover": "./bin/coverage",
-    "coveralls": "./bin/coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
-    "keygen": "openssl req -x509 -nodes -newkey rsa:4096 -new -days 1024 -subj \"/C=SG/ST=Denial/L=Singapore/O=Dis/CN=localhost\" -keyout bin/localhost.key -out bin/localhost.cert",
+    "build": "bash ./tools/bin/build.sh",
+    "build:gh-pages": "bash ./tools/bin/build-gh-pages.sh",
+    "clean": "bash ./tools/bin/clean.sh",
+    "cover": "bash ./tools/bin/coverage.sh",
+    "coveralls": "bash ./tools/bin/coveralls.sh",
+    "keygen": "bash ./tools/bin/keygen.sh",
     "lint": "eslint src/",
     "postinstall": "jspm install",
-    "serve": "./bin/server.js src/",
-    "serve-build": "./bin/server.js dist/${npm_package_name}",
-    "start": "./bin/server.js src/",
-    "test": "./bin/test",
-    "test-build": "./bin/test",
-    "travis-setup": "./bin/travis-setup.js"
+    "serve": "node ./tools/bin/server.js src/",
+    "serve-build": "node ./tools/bin/server.js ${build_dir}${npm_package_name}",
+    "start": "node ./tools/bin/server.js src/",
+    "test": "bash ./tools/bin/test.sh",
+    "travis-setup": "node ./tools/bin/travis-setup.js"
   },
   "keywords": [],
   "author": "",
