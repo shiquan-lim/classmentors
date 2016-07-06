@@ -497,7 +497,7 @@
     "postinstall": "jspm install",
     "serve": "./bin/server.js src/",
     "serve-build": "./bin/server.js dist/${npm_package_name}",
-    "start": "./bin/server.js src/",
+    "start": "node ./bin/server.js src/",
     "test": "./bin/test",
     "test-build": "./bin/test",
     "travis-setup": "./bin/travis-setup.js"
