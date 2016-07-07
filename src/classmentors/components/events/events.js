@@ -341,6 +341,7 @@ function ViewEventCtrl(
   this.solutions = initialData.solutions;
   this.canView = initialData.canView;
   this.viewArchived = false;
+  this.selected = null;
 
   if (
     self.event &&
