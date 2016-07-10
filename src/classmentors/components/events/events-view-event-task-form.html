@@ -91,33 +91,26 @@
             </p>
 
         </div>
-
-        <div>
-            <h3>Task type <small ng-if="!ctrl.taskType">(Required)</small></h3>
-            <md-radio-group ng-model="ctrl.taskType">
+        <h3>Task type <small ng-if="!ctrl.taskType">(Required)</small></h3>
+        <div layout="row">
+            <md-radio-group layout="row" ng-model="ctrl.taskType">
                 <!--<md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>-->
                 <!--<md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>-->
                 <!--<md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>-->
                 <!--<md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>-->
+                <div layout="column" layout-padding='10' layout-align="space-between" flex="auto">
+                    <md-radio-button flex value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
+                    <md-radio-button flex value="linkPattern" class="md-primary">Link pattern</md-radio-button>
+                    <md-radio-button flex value="textResponse" class="md-primary">Text Response</md-radio-button>
+                    <md-radio-button flex value="multipleChoice" class="md-primary">Multiple Choice</md-radio-button>
+                    <md-radio-button flex value="indexCard" class="md-primary">Index Card</md-radio-button>
+                </div>
+                <div layout="column" layout-padding='10' flex-none>
+                    <md-radio-button flex value="code" class="md-primary">Code</md-radio-button>
+                    <md-radio-button flex value="video" class="md-primary">Video</md-radio-button>
+                    <md-radio-button flex value="journalling" class="md-primary">Journalling</md-radio-button>
 
-                <table>
-                    <tr>
-                        <td>
-
-                            <md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
-                            <md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>
-                            <md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>
-                            <md-radio-button value="multipleChoice" class="md-primary">Multiple Choice</md-radio-button>
-                            <md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>
-                        </td>
-                        <td style='padding-left:20px; padding-bottom:40px;'>
-
-                            <md-radio-button value="code" class="md-primary">Code</md-radio-button>
-                            <md-radio-button value="video" class="md-primary">Video</md-radio-button>
-                            <md-radio-button value="journalling" class="md-primary">Journalling</md-radio-button>
-                        </td>
-                    </tr>
-                </table>
+                </div>
             </md-radio-group>
         </div>
 
