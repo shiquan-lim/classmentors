@@ -62,24 +62,39 @@
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <div>
-                    Selected challenge: {{ctrl.selected}}
+                <div ng-show="ctrl.selected">
+                    <h2 align="center">Showing Results for {{ctrl.selected.title}}</h2>
+                    <div align="center">Description: {{ctrl.selected.description}}</br>
+                    Question: {{ctrl.selected.textResponse}}</div>
                     </br></br>
                     Event Answers:
                 </div>
-                <div ng-repeat="solution in ctrl.solutions">
-                    {{solution[ctrl.selected.$id]}}
+                <div ng-show="ctrl.selected">
+                    <md-content class="md-padding">
+                        <div ng-show="ctrl.selected">
+                            <table class="events tasks">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Answer</th>
+                                </tr>
+                                <tr ng-repeat="participant in ctrl.participants">
+                                    <td>{{participant.user.displayName}}</td>
+                                    <td>{{ctrl.solutions[participant.$id][ctrl.selected.$id]}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </md-content>
                 </div>
-                <clm-event-result-table
-                        ng-if="ctrl.selected"
-                        event="ctrl.event"
-                        participants="ctrl.participants"
-                        tasks="ctrl.tasks"
-                        progress="ctrl.progress"
-                        solutions="ctrl.solutions"
-                        profile="ctrl.profile"
-                >
-                </clm-event-result-table>
+                <!--<clm-event-result-table-->
+                        <!--ng-if="ctrl.selected"-->
+                        <!--event="ctrl.event"-->
+                        <!--participants="ctrl.participants"-->
+                        <!--tasks="ctrl.tasks"-->
+                        <!--progress="ctrl.progress"-->
+                        <!--solutions="ctrl.solutions"-->
+                        <!--profile="ctrl.profile"-->
+                <!--&gt;-->
+                <!--</clm-event-result-table>-->
             </md-content>
         </md-tab>
     </md-tabs>

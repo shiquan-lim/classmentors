@@ -835,6 +835,8 @@ function EditEventTaskCtrl(initialData, spfAlert, urlFor, spfFirebase, spfNavBar
     this.taskType = 'linkPattern';
   } else if (this.task.textResponse) {
     this.taskType = 'textResponse';
+  }else if (this.task.multipleChoice) {
+    this.taskType = 'multipleChoice';
   }
 
   // md-select badge list and the the ng-model are compared

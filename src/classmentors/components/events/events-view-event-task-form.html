@@ -95,10 +95,29 @@
         <div>
             <h3>Task type <small ng-if="!ctrl.taskType">(Required)</small></h3>
             <md-radio-group ng-model="ctrl.taskType">
-                <md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
-                <md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>
-                <md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>
-                <md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>
+                <!--<md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>-->
+                <!--<md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>-->
+                <!--<md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>-->
+                <!--<md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>-->
+
+                <table>
+                    <tr>
+                        <td>
+
+                            <md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
+                            <md-radio-button value="linkPattern" class="md-primary">Link pattern</md-radio-button>
+                            <md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>
+                            <md-radio-button value="multipleChoice" class="md-primary">Multiple Choice</md-radio-button>
+                            <md-radio-button value="indexCard" class="md-primary">Index Card</md-radio-button>
+                        </td>
+                        <td style='padding-left:20px; padding-bottom:40px;'>
+
+                            <md-radio-button value="code" class="md-primary">Code</md-radio-button>
+                            <md-radio-button value="video" class="md-primary">Video</md-radio-button>
+                            <md-radio-button value="journalling" class="md-primary">Journalling</md-radio-button>
+                        </td>
+                    </tr>
+                </table>
             </md-radio-group>
         </div>
 
@@ -211,7 +230,18 @@
             </md-input-container>
         </div>
 
+        <div ng-if="ctrl.taskType == 'multipleChoice'">
+            <md-input-container>
+
+            </md-input-container>
+        </div>
+
         <div layout="row" layout-align="center center">
+            <!--TODO:
+            1. Create continue button controller to route to other views depending on challenge type
+            2. -->
+
+            <md-button type="button" class="md-raised" ng-href="" ng-disabled>Continue</md-button>
             <md-button type="submit" class="md-raised md-primary" ng-disabled="editTask.$invalid || !ctrl.taskType ||ctrl.savingTask">Save</md-button>
             <md-button type="reset" class="md-raised" ng-href="#{{ 'editEvent' | urlFor: {eventId: ctrl.event.$id} }}">Back</md-button>
         </div>
