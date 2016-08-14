@@ -13,6 +13,8 @@ import responseTmpl from './events-view-provide-response.html!text';
 import codeTmpl from './events-view-provide-code.html!text';
 import './events.css!';
 import ace from '../../../jspm_packages/github/ajaxorg/ace-builds@1.2.3/ace.js';
+import 'moment';
+import 'humanize-duration';
 import monokai from '../../../jspm_packages/github/ajaxorg/ace-builds@1.2.3/theme-monokai.js';
 import javascript from '../../../jspm_packages/github/ajaxorg/ace-builds@1.2.3/mode-javascript.js';
 import html from '../../../jspm_packages/github/ajaxorg/ace-builds@1.2.3/mode-html.js';
