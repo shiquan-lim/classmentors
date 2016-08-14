@@ -6,7 +6,6 @@ import 'angular-loading-bar';
 import 'angular-animate';
 import 'angular-messages';
 import 'angular-route';
-import 'angular-timer';
 
 // import 'd3';
 // import 'c3';
@@ -19,8 +18,7 @@ const classMentors = angular.module('clm', [
   'ngAnimate',
   'ngMessages',
   'ngRoute',
-  spfShared.name,
-  'timer'
+  spfShared.name
 ]);
 
 classMentors.value('clmServicesUrl', {

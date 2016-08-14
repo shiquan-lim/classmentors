@@ -19,7 +19,6 @@
     "istanbul": "^0.4.4",
     "js-yaml": "^3.5.5",
     "jspm": "0.17.0-beta.22",
-    "jspm-bower-endpoint": "^0.3.2",
     "mocha": "^2.4.5",
     "morgan": "^1.7.0",
     "npm-run-all": "^1.5.3",
@@ -41,10 +40,6 @@
       "lib": "src/classmentors"
     },
     "dependencies": {
-      "angular-timer": "npm:angular-timer@^1.3.3",
-      "humanize": "npm:humanize@^0.0.9",
-      "humanize-duration": "npm:humanize-duration@^3.9.1",
-      "moment": "npm:moment@^2.14.1",
       "singpath-core": "github:singpath/singpath-core@^0.4.0"
     },
     "devDependencies": {
@@ -64,24 +59,16 @@
       "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
       "chai": "npm:chai@^3",
       "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
-      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
       "core-js": "npm:core-js@^1.1.4",
-      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
       "cryptojs": "github:sytelus/cryptojs@^3.1.2",
       "css": "github:systemjs/plugin-css@^0.1.22",
-      "events": "github:jspm/nodelibs-events@^0.2.0-alpha",
       "firebase": "github:firebase/firebase-bower@^2.4.1",
       "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
-      "http": "github:jspm/nodelibs-http@^0.2.0-alpha",
-      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
       "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
       "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
       "sinon": "npm:sinon@^1.4.0",
       "sinon-chai": "npm:sinon-chai@^2.8.0",
-      "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
-      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
       "text": "github:systemjs/plugin-text@^0.0.8",
-      "url": "github:jspm/nodelibs-url@^0.2.0-alpha",
       "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
       "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha"
     },
@@ -494,9 +481,6 @@
         "ignore": [
           "test.js"
         ]
-      },
-      "npm:moment@2.14.1": {
-        "jspmNodeConversion": false
       }
     }
   },
