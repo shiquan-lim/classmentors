@@ -8,65 +8,67 @@
             <br><br>
         </div>
 
-        <div>
-            <md-input-container>
-                *Time Limit (in minute)
-                <input type="number" name="editTimeLimit" id="edit-time-limit"
-                       ng-model="ctrl.task.timeLimit"
-                       min="0" step="1"
-                       placeholer="Time Limit for the quiz" value="" required
-                />
-                <div ng-messages="editMcq.editTimeLimit.$error">
-                    <div ng-message="number">Time limit allowed should be a positive number in minutes.</div>
-                    <div ng-message="required">Enter time limit for the quiz. </div>
-                </div>
-            </md-input-container>
+        <!--<div>-->
+        <!--todo: requires timer to enable this function.-->
+        <!--<md-input-container>-->
+        <!--*Time Limit (in minute)-->
+        <!--<input type="number" name="editTimeLimit" id="edit-time-limit"-->
+        <!--ng-model="ctrl.task.timeLimit"-->
+        <!--min="0" step="1"-->
+        <!--placeholder="Time Limit for the quiz" value="" required-->
+        <!--/>-->
+        <!--<div ng-messages="editMcq.editTimeLimit.$error">-->
+        <!--<div ng-message="number">Time limit allowed should be a positive number in minutes.</div>-->
+        <!--<div ng-message="required">Enter time limit for the quiz. </div>-->
+        <!--</div>-->
+        <!--</md-input-container>-->
 
-            <p>
-            <h5>Questions</h5>
-            <md-switch class="md-primary" ng-model="ctrl.task.randomQOrder" aria-label="">
-                Randomise questions order
-            </md-switch>
+        <!--<p>-->
+        <!--<h5>Questions</h5>-->
+        <!--<md-switch class="md-primary" ng-model="ctrl.task.randomQOrder" aria-label="">-->
+        <!--Randomise questions order-->
+        <!--</md-switch>-->
 
-            <md-switch class="md-primary" ng-model="ctrl.task.randomOOrder" aria-label="">
-                Randomise options order
-            </md-switch>
-            </p>
+        <!--<md-switch class="md-primary" ng-model="ctrl.task.randomOOrder" aria-label="">-->
+        <!--Randomise options order-->
+        <!--</md-switch>-->
+        <!--</p>-->
 
-            <h5>Results Release</h5>
-            <md-input-container>
-                *Waiting time to view result after student's completion (minutes)
-                <input type="number" name="resultRelease" id="result-release"
-                       ng-model="ctrl.task.resultRelease"
-                       min="0" step="1"
-                       placeholer="Waiting time to view result after student's completion" value="" required
-                />
-                <div ng-messages="editMcq.resultRelease.$error">
-                    <div ng-message="number">Release time after completion should be a positive number in minutes.</div>
-                    <div ng-message="required">Please enter time(minutes) to release results after completion.</div>
-                </div>
-            </md-input-container>
+        <!--<h5>Results Release</h5>-->
+        <!--<md-input-container>-->
+        <!--*Waiting time to view result after student's completion (minutes)-->
+        <!--<input type="number" name="resultRelease" id="result-release"-->
+        <!--ng-model="ctrl.task.resultRelease"-->
+        <!--min="0" step="1"-->
+        <!--placeholder="Waiting time to view result after student's completion" value="" required-->
+        <!--/>-->
+        <!--<div ng-messages="editMcq.resultRelease.$error">-->
+        <!--<div ng-message="number">Release time after completion should be a positive number in minutes.</div>-->
+        <!--<div ng-message="required">Please enter time(minutes) to release results after completion.</div>-->
+        <!--</div>-->
+        <!--</md-input-container>-->
 
-            <h5> Re-attempts Allowance</h5>
-            <md-input-container>
-                *Waiting time before students can re-attempt challenge (minutes)
-                <input type="number" name="reattempts" id="reattempts"
-                       ng-model="ctrl.task.reattempts"
-                       min="0" step="1"
-                       placeholer="Waiting time before students can re-attempt challenge (minutes)" value="" required
-                />
-                <div ng-messages="editMcq.reattempts.$error">
-                    <div ng-message="number">Waiting time before students can re-attempt challenge should be a positive number in minutes.</div>
-                    <div ng-message="required">Please enter time(minutes) before students can re-attempt challenge.</div>
-                </div>
-            </md-input-container>
+        <!--todo: install angular-timer and make timer work first before uncommenting-->
+        <!--<h5> Re-attempts Allowance</h5>-->
+        <!--<md-input-container>-->
+        <!--*Waiting time before students can re-attempt challenge (minutes)-->
+        <!--<input type="number" name="reattempts" id="reattempts"-->
+        <!--ng-model="ctrl.task.reattempts"-->
+        <!--min="0" step="1"-->
+        <!--placeholder="Waiting time before students can re-attempt challenge (minutes)" value="" required-->
+        <!--/>-->
+        <!--<div ng-messages="editMcq.reattempts.$error">-->
+        <!--<div ng-message="number">Waiting time before students can re-attempt challenge should be a positive number in minutes.</div>-->
+        <!--<div ng-message="required">Please enter time(minutes) before students can re-attempt challenge.</div>-->
+        <!--</div>-->
+        <!--</md-input-container>-->
 
-            <h5>Team Mode</h5>
-            <md-switch class="md-primary" ng-model="ctrl.task.enableTeam" aria-label="">
-                Enable team answering mode
-            </md-switch>
+        <!--<h5>Team Mode</h5>-->
+        <!--<md-switch class="md-primary" ng-model="ctrl.task.enableTeam" aria-label="">-->
+        <!--Enable team answering mode-->
+        <!--</md-switch>-->
 
-        </div>
+        <!--</div>-->
 
         <!------------------starting of questions--------------------------------------------->
 
@@ -93,10 +95,9 @@
 
             <md-input-container >
                 <md-button type="button" class="md-raised md-primary" id="addOptions" ng-click="ctrl.addOption(question)">Add option</md-button>
-
-                    <div ng-show="ctrl.isMcqValid == false">One of the option must be an answer.</div>
-
             </md-input-container>
+
+            <p ng-show="ctrl.isMcqValid == false"><font color="red">*One of the option must be an answer.</font></p>
 
             <!--answer options-->
             <div align="center" layout="row" ng-repeat="option in question.options" >

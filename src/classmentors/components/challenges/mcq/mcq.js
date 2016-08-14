@@ -202,6 +202,8 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
   var quesFromJson = angular.fromJson(self.task.mcqQuestions);
   self.questions = loadQuestions(quesFromJson);
 
+  self.isMcqValid = false;
+
   function arraysEqual(arr1, arr2) {
     if(arr1.length !== arr2.length)
       return 0;
@@ -231,24 +233,22 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
   };
 
   self.submit = function(){
-    var submission = {};
-    var userAnswers = [];
-    for(var i = 0; i < self.questions.length; i++){
-      userAnswers.push(self.questions[i].answers);
-    }
-    submission.userAnswers = userAnswers;
-    var score = markQuestions(userAnswers);
-    console.log(submission.score);
-    var answerString = angular.toJson(submission);
-    console.log(answerString);
-    clmDataStore.events.submitSolution(eventId, taskId, participant.$id, answerString)
-      .then(
-        clmDataStore.events.saveScore(eventId, participant.$id, taskId, score)
-      ).then(
-      $location.path(urlFor('oneEvent',{eventId: eventId}))
-    );
-
-
+      var submission = {};
+      var userAnswers = [];
+      for(var i = 0; i < self.questions.length; i++){
+        userAnswers.push(self.questions[i].answers);
+      }
+      submission.userAnswers = userAnswers;
+      var score = markQuestions(userAnswers);
+      console.log(submission.score);
+      var answerString = angular.toJson(submission);
+      console.log(answerString);
+      clmDataStore.events.submitSolution(eventId, taskId, participant.$id, answerString)
+          .then(
+              clmDataStore.events.saveScore(eventId, participant.$id, taskId, score)
+          ).then(
+          $location.path(urlFor('oneEvent',{eventId: eventId}))
+      );
   }
 
   console.log(self.questions);
@@ -263,6 +263,19 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
       question.answers.push(itemIndex);
     }
     console.log(question.answers);
+
+    checkMCQValid();
+  }
+
+  function checkMCQValid(){
+    for (var i = 0; i < self.questions.length; i ++){
+      if(self.questions[i].answers.length == 0){
+        self.isMcqValid = false;
+
+        return;
+      }
+    }
+    self.isMcqValid = true;
   }
 
   self.discardChanges = function (ev){
@@ -277,7 +290,7 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
       // decided to discard data, bring user to previous page
 
       //todo: link back to previous page
-      $location.path(urlFor('oneEvent', {eventId: initialData.event.$id}));
+      $location.path(urlFor('oneEvent', {eventId: eventId}));
 
     })
   }
@@ -295,8 +308,6 @@ startMcqController.$inject = [
 
 export function newMcqController(initialData, challengeService, $filter,$mdDialog,urlFor,$location){
   var self = this;
-
-  console.log("the initial new data is........", initialData);
 
   // Checks if all questions have at least one answer
   self.isMcqValid = false;

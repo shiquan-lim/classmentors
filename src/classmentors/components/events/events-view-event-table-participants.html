@@ -54,7 +54,21 @@
                     <td ng-repeat="task in ctrl.visibleTasks track by task.$id">
                         <div ng-if="task.mcqQuestions">
                             <span ng-if="ctrl.currentUserSolutions[task.$id]">
+
+                                <!--todo: add timer and make it work before allowing re-attempts-->
+                                <!--<timer countdown = "10041" max-time-unit="minute" interval="1000"> {{mminutes}} minute {{minutesS}},{{sseconds}} second{{secondsS}}</timer>-->
                                 Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed"></span>
+
+                                <!--<md-button class="md-raised md-primary"-->
+                                           <!--ng-click="ctrl.startMCQ(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"-->
+                                           <!--target="_blank"-->
+                                           <!--ng-if="task.openedAt"-->
+                                           <!--aria-label="Re-attempt challenge"-->
+                                <!--&gt;-->
+
+                                <!--Re-attempt Mcq-->
+                                <!--</md-button>-->
+
                             </span>
                             <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
@@ -63,7 +77,7 @@
                                            ng-disabled="task.closedAt"
                                            aria-label="Start challenge"
                                 >
-                                    start mcq
+                                    Start Mcq
                                     <!--<span ng-switch on="ctrl.mustRegister(task, ctrl.profile)">-->
                                         <!--<span ng-switch-when="true">Register</span>-->
                                         <!--<span ng-switch-default>Start challenge</span>-->

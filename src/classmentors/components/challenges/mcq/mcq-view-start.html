@@ -85,7 +85,7 @@
     <br>
 
     <div align="center">
-      <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+      <md-button type="submit" ng-disabled="ctrl.isMcqValid == false" class="md-raised md-primary">Submit</md-button>
       <md-button type="reset" class="md-raised" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
     </div>
     </form>
