@@ -26,7 +26,7 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
   // Checks if all questions have at least one answer
 
   self.task = initialData.data.task;
-  console.log("the initial edit data is........", initialData);
+  // console.log("the initial edit data is........", initialData);
   var questions = angular.fromJson(self.task.mcqQuestions);
   var savedAnswers = angular.fromJson(initialData.savedAnswers.$value);
   self.questions = builtMCQ(questions, savedAnswers);
@@ -51,14 +51,14 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
     }
 
     // Check does questions contain answers?
-    console.log(questions);
+    // console.log(questions);
 
     // Check answer list
-    console.log(setAnswers);
+    // console.log(setAnswers);
 
     // Change questions into JSON text
     var answersJsonText = angular.toJson(questions);
-    console.log(answersJsonText);
+    // console.log(answersJsonText);
 
     // Save function defined in challenges.js
     // Parameters: event, taskid, task, taskType, isOpen
@@ -69,7 +69,7 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
     var isOpen = initialData.data.isOpen;
     task.mcqQuestions = answersJsonText;
     task.answers = angular.toJson(setAnswers);
-    console.log(task);
+    // console.log(task);
     challengeService.update(event, taskId, task,taskType, isOpen);
   }
 
@@ -278,8 +278,8 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
 
     var score = markQuestions(userAnswers);
     var answerString = angular.toJson(submission);
-    console.log(submission.score);
-    console.log(answerString);
+    // console.log(submission.score);
+    // console.log(answerString);
 
     clmDataStore.events.submitSolution(eventId, taskId, participant.$id, answerString)
       .then(
