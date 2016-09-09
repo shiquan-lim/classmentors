@@ -1416,7 +1416,7 @@ function EditEventTaskCtrl(initialData, spfAlert, urlFor, spfNavBarService, clmD
         } else if (tasktype === 'profileEdit') {
             return 'Save';
 
-        }else {
+        } else {
             return 'Save';
         }
     }
@@ -2089,7 +2089,7 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         });
 
         function DialogController() {
-            this.save = function(){
+            this.save = function () {
 
             };
 
@@ -2454,7 +2454,10 @@ addSurveyEventTaskCtrlInitialData.$inject = [
 ];
 
 //TODO: include controller for the survey
-function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $routeParams, clmDataStore, clmPagerOption, spfAlert, $log) {
+function SurveyFormFillCtrl(
+    spfNavBarService, $location, urlFor, initialData, $routeParams,
+    clmDataStore, clmPagerOption, spfAlert, $scope
+) {
 
     this.pagerOpts = clmPagerOption();
 
@@ -2462,7 +2465,6 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
 
 
     this.questions = initialData.survey2;
-    console.log("testing for questions:: ", initialData.survey2);
     this.ratingOptions = [
         {id: 1},
         {id: 2},
@@ -2475,6 +2477,7 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
 
 
     if ($routeParams.surveyTask === 'School engagement scale') {
+
 
         self.responseRating = [
             {option: 'Never'},
@@ -2566,6 +2569,20 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
 
     }
 
+    //$routechangestart will be executed before users route to another page
+    var schEngageInvalid = true;
+    var motiStratInvalid = true;
+    var eduDissInvalid = true;
+    $scope.$on("$routeChangeStart", function (event, next, current) {
+        if (schEngageInvalid && motiStratInvalid && eduDissInvalid) {
+            if (!confirm("You have not finished this survey. Are you sure you want to continue? All data will be lost")) {
+                event.preventDefault();
+            }
+        }
+
+
+    });
+
     this.event = initialData.event;
     spfNavBarService.update(
         'Survey', [{
@@ -2628,8 +2645,6 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
 
     }
     this.saveEduDisResponse = function (response, age, item, task, siblingNum, selectedMonth, country, language, qnTitle, bestResp) {
-        //console.log("qn title is", qnTitle);
-        //console.log("qn Number is", item.currentTarget.getAttribute("data-id"));
 
         var surveyResp = response;
         var questionNumber = item.currentTarget.getAttribute("data-id");
@@ -2649,7 +2664,7 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
             clmDataStore.events.saveSurveyEduDisResponse(surveyResp, questionNumber, taskId, eventId, userId, surveyType, qnTitle);
         }
         else if (ageResp != undefined) {
-            //console.log("THE VALUES ARE: " + ageResp + ", " + questionNumber + ", " + taskId + ", " + eventId + ", " + userId + ", " + surveyType + ", " + qnTitle)
+
             clmDataStore.events.saveSurveyEduDisResponse(ageResp, questionNumber, taskId, eventId, userId, surveyType, qnTitle);
         }
 
@@ -2673,7 +2688,11 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
 
     }
     this.submitSchEngageResponse = function (schEngageResp) {
-        console.log("sch engage length:", Object.keys(schEngageResp).length);
+
+        //to set warning
+        schEngageInvalid = false;
+        motiStratInvalid = true;
+        eduDissInvalid = true;
 
         var allResponses = true;
         for (var i = 1; i < schEngageResp.length; i++) {
@@ -2720,6 +2739,11 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
     };
     this.submitMotiStratResponse = function (motiResp) {
 
+        //to set warning
+        motiStratInvalid = false;
+        eduDissInvalid = true;
+        schEngageInvalid = true;
+
         var allResponses = true;
         console.log("trying ", motiResp);
         for (var i = 1; i < motiResp.length; i++) {
@@ -2751,6 +2775,11 @@ function SurveyFormFillCtrl(spfNavBarService, $location, urlFor, initialData, $r
     }
 
     this.submitEduDissResponse = function (eduDissResp, selectedFamily, selectedRaceEthnicity) {
+
+        //to set warning
+        eduDissInvalid = true;
+        motiStratInvalid = false;
+        schEngageInvalid = false;
 
         //add checkbox values into json
         var allResponses = true;
@@ -2814,7 +2843,7 @@ SurveyFormFillCtrl.$inject = [
     'clmDataStore',
     'clmPagerOption',
     'spfAlert',
-    '$log'
+    '$scope'
 ];
 
 export function clmEventRankTableFactory() {
@@ -3464,6 +3493,7 @@ function ClmEventResultsTableCtrl($scope, $q, $log, $mdDialog, $document,
         function DialogController() {
             this.task = task;
             this.review = true;
+            this.participant = participant;
             if (
                 userSolution &&
                 userSolution[taskId]

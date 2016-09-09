@@ -89,7 +89,7 @@ function startIRATController($q, initialData, clmDataStore, $location, urlFor) {
 
 
     this.submitIrat = function(){
-        console.log("i come in here");
+        
         $location.path(urlFor('oneEvent'));
     };
 }

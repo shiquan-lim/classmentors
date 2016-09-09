@@ -2,3 +2,9 @@ classmentors {
 	height: 100%;
 	width: 100%;
 }
+
+md-sidenav.md-locked-open {
+	width: 250px;
+	min-width: 250px;
+	max-width: 250px;
+}

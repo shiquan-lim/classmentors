@@ -19,7 +19,7 @@
                 </md-input-container>
             </div>
             <div ng-if="ctrl.review" layout-align="center">
-                Submitted Link: <br>
+                Submitted Link by {{ctrl.participant.user.displayName}}: <br>
                 <a href={{ctrl.solution}}>{{ctrl.solution}}</a>
                 <div class="box" flex>
                 <iframe ng-src="{{ctrl.solution}}" target="_parent" width = "800px" height = "700px"></iframe>

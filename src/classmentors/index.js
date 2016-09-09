@@ -65,6 +65,7 @@ module.factory('clmDataStore', services.clmDataStoreFactory);
 module.factory('clmPagerOption', components.events.clmPagerOptionFactory);
 module.factory('clmRowPerPage', components.events.clmRowPerPageFactory);
 module.factory('clmService', services.clmServiceFactory);
+module.factory('clmSurvey', components.events.clmSurveyTaskFactory);
 module.factory('eventService', components.events.eventServiceFactory);
 module.filter('cmTruncate', filters.cmTruncateFilterFactory);
 module.filter('cmTruncated', filters.cmTruncateFilterBooleanFactory);
@@ -76,8 +77,6 @@ module.config(components.events.configRoute);
 module.config(components.profiles.configRoute);
 module.config(components.challenges.configRoute);
 
-// added new survey factory for tryout purpose
-module.factory('clmSurvey', components.events.clmSurveyTaskFactory);
 
 /**
  * Label route paths.
