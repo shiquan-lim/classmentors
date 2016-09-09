@@ -1,402 +1,66 @@
-/* eslint valid-jsdoc: "off", newline-after-var: "off" */
-import Firebase from 'firebase';
+/**
+ * singpath-core/services/firebase.js - helpers for firebase operation.
+ */
 
 /**
- * spfFirebaseRef return a Firebase reference to singpath database,
- * at a specific path, with a specific query; e.g:
+ * Check the firebase app references are set.
  *
- *    // ref to "https://singpath.firebaseio.com/"
- *    spfFirebaseRef);
- *
- *    // ref to "https://singpath.firebaseio.com/auth/users/google:12345"
- *    spfFirebaseRef(['auth/users', 'google:12345']);
- *
- *    // ref to "https://singpath.firebaseio.com/events?limitTo=50"
- *    spfFirebaseRef(['events', 'google:12345'], {limitTo: 50});
- *
- *
- * The base url is configurable with `spfFirebaseRefProvider.setBaseUrl`:
- *
- *    angular.module('spf').config([
- *      'spfFirebaseRefProvider',
- *      function(spfFirebaseRefProvider){
- *          spfFirebaseRefProvider.setBaseUrl(newBaseUrl);
- *      }
- *    ])
- *
+ * @param {object}                     $log            Angular logger service
+ * @param {firebase.app.App}           firebaseApp     Main firebase app
+ * @param {firebase.app.App}           authFirebaseApp Firebase app handling authentication.
+ * @param {firebase.auth.AuthProvider} authProvider    Firebase app auth provider.
  */
-export function SpfFirebaseRefProvider() {
-  var baseUrl = 'https://singpath-play.firebaseio.com/';
+export function run($log, firebaseApp, authFirebaseApp, authProvider) {
+  if (!firebaseApp || !authFirebaseApp) {
+    throw new Error('Firebase Apps (main and auth) are not set.');
+  }
 
-  this.setBaseUrl = function(url) {
-    baseUrl = url;
-  };
+  if (!authProvider) {
+    throw new Error('Firebase auth provider is not set.');
+  }
 
-  this.$get = [
-    '$log',
-    function spfFirebaseRefFactory($log) {
-      return function spfFirebaseRef(paths, queryOptions) {
-        var ref = new Firebase(baseUrl);
-        var filters = ['equalTo', 'startAt', 'endAt'];
-        var filter, i;
-
-        paths = [].concat(paths || []);
-        ref = paths.reduce(function(prevRef, p) {
-          return prevRef.child(p);
-        }, ref);
-
-        queryOptions = queryOptions || {};
-        if (queryOptions.hasOwnProperty('orderByPriority')) {
-          ref = ref.orderByPriority();
-        } else if (queryOptions.hasOwnProperty('orderByKey')) {
-          ref = ref.orderByKey();
-        } else if (queryOptions.orderByChild) {
-            ref = ref.orderByChild(queryOptions.orderByChild);
-        } else if (queryOptions.orderByValue) {
-          ref = ref.orderByValue(queryOptions.orderByValue);
-        }
-
-        for (i = 0; i < filters.length; i++) {
-          filter = queryOptions[filters[i]];
-
-          if (filter == null) {
-            continue;
-          }
-
-          if (!filter.length) {
-            ref = ref[filters[i]](filter);
-          } else if (queryOptions.hasOwnProperty('orderByPriority')) {
-            ref = ref[filters[i]].apply(ref, filter);
-          } else if(queryOptions.hasOwnProperty('equalTo')) {
-            ref = ref.equalTo(queryOptions.equalTo);
-          }else {
-            // $log.warning('The query should be ordered by priority to filter by value and key');
-          }
-
-          break;
-        }
-
-        if (queryOptions.limitToFirst) {
-          ref = ref.limitToFirst(queryOptions.limitToFirst);
-        } else if (queryOptions.limitToLast) {
-          ref = ref.limitToLast(queryOptions.limitToLast);
-        }
-
-        $log.debug('singpath base URL: "' + baseUrl + '".');
-        $log.debug('singpath ref path: "' + ref.path.toString() + '".');
-        return ref;
-      };
-    }
-  ];
-
+  $log.info(`Auth Firebase app: ${authFirebaseApp.options.authDomain}`);
+  $log.info(`Main Firebase app: ${firebaseApp.options.authDomain}`);
 }
+run.$inject = ['$log', 'firebaseApp', 'authFirebaseApp', 'authProvider'];
+
+const invalidChar = ['.', '#', '$', '/', '[', ']'];
 
 /**
- * Helpers for firebase Firebase, $firebaseObject and $firebaseArray object.
+ * Remove invalid items from an object.
  *
- * Remove boilerplates:
- * - get $firebaseObject or $firebaseArray object using a relative path
- *   instead of Firebase obj.
- * - wrap a promise around the Firebase operation (currently provide set,
- *   remove and push).
- * - limit the number of object and returned object to mock in tests; just
- *   mock spfFirebase.
+ * Invalid items have a key with an invalid char:
+ * '.', '#', '$', '/', '[' or ']'.
  *
+ * @param  {any} obj value to cleanup.
+ * @return {any}
  */
-export function spfFirebaseFactory($q, $log, $firebaseObject, $firebaseArray, spfFirebaseRef) {
-  var invalidChar = ['.', '#', '$', '/', '[', ']'];
-  var spfFirebase;
+export function cleanObj(obj) {
+  if (obj === undefined) {
+    return null;
+  }
 
-  spfFirebase = {
+  if (Array.isArray(obj)) {
+    return obj.map(x => cleanObj(x));
+  }
 
-    ServerValue: Firebase.ServerValue,
+  if (
+    obj == null ||
+    !(obj instanceof Object) ||
+    typeof obj.getDate === 'function'
+  ) {
+    return obj;
+  }
 
-    /**
-     * alias for spfFirebaseRef.
-     *
-     */
-    ref: function() {
-      return spfFirebaseRef.apply(this, arguments);
-    },
-
-    /**
-     * Convenient function to return a $firebaseObject object.
-     *
-     * example:
-     *
-     *    var userPromise = spfFirebase.obj(['singpath/auth/users', userId]).$loaded();
-     *
-     */
-    obj: function() {
-      return $firebaseObject(spfFirebaseRef.apply(this, arguments));
-    },
-
-    loadedObj: function() {
-      return spfFirebase.obj.apply(this, arguments).$loaded();
-    },
-
-    /**
-     * Convenient function to return a $firebaseArray object.
-     *
-     * example:
-     *
-     *     var usersPromise = spfFirebase.obj(['singpath/auth/users']).$loaded();
-     *
-     */
-    array: function() {
-      return $firebaseArray(spfFirebaseRef.apply(this, arguments));
-    },
-
-    loadedArray: function() {
-      return spfFirebase.array.apply(this, arguments).$loaded();
-    },
-
-    /**
-     * Add data to a collection.
-     *
-     * Returns a promise resolving to an error on error or a Firebase
-     * reference to the new item in the collection.
-     *
-     */
-    push: function(root, value) {
-      return $q(function(resolve, reject) {
-        var ref;
-
-        ref = spfFirebaseRef(root).push(value, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    /**
-     * Add data to a collection like `push` but also set the priority.
-     *
-     * Returns a promise resolving to an error on error or a Firebase
-     * reference to the new item in the collection.
-     *
-     */
-    pushWithPriority: function(root, value, priority) {
-      return $q(function(resolve, reject) {
-        var ref = spfFirebaseRef(root).push();
-
-        ref.setWithPriority(value, priority, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    /**
-     * Set a firebase entry to the value.
-     *
-     * Returns a promise resolving to an error on error or to a Firebase
-     * reference to the firebase entry.
-     *
-     */
-    set: function(path, value) {
-      return $q(function(resolve, reject) {
-        var ref = spfFirebaseRef(path);
-
-        ref.set(value, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    /**
-     * Set a firebase entry to the value with a priority.
-     *
-     * Returns a promise resolving to an error on error or to a Firebase
-     * reference to the firebase entry.
-     *
-     */
-    setWithPriority: function(path, value, priority) {
-      priority = priority || 0;
-
-      return $q(function(resolve, reject) {
-        var ref = spfFirebaseRef(path);
-
-        ref.setWithPriority(value, priority, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    patch: function(path, value) {
-      return $q(function(resolve, reject) {
-        var ref = spfFirebaseRef(path);
-
-        $log.debug('PATCH', JSON.stringify(value));
-
-        ref.update(value, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    /**
-     * Remove firebase entry to the value.
-     *
-     * Returns a promise resolving to an error on error or to a Firebase
-     * reference to empty firebase entry.
-     */
-    remove: function(path) {
-      return $q(function(resolve, reject) {
-        var ref = spfFirebaseRef(path);
-
-        ref.remove(function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(ref);
-          }
-        });
-      });
-    },
-
-    /**
-     * Return a factory extending `$firebaseObject`.
-     *
-     * Unlike `$firebaseObject.$extend`, it return a plain function and not
-     * a constructor. It also takes as argument path and options like
-     * `spfFirebase.ref`.
-     *
-     */
-    objFactory: function(mixin) {
-      var Obj = $firebaseObject.$extend(mixin);
-      return function factory() {
-        return new Obj(spfFirebase.ref.apply(spfFirebase, arguments));
-      };
-    },
-
-    /**
-     * Return a factory extending `$firebaseArray`.
-     *
-     * Unlike `$firebaseArray.$extend`, it return a plain function and not
-     * a constructor. It also takes as argument path and options like
-     * `spfFirebase.ref`.
-     *
-     */
-    arrayFactory: function(mixin) {
-      var Arr = $firebaseArray.$extend(mixin);
-      return function factory() {
-        return new Arr(spfFirebase.ref.apply(spfFirebase, arguments));
-      };
-    },
-
-    /**
-     * Remove invalid items from an object.
-     *
-     * Invalid items have a key with an invalid char:
-     * '.', '#', '$', '/', '[' or ']'.
-     */
-    cleanObj: function(obj) {
-      if (obj === undefined) {
-        return null;
-      }
-
-      if (
-        obj == null ||
-        !(obj instanceof Object) ||
-        Array.isArray(obj) ||
-        typeof obj.getDate === 'function'
-      ) {
-        return obj;
-      }
-
-      return Object.keys(obj).reduce(function(copy, key) {
-        if (!key) {
-          return copy;
-        }
-
-        for (var i = 0; i < invalidChar.length; i++) {
-          if (key.indexOf(invalidChar[i]) !== -1) {
-            return copy;
-          }
-        }
-
-        copy[key] = obj[key];
-
-        if (copy[key] === undefined) {
-          copy[key] = null;
-        }
+  return Object.keys(obj).reduce(function(copy, key) {
+    for (var i = 0; i < invalidChar.length; i++) {
+      if (key.indexOf(invalidChar[i]) !== -1) {
         return copy;
-      }, {});
-    },
-
-    errTransactionFailed: new Error('Transaction failed'),
-    errTransactionAborted: new Error('Transaction aborted'),
-
-    /**
-     * Promise based transaction helper.
-     *
-     * `path` is the firebase path the transaction will work on.
-     *
-     * `callback` will be called with the current value at the path. It should return
-     * a new value to update the path with or undefined to abort the transaction.
-     *
-     * The returned promise will resolve to the new value or will reject
-     * with a spfFirebase.errTransactionFailed or spfFirebase.errTransactionAborted
-     * error.
-     *
-     */
-    transaction: function(path, callback) {
-      return $q(function(ok, fails) {
-        spfFirebase.ref(path).transaction(callback, function(error, committed, snapshot) {
-          if (error) {
-            $log.error(error);
-            fails(spfFirebase.errTransactionFailed);
-          } else if (!committed) {
-            fails(spfFirebase.errTransactionAborted);
-          } else {
-            ok(snapshot);
-          }
-        }, false);
-      });
-    },
-
-    /**
-     * Return a promise resolving to the record at the firebase path.
-     *
-     * An alternative to using an AngularFire object whenyou don't need
-     * the update.
-     *
-     */
-    valueAt: function(path) {
-      return $q(function(ok, fails) {
-        spfFirebase.ref(path).once('value', function(snapshot) {
-          ok(snapshot.val());
-        }, fails);
-      });
+      }
     }
-  };
 
-  return spfFirebase;
+    copy[key] = cleanObj(obj[key]);
+
+    return copy;
+  }, {});
 }
-
-spfFirebaseFactory.$inject = [
-  '$q',
-  '$log',
-  '$firebaseObject',
-  '$firebaseArray',
-  'spfFirebaseRef'
-];

@@ -1,75 +1,82 @@
 /* globals document: true */
-
 import angular from 'angular';
-import module from 'classmentors/module.js';
-import 'core-js/fn/object/assign.js';
+import firebase from 'firebase';
+import 'angular-animate';
+import 'angular-loading-bar';
+import 'angular-material';
+import 'angular-messages';
+import 'angular-route';
+import 'angularfire';
+
+// polyfills
 import 'core-js/fn/array/every.js';
-import 'core-js/fn/array/find.js';
 import 'core-js/fn/array/find-index.js';
+import 'core-js/fn/array/find.js';
 import 'core-js/fn/array/from.js';
 import 'core-js/fn/array/some.js';
-import 'core-js/fn/string/starts-with.js';
 import 'core-js/fn/function/bind.js';
+import 'core-js/fn/object/assign.js';
+import 'core-js/fn/string/starts-with.js';
+
+import {module as spfShared} from 'singpath-core';
 
 import * as services from 'classmentors/services.js';
 import * as filters from 'classmentors/filters.js';
 import * as directives from 'classmentors/directives.js';
-import * as d3 from 'd3';
-import * as c3 from 'c3';
+import components from 'classmentors/components/index.js';
 
-import * as app from 'classmentors/components/classmentors/classmentors.js';
-import * as ace from 'classmentors/components/ace/ace.js';
-import admin from 'classmentors/components/admin/admin.js';
-import * as events from 'classmentors/components/events/events.js';
-import * as profiles from 'classmentors/components/profiles/profiles.js';
-import * as cohorts from 'classmentors/components/cohorts/cohorts.js';
-import * as challenges from 'classmentors/components/challenges/challenges.js';
-// import * as mcq from 'classmentors/components/challenges/mcq/mcq.js';
+const module = angular.module('clm', [
+  'angular-loading-bar',
+  'firebase',
+  'ngAnimate',
+  'ngMessages',
+  'ngRoute',
+  spfShared.name
+]);
 
+module.value('clmServicesUrl', {
+  backend: 'http://api.singpath.com/',
+  singPath: 'http://www.singpath.com/',
+  codeCombat: 'https://codecombat.com',
+  codeSchool: 'https://www.codeschool.com'
+});
 
-module.factory('clmService', services.clmServiceFactory);
+// module.component('challenges', components.challenges.component);
+module.component('ace', components.ace.component);
+module.component('classmentors', components.classmentors.component);
+module.component('clmAdmin', components.admin.component);
+module.config(components.ace.configRoute);
+module.config(components.admin.configRoute);
+module.constant('aceStatsUrl', components.ace.ACE_STATS_URL);
+module.constant('spfProfilesPath', 'classMentors/userProfiles');
+module.directive('clmCohortsRankingPage', components.cohorts.clmCohortRankPageFactory);
+module.directive('clmCohortsStatsPage', components.cohorts.clmCohortsStatsPageFactory);
+module.directive('clmEventRankTable', components.events.clmEventRankTableFactory);
+module.directive('clmEventResultsTable', components.events.clmEventResultsTableFactory);
+module.directive('clmEventTable', components.events.clmEventTableFactory);
+module.directive('clmPager', components.events.clmPagerFactory);
+module.directive('clmProfile', components.profiles.clmProfileFactory);
+module.directive('clmServiceUserIdExists', components.profiles.clmServiceUserIdExistsFactory);
+module.directive('clmSpfProfile', components.profiles.clmSpfProfileFactory);
+module.directive('cmContains', directives.cmContainsFactory);
+module.factory('aceStats', components.ace.factory);
+module.factory('challengeService', components.challenges.challengeServiceFactory);
 module.factory('clmDataStore', services.clmDataStoreFactory);
-module.factory('eventService', events.eventServiceFactory);
-module.factory('challengeService', challenges.challengeServiceFactory);
-
+module.factory('clmPagerOption', components.events.clmPagerOptionFactory);
+module.factory('clmRowPerPage', components.events.clmRowPerPageFactory);
+module.factory('clmService', services.clmServiceFactory);
+module.factory('clmSurvey', components.events.clmSurveyTaskFactory);
+module.factory('eventService', components.events.eventServiceFactory);
 module.filter('cmTruncate', filters.cmTruncateFilterFactory);
 module.filter('cmTruncated', filters.cmTruncateFilterBooleanFactory);
 module.filter('showSchool', filters.showSchoolFilterFactory);
 
-module.directive('cmContains', directives.cmContainsFactory);
+// TODO: convert those view controller/template to component and move them above
+module.config(components.cohorts.configRoute);
+module.config(components.events.configRoute);
+module.config(components.profiles.configRoute);
+module.config(components.challenges.configRoute);
 
-module.component('classmentors', app.component);
-
-module.component('ace', ace.component);
-module.constant('aceStatsUrl', ace.ACE_STATS_URL);
-module.factory('aceStats', ace.factory);
-
-// module.component('challenges'. challenges.component);
-
-module.directive('clmProfile', profiles.clmProfileFactory);
-module.directive('clmSpfProfile', profiles.clmSpfProfileFactory);
-module.directive('clmServiceUserIdExists', profiles.clmServiceUserIdExistsFactory);
-
-module.directive('clmEventTable', events.clmEventTableFactory);
-module.directive('clmEventRankTable', events.clmEventRankTableFactory);
-module.directive('clmEventResultsTable', events.clmEventResultsTableFactory);
-
-module.directive('clmCohortsStatsPage', cohorts.clmCohortsStatsPageFactory);
-module.directive('clmCohortsRankingPage', cohorts.clmCohortRankPageFactory);
-
-module.directive('clmPager', events.clmPagerFactory);
-
-module.factory('clmRowPerPage', events.clmRowPerPageFactory);
-module.factory('clmPagerOption', events.clmPagerOptionFactory);
-
-module.component('clmAdmin', admin.component);
-module.config(admin.configRoute);
-
-//added new survey factory for tryout purpose
-module.factory('clmSurvey',events.clmSurveyTaskFactory);
-
-// needed by singpath-core current user service.
-module.constant('spfProfilesPath', 'classMentors/userProfiles');
 
 /**
  * Label route paths.
@@ -102,64 +109,52 @@ module.constant('routes', {
   editMcq: '/challenges/mcq/edit',
   viewSurvey: '/challenges/survey',
   createTeamActivity: '/challenges/team-activity/create',
-  viewIRAT:'/challenges/IRAT',
-  viewTRAT:'/challenges/TRAT'
+  viewIRAT: '/challenges/IRAT',
+  viewTRAT: '/challenges/TRAT'
 });
-
-module.config([
-  '$routeProvider',
-  'routes',
-  function($routeProvider, routes) {
-    $routeProvider
-      .when(routes.aceOfCoders, {
-        template: '<ace stats="$resolve.stats"></ace>',
-        resolve: {
-          stats: ace.getStats
-        }
-      })
-      .otherwise(routes.home);
-  }
-]);
-
-// TODO: convert those view controller/template to component and move them above
-module.config(cohorts.configRoute);
-module.config(events.configRoute);
-module.config(profiles.configRoute);
-module.config(challenges.configRoute);
 
 export {module};
 
 /**
  * Bootstrap classmentors Angular app and overwrite default settings.
  *
- * @param {{firebaseId: string, singpathUrl: string, backendUrl: string}} options
+ * @param {{firebaseApp: string, singpathUrl: string, backendUrl: string}} options Application
  */
 export function bootstrap(options) {
   const bootstrapModule = angular.module('classmentors.bootstrap', [module.name]);
 
   options = options || {};
 
-  bootstrapModule.config([
-    '$routeProvider',
-    'routes',
-    'spfFirebaseRefProvider',
-    function($routeProvider, routes, spfFirebaseRefProvider) {
-      $routeProvider.otherwise({
-        redirectTo: routes.home
-      });
+  if (options.firebaseApp) {
+    bootstrapModule.constant('firebaseApp', options.firebaseApp);
+    bootstrapModule.constant('authFirebaseApp', options.firebaseApp);
+  } else {
 
-      if (!options.firebaseId) {
-        return;
-      }
+    // use singpath firebase by default
+    const firebaseApp = firebase.initializeApp({
+      apiKey: 'AIzaSyBH01uLzdMqH0hkbDqvcgpzTDpo6yYtPDA',
+      authDomain: 'singpath.firebaseapp.com',
+      databaseURL: 'https://singpath.firebaseio.com'
+    });
 
-      spfFirebaseRefProvider.setBaseUrl(`https://${options.firebaseId}.firebaseio.com/`);
-    }
-  ]);
+    bootstrapModule.constant('firebaseApp', firebaseApp);
+    bootstrapModule.constant('authFirebaseApp', firebaseApp);
+  }
+
+  if (options.provider) {
+    bootstrapModule.constant('authProvider', options.provider);
+  } else {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+    provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+
+    bootstrapModule.constant('authProvider', provider);
+  }
 
   bootstrapModule.run([
-    '$window',
     'clmServicesUrl',
-    function($window, clmServicesUrl) {
+    function(clmServicesUrl) {
       if (options.singpathURL) {
         clmServicesUrl.singPath = options.singpathURL.replace(/\/$/, '');
       }

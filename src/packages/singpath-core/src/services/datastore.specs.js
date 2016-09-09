@@ -1,12 +1,27 @@
+import {testInjectMatch, sinon, expect} from 'singpath-core/tools/chai.js';
+
 import * as datastore from './datastore.js';
-import sinon from 'sinon';
-import {expect} from 'chai';
+
 
 describe('datastore service.', function() {
 
   describe('currentUser service', function() {
     const spfProfilesPath = 'classMentors/userProfiles';
-    let currentUser, $q, $timeout, $log, $rootScope, spfCrypto, spfFirebase, spfAuth, firebaseUser;
+    let
+      currentUser,
+      $q,
+      db,
+      authDb,
+      $timeout,
+      $log,
+      $rootScope,
+      spfCrypto,
+      firebaseApp,
+      authFirebaseApp,
+      spfAuth,
+      firebaseUser;
+
+    testInjectMatch(datastore.SpfCurrentUserService);
 
     beforeEach(function() {
       $q = (resolve, reject) => new Promise(resolve, reject);
@@ -22,7 +37,13 @@ describe('datastore service.', function() {
 
       spfCrypto = {md5: sinon.stub()};
 
-      spfFirebase = {ref: sinon.stub()};
+      db = {ref: sinon.stub()};
+      firebaseApp = {database: sinon.stub()};
+      firebaseApp.database.returns(db);
+
+      authDb = {ref: sinon.stub()};
+      authFirebaseApp = {database: sinon.stub()};
+      authFirebaseApp.database.returns(authDb);
 
       spfAuth = {
         user: undefined,
@@ -41,7 +62,7 @@ describe('datastore service.', function() {
       };
 
       currentUser = new datastore.SpfCurrentUserService(
-        $q, $timeout, $log, $rootScope, spfCrypto, spfFirebase, spfAuth, spfProfilesPath
+        $q, $timeout, $log, $rootScope, spfCrypto, firebaseApp, authFirebaseApp, spfAuth, spfProfilesPath
       );
     });
 
@@ -64,7 +85,7 @@ describe('datastore service.', function() {
           on: sinon.spy(),
           off: sinon.spy()
         };
-        spfFirebase.ref.withArgs('auth/users/google:bob').returns(ref);
+        authDb.ref.withArgs('auth/users/google:bob').returns(ref);
         sinon.stub(currentUser, 'patchUser');
       });
 
@@ -189,7 +210,7 @@ describe('datastore service.', function() {
       beforeEach(function() {
         currentUser.firebaseUser = firebaseUser;
         userRef = {once: sinon.stub(), transaction: sinon.stub()};
-        spfFirebase.ref.withArgs('auth/users/google:bob').returns(userRef);
+        authDb.ref.withArgs('auth/users/google:bob').returns(userRef);
         userRef.once.withArgs('value').returns(Promise.resolve());
         userRef.transaction.withArgs(sinon.match.func).returns(Promise.resolve());
       });
@@ -316,7 +337,7 @@ describe('datastore service.', function() {
           on: sinon.spy(),
           off: sinon.spy()
         };
-        spfFirebase.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
+        db.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
         profileRef.child.withArgs('user').returns(profileDetailsRef);
       });
 
@@ -326,7 +347,7 @@ describe('datastore service.', function() {
           off: sinon.spy()
         };
 
-        spfFirebase.ref.withArgs('auth/users/google:bob').returns(userRef);
+        authDb.ref.withArgs('auth/users/google:bob').returns(userRef);
         sinon.stub(currentUser, 'patchUser');
         sinon.stub(currentUser, 'userChangedHandler');
 
@@ -486,7 +507,7 @@ describe('datastore service.', function() {
 
         detailsRef = {once: sinon.stub(), transaction: sinon.stub()};
         profileRef.child.withArgs('user').returns(detailsRef);
-        spfFirebase.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
+        db.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
         detailsRef.once.withArgs('value').returns(Promise.resolve());
         detailsRef.transaction.withArgs(sinon.match.func).returns(Promise.resolve());
 
@@ -638,7 +659,7 @@ describe('datastore service.', function() {
           transaction: sinon.spy()
         };
 
-        spfFirebase.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
+        db.ref.withArgs('classMentors/userProfiles/bob').returns(profileRef);
         profileDetailsRef.once.withArgs('value').returns(Promise.resolve());
         profileRef.child.withArgs('user').returns(profileDetailsRef);
         sinon.stub(currentUser, 'profileChangedHandler');
@@ -689,15 +710,15 @@ describe('datastore service.', function() {
       let ref;
 
       beforeEach(function() {
-        spfFirebase.ref.returns(ref);
+        authDb.ref.returns(ref);
       });
 
       it('should return a firebase reference to a user auth data', function() {
         expect(currentUser.userRef('google:bob')).to.equal(ref);
-        expect(spfFirebase.ref).to.have.been.calledWith('auth/users/google:bob');
+        expect(authDb.ref).to.have.been.calledWith('auth/users/google:bob');
 
         expect(currentUser.userRef('google:alice')).to.equal(ref);
-        expect(spfFirebase.ref).to.have.been.calledWith('auth/users/google:alice');
+        expect(authDb.ref).to.have.been.calledWith('auth/users/google:alice');
       });
 
       it('should throw if uid is not provided', function() {
@@ -711,15 +732,15 @@ describe('datastore service.', function() {
       let ref;
 
       beforeEach(function() {
-        spfFirebase.ref.returns(ref);
+        db.ref.returns(ref);
       });
 
       it('should return a firebase reference to a user auth data', function() {
         expect(currentUser.profileRef('bob')).to.equal(ref);
-        expect(spfFirebase.ref).to.have.been.calledWith('classMentors/userProfiles/bob');
+        expect(db.ref).to.have.been.calledWith('classMentors/userProfiles/bob');
 
         expect(currentUser.profileRef('alice')).to.equal(ref);
-        expect(spfFirebase.ref).to.have.been.calledWith('classMentors/userProfiles/alice');
+        expect(db.ref).to.have.been.calledWith('classMentors/userProfiles/alice');
       });
 
       it('should throw if uid is not provided', function() {
@@ -736,7 +757,7 @@ describe('datastore service.', function() {
         ref = {on: sinon.stub(), off: sinon.spy()};
 
         currentUser.firebaseUser = {uid: 'bob'};
-        spfFirebase.ref.returns(ref);
+        authDb.ref.returns(ref);
         currentUser.watchUser();
 
         ref.on.reset();
@@ -760,7 +781,7 @@ describe('datastore service.', function() {
         ref = {on: sinon.stub(), off: sinon.spy(), child: sinon.stub().returnsThis()};
 
         currentUser.user = {uid: 'google:bob', publicId: 'bob'};
-        spfFirebase.ref.returns(ref);
+        db.ref.returns(ref);
         currentUser.watchProfile();
 
         ref.on.reset();
@@ -859,7 +880,7 @@ describe('datastore service.', function() {
       beforeEach(function() {
         ref = {update: sinon.stub()};
         ref.update.returns(Promise.resolve());
-        spfFirebase.ref.withArgs('auth').returns(ref);
+        authDb.ref.withArgs('auth').returns(ref);
 
         currentUser.firebaseUser = firebaseUser;
         currentUser.uid = firebaseUser.uid;
@@ -992,6 +1013,8 @@ describe('datastore service.', function() {
   describe('run', function() {
     let $log;
 
+    testInjectMatch(datastore.run);
+
     beforeEach(function() {
       $log = {info: sinon.spy()};
     });
@@ -1008,6 +1031,576 @@ describe('datastore service.', function() {
       datastore.run($log, 'some/path');
       expect($log.info).to.have.been.calledOnce();
       expect($log.info).to.have.been.calledWith(sinon.match(/some\/path/));
+    });
+
+  });
+
+  describe('spfAuth', function() {
+    let spfAuth, firebaseAuth, $auth, currentUser, $route, $log, $firebaseAuth, authFirebaseApp, authProvider;
+
+    beforeEach(function() {
+      currentUser = {};
+      firebaseAuth = {};
+      $auth = {
+        $getAuth: sinon.stub(),
+        $signInWithPopup: sinon.stub(),
+        $signOut: sinon.stub(),
+        $onAuthStateChanged: sinon.stub()
+      };
+      $auth.$getAuth.returns(currentUser);
+      $route = {reload: sinon.spy()};
+      $log = {error: sinon.spy(), debug: sinon.spy()};
+      authFirebaseApp = {auth: sinon.stub()};
+      authFirebaseApp.auth.returns(firebaseAuth);
+      $firebaseAuth = sinon.stub();
+      $firebaseAuth.withArgs(firebaseAuth).returns($auth);
+      authProvider = {};
+      spfAuth = datastore.spfAuthFactory($route, $log, $firebaseAuth, authFirebaseApp, authProvider);
+    });
+
+    testInjectMatch(datastore.spfAuthFactory);
+
+    it('should set current user state', function() {
+      expect(spfAuth.user).to.equal(currentUser);
+    });
+
+    it('should update current user on state changes', function() {
+      expect($auth.$onAuthStateChanged).to.have.been.calledOnce();
+      expect($auth.$onAuthStateChanged).to.have.been.calledWith(sinon.match.func);
+
+      const handler = $auth.$onAuthStateChanged.lastCall.args[0];
+      const newState = {};
+
+      handler(newState);
+      expect(spfAuth.user).to.equal(newState);
+      handler();
+      expect(spfAuth.user).to.be.undefined();
+    });
+
+    describe('userInfo', function() {
+      let googleData, customData;
+
+      beforeEach(function() {
+        googleData = {
+          displayName: 'Bob Smith',
+          email: 'bob@example.com',
+          photoURL: 'https://example.com',
+          providerId: 'google.com',
+          uid: '1234567'
+        };
+        customData = {providerId: 'custom'};
+      });
+
+      it('should return null if the user is not logged in', function() {
+        spfAuth.user = null;
+        expect(spfAuth.userInfo()).to.equal(null);
+      });
+
+      it('should return an empty object if the firebase auth data have no providerData', function() {
+        spfAuth.user = {};
+        expect(spfAuth.userInfo()).to.eql({});
+      });
+
+      it('should return name and email from google provided data', function() {
+        spfAuth.user = {providerData: [googleData]};
+        expect(spfAuth.userInfo()).to.eql({
+          name: googleData.displayName,
+          email: googleData.email
+        });
+      });
+
+      it('should return dummy name and email from custom provided data', function() {
+        spfAuth.user = {providerData: [customData]};
+        expect(spfAuth.userInfo()).to.eql({
+          name: 'Custom User',
+          email: 'custom@example.com'
+        });
+      });
+
+      it('should not return dummy name and email from custom provided data if other data exist', function() {
+        spfAuth.user = {providerData: [googleData, customData]};
+        expect(spfAuth.userInfo()).to.eql({
+          name: googleData.displayName,
+          email: googleData.email
+        });
+        spfAuth.user = {providerData: [customData, googleData]};
+        expect(spfAuth.userInfo()).to.eql({
+          name: googleData.displayName,
+          email: googleData.email
+        });
+      });
+
+      it('should log unknown provider', function() {
+        spfAuth.user = {providerData: [{providerId: 'unknown'}]};
+        spfAuth.userInfo();
+        expect($log.error).to.have.been.calledOnce();
+      });
+
+    });
+
+    describe('login', function() {
+      let credentials;
+
+      beforeEach(function() {
+        credentials = {user: currentUser, credential: {}};
+        $auth.$signInWithPopup.withArgs(authProvider).returns(Promise.resolve(credentials));
+      });
+
+      it('should start popup signin process', function() {
+        spfAuth.login();
+        expect($auth.$signInWithPopup).to.have.been.calledOnce();
+      });
+
+      it('should resolve to the current user data', function() {
+        return spfAuth.login().then(
+          d => expect(d).to.equal(currentUser)
+        );
+      });
+
+    });
+
+    describe('logout', function() {
+      let status;
+
+      beforeEach(function() {
+        status = {};
+        $auth.$signOut.returns(Promise.resolve(status));
+      });
+
+      it('should sign user out', function() {
+        spfAuth.logout();
+        expect($auth.$signOut).to.have.been.calledOnce();
+      });
+
+      it('should return the resolve when the user is signed out', function() {
+        return spfAuth.logout().then(
+          s => expect(s).to.equal(status)
+        );
+      });
+    });
+
+  });
+
+  describe('spfAuthData', function() {
+    let spfAuthData, UserObject, db, $q, $log, $firebaseObject, authFirebaseApp, spfAuth, spfCrypto;
+
+    beforeEach(function() {
+      $q = (resolve, reject) => new Promise(resolve, reject);
+      $q.resolve = v => Promise.resolve(v);
+      $q.reject = e => Promise.reject(e);
+      $log = {info: sinon.spy()};
+      UserObject = sinon.stub();
+      $firebaseObject = {$extend: sinon.stub()};
+      $firebaseObject.$extend.returns(UserObject);
+      db = {ref: sinon.stub()};
+      authFirebaseApp = {database: sinon.stub()};
+      authFirebaseApp.database.returns(db);
+      spfAuth = {
+        user: undefined,
+        onAuth: sinon.stub(),
+        userInfo: sinon.stub()
+      };
+      spfCrypto = {md5: sinon.stub()};
+      spfAuthData = datastore.spfAuthDataFactory($q, $log, $firebaseObject, authFirebaseApp, spfAuth, spfCrypto);
+    });
+
+    testInjectMatch(datastore.spfAuthDataFactory);
+
+    describe('UserFirebaseObject', function() {
+
+      it('should extend angularFire $firebaseObject', function() {
+        expect($firebaseObject.$extend).to.have.been.calledOnce();
+        expect($firebaseObject.$extend).to.have.been.calledWith(sinon.match({}));
+        expect(spfAuthData.UserFirebaseObject).to.equal(UserObject);
+      });
+
+      it('should include a $completed method', function() {
+        expect($firebaseObject.$extend).to.have.been.calledWith(
+          sinon.match({$completed: sinon.match.func})
+        );
+      });
+
+      describe('$completed', function() {
+        let mixin, singapore, uk, publicId, school;
+
+        beforeEach(function() {
+          mixin = $firebaseObject.$extend.lastCall.args[0];
+          singapore = {name: 'Singapore', code: 'SG'};
+          uk = {name: 'United Kingdom', code: 'GB'};
+          publicId = 'bob';
+          school = {
+            id: 'Temasek Polytechnic',
+            name: 'Temasek Polytechnic',
+            type: 'Polytechnic'
+          };
+        });
+
+        it('should check user has a public id and a country', function() {
+          expect(mixin.$completed.call({})).to.be.false();
+          expect(mixin.$completed.call({publicId})).to.be.false();
+          expect(mixin.$completed.call({country: uk})).to.be.false();
+          expect(mixin.$completed.call({publicId, country: uk})).to.be.true();
+        });
+
+        it('should check user has dob selected when from singapore', function() {
+          const country = singapore;
+
+          expect(mixin.$completed.call({publicId, country})).to.be.false();
+          expect(mixin.$completed.call({publicId, country, yearOfBirth: 1990})).to.be.true();
+        });
+
+        it('should check user has school selected when from singapore and age range', function() {
+          const country = singapore;
+          const max = 1996;
+          const min = 2004;
+
+          expect(mixin.$completed.call({publicId, country, yearOfBirth: max - 1})).to.be.true();
+          expect(mixin.$completed.call({publicId, country, yearOfBirth: max})).to.be.false();
+          expect(mixin.$completed.call({publicId, country, yearOfBirth: min})).to.be.false();
+          expect(mixin.$completed.call({publicId, country, yearOfBirth: min + 1})).to.be.true();
+          expect(mixin.$completed.call({publicId, country, school, yearOfBirth: min})).to.be.true();
+        });
+
+      });
+
+      describe('create', function() {
+
+        it('should create a new UserFirebaseObject', function() {
+          const ref = {child: () => undefined};
+          const obj = spfAuthData.UserFirebaseObject.create(ref);
+
+          expect(spfAuthData.UserFirebaseObject).to.have.been.calledOnce();
+          expect(spfAuthData.UserFirebaseObject.lastCall.thisValue).to.equal(obj);
+        });
+
+        it('should throw if passed a string', function() {
+          expect(() => spfAuthData.UserFirebaseObject.create('foo/bar')).to.throw(Error);
+        });
+
+        it('should throw if passed an array', function() {
+          expect(() => spfAuthData.UserFirebaseObject.create(['foo', 'bar'])).to.throw(Error);
+        });
+
+      });
+
+    });
+
+    describe('register', function() {
+      const uid = 'google:12345';
+      const hash = 'some-hash';
+      let userObj, info;
+
+      beforeEach(function() {
+        info = {name: 'bob smith', email: 'bob@example.com'};
+        userObj = {
+          $value: null,
+          $save: sinon.stub()
+        };
+        userObj.$save.returns(Promise.resolve());
+        spfAuth.user = {uid: uid};
+        spfAuth.userInfo.returns(info);
+        spfCrypto.md5.withArgs(info.email).returns(hash);
+      });
+
+      it('should reject without a UserObject', function() {
+        return spfAuthData.register().then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should not save the object if it reference an existing value', function() {
+        delete userObj.$value;
+
+        return spfAuthData.register(userObj).then(uo => {
+          expect(uo).to.equal(userObj);
+          expect(userObj.$save).not.to.have.been.called();
+        });
+      });
+
+      it('should reject if the user has no auth provided data', function() {
+        spfAuth.userInfo.returns(null);
+
+        return spfAuthData.register(userObj).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should reject if the user auth provided data has no name', function() {
+        delete info.name;
+
+        return spfAuthData.register(userObj).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should reject if the user auth provided data has no email', function() {
+        delete info.email;
+
+        return spfAuthData.register(userObj).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should save the auth provided data', function() {
+        return spfAuthData.register(userObj).then(uo => {
+          expect(uo).to.equal(userObj);
+          expect(userObj.$save).to.have.been.calledOnce();
+          expect(uo.$value).to.eql({
+            id: uid,
+            fullName: info.name,
+            displayName: info.name,
+            email: info.email,
+            gravatar: `//www.gravatar.com/avatar/${hash}`,
+            createdAt: {'.sv': 'timestamp'}
+          });
+        });
+      });
+
+    });
+
+    describe('user', function() {
+      const uid = 'google:12345';
+      let userDataRef, userObj;
+
+      beforeEach(function() {
+        spfAuth.user = {uid};
+
+        userDataRef = {};
+        db.ref.withArgs(`auth/users/${uid}`).returns(userDataRef);
+
+        userObj = {$loaded: sinon.stub()};
+        userObj.$loaded.returns(Promise.resolve(userObj));
+        sinon.stub(spfAuthData.UserFirebaseObject, 'create');
+        spfAuthData.UserFirebaseObject.create.withArgs(userDataRef).returns(userObj);
+
+        sinon.stub(spfAuthData, 'register');
+        spfAuthData.register.withArgs(userObj).returns(Promise.resolve(userObj));
+      });
+
+      it('should reject if the user is not logged in (1/2)', function() {
+        spfAuth.user = undefined;
+
+        return spfAuthData.user().then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should reject if the user is not logged in (2/2)', function() {
+        spfAuth.user = {};
+
+        return spfAuthData.user().then(
+          () => Promise.reject(new Error('unexpected')),
+          () => undefined
+        );
+      });
+
+      it('should load the user data from the firebase app datastore', function() {
+        return spfAuthData.user().then(
+          uo => expect(uo).to.equal(userObj)
+        );
+      });
+
+      it('should try to register the user', function() {
+        return spfAuthData.user().then(
+          () => expect(spfAuthData.register).to.have.been.calledOnce()
+        );
+      });
+
+      it('should cache the user synchronized object', function() {
+        return spfAuthData.user().then(
+          () => spfAuthData.user()
+        ).then(
+          uo => expect(uo).to.equal(userObj)
+        ).then(
+          () => expect(spfAuthData.UserFirebaseObject.create).have.been.calledOnce()
+        );
+      });
+
+      it('should reset the cache when the user signout', function() {
+        expect(spfAuth.onAuth).to.have.been.calledOnce();
+        expect(spfAuth.onAuth).to.have.been.calledWith(sinon.match.func);
+
+        const handler = spfAuth.onAuth.lastCall.args[0];
+
+        return spfAuthData.user().then(() => {
+          handler();
+        }).then(
+          () => spfAuthData.user()
+        ).then(
+          uo => expect(uo).to.equal(userObj)
+        ).then(
+          () => expect(spfAuthData.UserFirebaseObject.create).have.been.calledTwice()
+        );
+      });
+
+      it('should not reset the cache for other auth changes (TODO: multi provider provider support?)', function() {
+        expect(spfAuth.onAuth).to.have.been.calledOnce();
+        expect(spfAuth.onAuth).to.have.been.calledWith(sinon.match.func);
+
+        const handler = spfAuth.onAuth.lastCall.args[0];
+
+        return spfAuthData.user().then(() => {
+          handler({uid});
+        }).then(
+          () => spfAuthData.user()
+        ).then(
+          uo => expect(uo).to.equal(userObj)
+        ).then(
+          () => expect(spfAuthData.UserFirebaseObject.create).have.been.calledOnce()
+        );
+      });
+
+    });
+
+    describe('isPublicIdAvailable', function() {
+      const publicId = 'bob';
+      let publicIdRef, publicIdSnapshot;
+
+      beforeEach(function() {
+        publicIdRef = {once: sinon.stub()};
+        publicIdSnapshot = {
+          val: sinon.stub(),
+          exists: sinon.stub()
+        };
+        publicIdRef.once.withArgs('value').returns(
+          Promise.resolve(publicIdSnapshot)
+        );
+        db.ref.withArgs(`auth/usedPublicIds/${publicId}`).returns(publicIdRef);
+      });
+
+      it('should resolve to true if there are not record for the public id', function() {
+        publicIdSnapshot.exists.returns(false);
+        publicIdSnapshot.val.returns(null);
+
+        return spfAuthData.isPublicIdAvailable(publicId).then(
+          available => expect(available).to.be.true()
+        );
+      });
+
+      it('should resolve to true if the public id is not used', function() {
+        publicIdSnapshot.exists.returns(true);
+        publicIdSnapshot.val.returns(false);
+
+        return spfAuthData.isPublicIdAvailable(publicId).then(
+          available => expect(available).to.be.true()
+        );
+      });
+
+      it('should resolve to false if the public id is used', function() {
+        publicIdSnapshot.exists.returns(true);
+        publicIdSnapshot.val.returns(true);
+
+        return spfAuthData.isPublicIdAvailable(publicId).then(
+          available => expect(available).to.be.false()
+        );
+      });
+
+    });
+
+    describe('publicId', function() {
+      const uid = 'google:123456';
+      const publicId = 'bob';
+      let userObject, authRef;
+
+      beforeEach(function() {
+        userObject = {publicId, $id: uid};
+        authRef = {update: sinon.stub()};
+        authRef.update.returns(Promise.resolve());
+        db.ref.withArgs('auth').returns(authRef);
+      });
+
+      it('should reject if not given a syncchronized object (1/2)', function() {
+        return spfAuthData.publicId().then(
+          () => Promise.reject(new Error('unexpected')),
+          () => expect(authRef.update).not.to.have.been.called()
+        );
+      });
+
+      it('should reject if not given a syncchronized object (2/2)', function() {
+        return spfAuthData.publicId({publicId}).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => expect(authRef.update).not.to.have.been.called()
+        );
+      });
+
+      it('should reject if not given a public id', function() {
+        return spfAuthData.publicId({$id: uid}).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => expect(authRef.update).not.to.have.been.called()
+        );
+      });
+
+      it('should set the user public and mark it as used', function() {
+        return spfAuthData.publicId(userObject).then(() => {
+          expect(authRef.update).to.have.been.calledOnce();
+          expect(authRef.update).to.have.been.calledWith({
+            [`publicIds/${publicId}`]: uid,
+            [`usedPublicIds/${publicId}`]: true,
+            [`users/${uid}/publicId`]: publicId
+          });
+          expect(authRef.update).to.have.been.calledWith(
+            sinon.match(patch => Object.keys(patch).length === 3)
+          );
+        });
+      });
+
+      it('should reject if the update failed', function() {
+        authRef.update.returns(Promise.reject());
+
+        return spfAuthData.publicId(userObject).then(
+          () => Promise.reject(new Error('unexpected')),
+          () => expect(authRef.update).to.have.been.called()
+        );
+      });
+    });
+
+  });
+
+  describe('spfSchoolsFactory', function() {
+    let spfSchools, db, ref, schoolsObj, $firebaseObject, firebaseApp;
+
+    testInjectMatch(datastore.spfSchoolsFactory);
+
+    beforeEach(function() {
+      ref = {};
+      db = {ref: sinon.stub()};
+      db.ref.withArgs('classMentors/schools').returns(ref);
+      firebaseApp = {database: sinon.stub()};
+      firebaseApp.database.returns(db);
+
+      schoolsObj = {$loaded: sinon.stub()};
+      schoolsObj.$loaded.returns(Promise.resolve());
+      $firebaseObject = sinon.stub();
+      $firebaseObject.withArgs(ref).returns(schoolsObj);
+
+      spfSchools = datastore.spfSchoolsFactory($firebaseObject, firebaseApp);
+    });
+
+    it('should load the list after the service creation', function() {
+      expect($firebaseObject).to.have.been.calledOnce();
+      expect($firebaseObject).to.have.been.calledWith(ref);
+    });
+
+    it('should return the loaded list of school', function() {
+      return spfSchools().then(so => {
+        expect(so).to.equal(schoolsObj);
+        expect(schoolsObj.$loaded).to.have.been.called();
+      });
+    });
+
+    it('should cache the list', function() {
+      return spfSchools().then(
+        () => spfSchools()
+      ).then(
+        so => expect(so).to.equal(schoolsObj)
+      ).then(
+        () => expect($firebaseObject).to.have.been.calledOnce()
+      );
     });
 
   });

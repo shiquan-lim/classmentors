@@ -9,7 +9,7 @@ sh.set('-e');
 
 sh.echo(`NOTICE:
 
-  Make sure to update JSPM to version "0.17.0-beta.25".
+  Make sure to update JSPM to version "^0.17.0-beta.25".
 
   To update, reinstall all dependencies:
 

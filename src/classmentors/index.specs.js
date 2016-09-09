@@ -3,8 +3,10 @@ import sinonChai from 'sinon-chai';
 
 chai.use(sinonChai);
 
-import 'classmentors/components/ace/ace.specs.js';
-import 'classmentors/components/admin/admin.specs.js';
-import 'classmentors/components/classmentors/classmentors.specs.js';
+// include everything for coverage
+import 'classmentors/services.js';
+import 'classmentors/filters.js';
+import 'classmentors/directives.js';
+import 'classmentors/components/index.js';
 
-// import 'classmentors/components/cohorts/cohorts.specs.js';
+import 'classmentors/components/index.specs.js';

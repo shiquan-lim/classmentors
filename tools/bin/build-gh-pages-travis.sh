@@ -18,8 +18,30 @@ if [[ -z "$TRAVIS_REPO_SLUG" ]]; then
 	exit 1
 fi
 
-if [[ -z "$PROD_FIREBASE_ID" ]]; then
-	echo '$PROD_FIREBASE_ID is not set. Will use default firebase database target.'
+if [[ -z "$PROD_FIREBASE_CONFIG_API_KEY" ]]; then
+	echo '$PROD_FIREBASE_CONFIG_API_KEY is not set'
+fi
+
+if [[ -z "$PROD_FIREBASE_CONFIG_AUTH_DOMAIN" ]]; then
+	echo '$PROD_FIREBASE_CONFIG_AUTH_DOMAIN is not set'
+fi
+
+if [[ -z "$PROD_FIREBASE_CONFIG_DATABASE_URL" ]]; then
+	echo '$PROD_FIREBASE_CONFIG_DATABASE_URL is not set'
+fi
+
+if [[ -z "$PROD_FIREBASE_CONFIG_API_KEY" ]] || \
+	 [[ -z "$PROD_FIREBASE_CONFIG_AUTH_DOMAIN" ]] || \
+	 [[ -z "$PROD_FIREBASE_CONFIG_DATABASE_URL" ]]
+then
+	echo 'Will use default firebase database target.'
+	PROD_FIREBASE_CONFIG='{}'
+else
+	PROD_FIREBASE_CONFIG='{
+	"apiKey": "'$PROD_FIREBASE_CONFIG_API_KEY'",
+	"authDomain": "'$PROD_FIREBASE_CONFIG_AUTH_DOMAIN'",
+	"databaseURL": "'$PROD_FIREBASE_CONFIG_DATABASE_URL'"
+}'
 fi
 
 cd src/packages/singpath-core; npm install; npm run build; cd -

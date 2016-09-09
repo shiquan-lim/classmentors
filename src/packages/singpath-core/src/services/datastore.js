@@ -3,7 +3,7 @@
  * share between singpath and classmentors.
  *
  */
-/* eslint no-underscore-dangle: ["error", { "allow": ["_user", "_factory"] }]*/
+/* eslint no-underscore-dangle: ["error", { "allow": ["_user"] }]*/
 
 export const gravatarBaseUrl = '//www.gravatar.com/avatar/';
 export const eventName = 'spfCurrentUser.authChanged';
@@ -23,14 +23,15 @@ export const eventName = 'spfCurrentUser.authChanged';
  */
 export class SpfCurrentUserService {
 
-  constructor($q, $timeout, $log, $rootScope, spfCrypto, spfFirebase, spfAuth, spfProfilesPath) {
+  constructor($q, $timeout, $log, $rootScope, spfCrypto, firebaseApp, authFirebaseApp, spfAuth, spfProfilesPath) {
 
 
     this.$q = $q;
     this.$timeout = $timeout;
     this.$log = $log;
     this.$rootScope = $rootScope;
-    this.$spfFirebase = spfFirebase;
+    this.$db = firebaseApp.database();
+    this.$authDb = authFirebaseApp.database();
     this.$spfAuth = spfAuth;
     this.$spfCrypto = spfCrypto;
     this.$spfProfilesPath = spfProfilesPath;
@@ -139,7 +140,7 @@ export class SpfCurrentUserService {
       throw new Error('The user uid provided.');
     }
 
-    return this.$spfFirebase.ref(`auth/users/${uid}`);
+    return this.$authDb.ref(`auth/users/${uid}`);
   }
 
   profileRef(publicId) {
@@ -147,7 +148,7 @@ export class SpfCurrentUserService {
       throw new Error('The user publicId provided.');
     }
 
-    return this.$spfFirebase.ref(`${this.$spfProfilesPath}/${publicId}`);
+    return this.$db.ref(`${this.$spfProfilesPath}/${publicId}`);
   }
 
   profileDetailsRef(publicId) {
@@ -501,7 +502,7 @@ export class SpfCurrentUserService {
 
       resolve(patch);
     }).then(patch => {
-      var ref = this.$spfFirebase.ref('auth');
+      var ref = this.$authDb.ref('auth');
 
       return ref.update(patch);
     });
@@ -515,7 +516,8 @@ SpfCurrentUserService.$inject = [
   '$log',
   '$rootScope',
   'spfCrypto',
-  'spfFirebase',
+  'firebaseApp',
+  'authFirebaseApp',
   'spfAuth',
   'spfProfilesPath'
 ];
@@ -524,56 +526,79 @@ SpfCurrentUserService.$inject = [
  * Returns an object with `user` (Firebase auth user data) property,
  * and login/logout methods.
  *
- * @param  {function} $q             Angular promise factory service.
- * @param  {object}   $route         Angular router service.
- * @param  {object}   $log           Angular logging service.
- * @param  {object}   $firebaseAuth  Angularfire autentication service.
- * @param  {function} spfFirebaseRef singpath-core firebase reference factory service.
+ * @param  {object}   $route           Angular router service.
+ * @param  {object}   $log             Angular logging service.
+ * @param  {object}   $firebaseAuth    Angularfire autentication service.
+ * @param  {object}   authFirebaseApp  Firebase firebase app holding the authentication data.
+ * @param  {object}   authProvider     Firebase auth provider
  * @return {{user: object, login: function, logout: function, onAuth: function}}
  */
-export function spfAuthFactory($q, $route, $log, $firebaseAuth, spfFirebaseRef) {
-  var auth = $firebaseAuth(spfFirebaseRef());
-  var options = {scope: 'email'};
+export function spfAuthFactory($route, $log, $firebaseAuth, authFirebaseApp, authProvider) {
+  var auth = $firebaseAuth(authFirebaseApp.auth());
   var cbs = [];
-
   var spfAuth = {
 
     // The current user auth data (null is not authenticated).
     user: auth.$getAuth(),
 
     /**
-     * Start Oauth authentication dance against google oauth2 service.
+     * Get user info from current user provider data.
      *
-     * It will attempt the process using a pop up and fails back on
-     * redirect.
+     * @return {?{name: string, email: string}}
+     */
+    userInfo: function() {
+      if (!spfAuth.user) {
+        return null;
+      }
+
+      if (!spfAuth.user.providerData) {
+        return {};
+      }
+
+      return spfAuth.user.providerData.reduce(function(merged, data) {
+        switch (data.providerId) {
+          case 'google.com':
+            merged.email = data.email;
+            merged.name = data.displayName;
+            break;
+          case 'custom':
+            if (!merged.email) {
+              merged.email = 'custom@example.com';
+            }
+            if (!merged.name) {
+              merged.name = 'Custom User';
+            }
+            break;
+          default:
+            $log.error(`Wrong provider: ${spfAuth.user.providerId}`);
+        }
+        return merged;
+      }, {});
+    },
+
+    /**
+     * Start Oauth authentication dance against google oauth2 service.
      *
      * Updates spfAuth.user and return a promise resolving to the
      * current user auth data.
      *
-     * @return {promise}
+     * @return {Promise<firebase.User, Error>}
      */
     login: function() {
-      var self = this;
+      return auth.$signInWithPopup(authProvider).then(function(userCredentials) {
+        spfAuth.user = userCredentials.user;
 
-      return auth.$authWithOAuthPopup('google', options).then(function(user) {
-        self.user = user;
-        return user;
-      }, function(error) {
-
-        // spfAlert.warning('You failed to authenticate with Google');
-        if (error.code === 'TRANSPORT_UNAVAILABLE') {
-          return auth.$authWithOAuthRedirect('google', options);
-        }
-        return $q.reject(error);
+        return userCredentials.user;
       });
     },
 
     /**
      * Unauthenticate user and reset spfAuth.user.
      *
+     * @return {Promise<void, Error>}
      */
     logout: function() {
-      auth.$unauth();
+      return auth.$signOut();
     },
 
     /**
@@ -581,7 +606,7 @@ export function spfAuthFactory($q, $route, $log, $firebaseAuth, spfFirebaseRef) 
      *
      * @param  {function} fn  cb function for auth change events.
      * @param  {object}   ctx cb context.
-     * @return {void}
+     * @return {function} function to deregister handler
      */
     onAuth: function(fn, ctx) {
       const handler = {fn, ctx};
@@ -598,7 +623,7 @@ export function spfAuthFactory($q, $route, $log, $firebaseAuth, spfFirebaseRef) 
     }
   };
 
-  auth.$onAuth(function(currentAuth) {
+  auth.$onAuthStateChanged(function(currentAuth) {
     $log.debug('reloading');
     $route.reload();
 
@@ -617,52 +642,68 @@ export function spfAuthFactory($q, $route, $log, $firebaseAuth, spfFirebaseRef) 
 }
 
 spfAuthFactory.$inject = [
-  '$q',
   '$route',
   '$log',
   '$firebaseAuth',
-  'spfFirebaseRef'
+  'authFirebaseApp',
+  'authProvider'
 ];
 
 /**
  * Service to interact with '/auth/users' singpath firebase db entry
  *
- * @param  {function} $q          Angular promise factory service.
- * @param  {object}   $log        Angular logging service.
- * @param  {object}   spfFirebase singpath-core firebase helpers service.
- * @param  {object}   spfAuth     singpath-core authentication service.
- * @param  {object}   spfCrypto   singpath-core crypto helpers service.
+ * @param  {function} $q              Angular promise factory service.
+ * @param  {object}   $log            Angular logging service.
+ * @param  {object}   $firebaseObject AngularFire synchronized objects service.
+ * @param  {object}   authFirebaseApp Firebase app hosting authentication data.
+ * @param  {object}   spfAuth         singpath-core authentication service.
+ * @param  {object}   spfCrypto       singpath-core crypto helpers service.
  * @return {{user: function, register: function, publicId: function, isPublicIdAvailable: function}}
  */
-export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
-  var userData, userDataPromise, spfAuthData;
+export function spfAuthDataFactory($q, $log, $firebaseObject, authFirebaseApp, spfAuth, spfCrypto) {
+  var userDataPromise, spfAuthData;
+  var db = authFirebaseApp.database();
+  var UserFirebaseObject = $firebaseObject.$extend({
+    $completed: function() {
+      return Boolean(
+        this.publicId &&
+        this.country && (
+          this.yearOfBirth ||
+          this.country.code !== 'SG'
+        ) && (
+          this.school || (
+            !this.yearOfBirth ||
+            this.yearOfBirth < 1996 ||
+            this.yearOfBirth > 2004
+        ))
+      );
+    }
+  });
+
+  UserFirebaseObject.create = function(ref) {
+    if (typeof ref.child !== 'function') {
+      throw new Error(`A firebase Reference is required; received "${ref}".`);
+    }
+
+    return new spfAuthData.UserFirebaseObject(ref);
+  };
 
   spfAuth.onAuth(function(auth) {
     if (!auth) {
-      userData = userDataPromise = undefined;
+      userDataPromise = undefined;
     }
   });
 
   spfAuthData = {
-    _factory: spfFirebase.objFactory({
-      $completed: function() {
-        return Boolean(
-          this.publicId &&
-          this.country && (
-            this.yearOfBirth ||
-            this.country.code !== 'SG'
-          ) && (
-            this.school || (
-              !this.yearOfBirth ||
-              this.yearOfBirth < 1996 ||
-              this.yearOfBirth > 2004
-          ))
-        );
-      }
-    }),
+    UserFirebaseObject: UserFirebaseObject,
 
     _user: function() {
-      return spfAuthData._factory(['auth/users', spfAuth.user.uid]).$loaded();
+      var ref = db.ref(`auth/users/${spfAuth.user.uid}`);
+      var syncObj = UserFirebaseObject.create(ref);
+
+      return syncObj.$loaded().then(function() {
+        return syncObj;
+      });
     },
 
     /**
@@ -678,21 +719,13 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
         return $q.reject(new Error('Your did not login or your session expired.'));
       }
 
-      if (userData) {
-        return $q.when(userData);
-      }
-
       if (userDataPromise) {
-        return $q.when(userDataPromise);
+        return userDataPromise;
       }
 
       userDataPromise = spfAuthData._user().then(
         spfAuthData.register
-      ).then(function(data) {
-        userData = data;
-        userDataPromise = null;
-        return data;
-      });
+      );
 
       return userDataPromise;
     },
@@ -709,7 +742,7 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
      * @return {Promise<object, Error>}
      */
     register: function(userDataObj) {
-      var email, name;
+      var userInfo;
 
       if (userDataObj == null) {
         return $q.reject(new Error('A user should be logged in to register'));
@@ -718,25 +751,23 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
       // $value will be undefined and not null when the userDataObj object
       // is set.
       if (userDataObj.$value !== null) {
-        return $q.when(userDataObj);
+        return $q.resolve(userDataObj);
       }
 
-      if (spfAuth.user.provider === 'google') {
-        email = spfAuth.user.google.email;
-        name = spfAuth.user.google.displayName;
-      } else if (spfAuth.user.provider === 'custom') {
-        email = 'custom@example.com';
-        name = 'Custom User';
-      } else {
-        return $q.reject(new Error(`Wrong provider: ${spfAuth.user.provider}`));
+      userInfo = spfAuth.userInfo();
+
+      if (!userInfo || !userInfo.name || !userInfo.email) {
+        return $q.reject(new Error(
+          `Failed to retrieve user data from provider data: ${JSON.stringify(spfAuth.user.providerData)}`
+        ));
       }
 
       userDataObj.$value = {
         id: spfAuth.user.uid,
-        fullName: name,
-        displayName: name,
-        email: email,
-        gravatar: gravatarBaseUrl + spfCrypto.md5(email),
+        fullName: userInfo.name,
+        displayName: userInfo.name,
+        email: userInfo.email,
+        gravatar: gravatarBaseUrl + spfCrypto.md5(userInfo.email),
         createdAt: {'.sv': 'timestamp'}
       };
 
@@ -756,13 +787,18 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
         return $q.reject(new Error('The user has not set a user public id.'));
       }
 
+      if (!userSync.$id) {
+        return $q.reject(new Error('Expected an angularFire synchronized object.'));
+      }
+
+      var ref = db.ref('auth');
       var data = {
-        [`users/${userSync.$id}/publicId`]: userSync.publicId,
         [`publicIds/${userSync.publicId}`]: userSync.$id,
-        [`usedPublicIds/${userSync.publicId}`]: true
+        [`usedPublicIds/${userSync.publicId}`]: true,
+        [`users/${userSync.$id}/publicId`]: userSync.publicId
       };
 
-      return spfFirebase.patch(['auth'], data).catch(function(err) {
+      return ref.update(data).catch(function(err) {
         $log.info(err);
         return $q.reject(new Error('Failed to save public id. It might have already being used by an other user.'));
       });
@@ -775,8 +811,10 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
      * @return {Promise<boolean, Error>}
      */
     isPublicIdAvailable: function(publicId) {
-      return spfFirebase.loadedObj(['auth/usedPublicIds', publicId]).then(function(publicIdSync) {
-        return !publicIdSync.$value;
+      var ref = db.ref(`auth/usedPublicIds/${publicId}`);
+
+      return ref.once('value').then(function(snapshot) {
+        return !snapshot.val();
       });
     }
   };
@@ -787,30 +825,42 @@ export function spfAuthDataFactory($q, $log, spfFirebase, spfAuth, spfCrypto) {
 spfAuthDataFactory.$inject = [
   '$q',
   '$log',
-  'spfFirebase',
+  '$firebaseObject',
+  'authFirebaseApp',
   'spfAuth',
   'spfCrypto'
 ];
 
 /**
- * Return the list of schools from Singapore.
+ * Create a function which when called return a promise resolving to the list of
+ * Singapore schools.
  *
  * Load the list as soon as the the service is created. The service will return
  * the same promise over again as a way to cache the result.
  *
- * @param  {function} $q          Angular promise factory service.
- * @param  {object}   spfFirebase singpath-core firebase helpers service.
+ * @param  {object}   $firebaseObject AngularFire synchronized objects service.
+ * @param  {object}   firebaseApp     Firebase app hosting the app data.
  * @return {function}
  */
-export function spfSchoolsFactory($q, spfFirebase) {
-  var promise = spfFirebase.loadedObj(['classMentors/schools']);
+export function spfSchoolsFactory($firebaseObject, firebaseApp) {
+  var db = firebaseApp.database();
+  var ref = db.ref('classMentors/schools');
+  var syncObj = $firebaseObject(ref);
+  var promise = syncObj.$loaded().then(function() {
+    return syncObj;
+  });
 
+  /**
+   * Resolve to the list of schools as an angularFire synchronized object.
+   *
+   * @return {Promise<object, Error>}
+   */
   return function spfSchools() {
     return promise;
   };
 }
 
-spfSchoolsFactory.$inject = ['$q', 'spfFirebase'];
+spfSchoolsFactory.$inject = ['$firebaseObject', 'firebaseApp'];
 
 export function run($log, spfProfilesPath) {
   if (!spfProfilesPath) {

@@ -1,7 +1,7 @@
 /**
  * classmentors/components/cohorts/cohorts.js- define cohort component.
  */
-
+import {cleanObj} from 'singpath-core/services/firebase.js';
 import cohortTmpl from './cohorts-view.html!text';
 import newCohortTmpl from './cohorts-new-cohort.html!text';
 import cohortViewTmpl from './cohorts-view-cohort.html!text';
@@ -11,11 +11,6 @@ import cohortRankingPageTmpl from './cohorts-view-cohort-ranking-page.html!text'
 import c3 from 'c3';
 import d3 from 'd3';
 import './cohorts.css!';
-import '../../../jspm_packages/npm/c3@0.4.11/c3.css!';
-// import d3 from '../../../jspm_packages/graphing/d3.min.js';
-// import '../../../jspm_packages/graphing/c3.min.css';
-// import c3 from '../../../jspm_packages/graphing/c3.min.js';
-// import './cohorts.css!';
 
 const noop = () => undefined;
 
@@ -60,7 +55,7 @@ export function configRoute($routeProvider, routes) {
 }
 configRoute.$inject = ['$routeProvider', 'routes'];
 
-function ClmListCohorts (initialData, spfNavBarService, urlFor, spfFirebase, spfAuthData) {
+function ClmListCohorts (initialData, spfNavBarService, urlFor, spfAuthData) {
 
     const title = 'Cohorts';
     const parentPages = [];
@@ -107,7 +102,7 @@ function ClmListCohorts (initialData, spfNavBarService, urlFor, spfFirebase, spf
 
     spfNavBarService.update('Cohorts', undefined, menuItems);
 }
-ClmListCohorts.$inject = ['initialData', 'spfNavBarService', 'urlFor', 'spfFirebase', 'spfAuthData'];
+ClmListCohorts.$inject = ['initialData', 'spfNavBarService', 'urlFor', 'spfAuthData'];
 
 function classMentorsCohortResolver($q, spfAuth, spfAuthData, clmDataStore) {
     return $q.all({
@@ -129,7 +124,7 @@ classMentorsCohortResolver.$inject = ['$q', 'spfAuth', 'spfAuthData', 'clmDataSt
  *
  */
 function NewCohortCtrl(
-    $q, $location, initialData, urlFor, spfFirebase, spfAuthData, spfAlert, spfNavBarService, clmDataStore
+    $q, $location, initialData, urlFor, spfAuthData, spfAlert, spfNavBarService, clmDataStore
 ) {
     var self = this;
 
@@ -175,8 +170,8 @@ function NewCohortCtrl(
     };
 
     function cleanProfile() {
-        self.currentUser.country = spfFirebase.cleanObj(self.currentUser.country);
-        self.currentUser.school = spfFirebase.cleanObj(self.currentUser.school);
+        self.currentUser.country = cleanObj(self.currentUser.country);
+        self.currentUser.school = cleanObj(self.currentUser.school);
     }
 
     function updateProfile(profile) {
@@ -249,7 +244,6 @@ NewCohortCtrl.$inject = [
     '$location',
     'initialData',
     'urlFor',
-    'spfFirebase',
     'spfAuthData',
     'spfAlert',
     'spfNavBarService',
@@ -338,10 +332,11 @@ viewCohortCtrlInitialData.$inject = [
 ];
 
 function ViewCohortCtrl(
-    $scope, initialData, $document, $mdDialog, $route,
-    spfAlert, urlFor, spfFirebase, spfAuthData, spfNavBarService, clmDataStore
+    $log, $scope, initialData, $document, $mdDialog, $route, $firebaseObject,
+    spfAlert, urlFor, firebaseApp, spfAuthData, spfNavBarService, clmDataStore
 ) {
     var self = this;
+    var db = firebaseApp.database();
     var monitorHandler;
 
     this.currentUser = initialData.currentUser;
@@ -397,17 +392,16 @@ function ViewCohortCtrl(
 
         return options;
     }
-    
+
     this.loadEventChallenges = function () {
-      spfFirebase.loadedObj(['classMentors/eventTasks', self.selectedEvent])
-          .then(function(promise) {
-              return promise;
-          }).then(function(data) {
-              self.eventChallenges = data;
-          }).catch(function (err) {
-              $log.error(err);
-              return err;
-          });
+      var ref = db.ref(`classMentors/eventTasks/${self.selectedEvent}`);
+      var obj = $firebaseObject(ref);
+
+      obj.$loaded().then(function() {
+        self.eventChallenges = obj;
+      }).catch(function(err) {
+        $log.error(err);
+      });
     };
 
     this.duplicateChallenges = function() {
@@ -508,8 +502,8 @@ function ViewCohortCtrl(
     // }
     //
     // function cleanProfile(currentUser) {
-    //     currentUser.country = spfFirebase.cleanObj(currentUser.country);
-    //     currentUser.school = spfFirebase.cleanObj(currentUser.school);
+    //     currentUser.country = cleanObj(currentUser.country);
+    //     currentUser.school = cleanObj(currentUser.school);
     // }
     //
     // this.register = function(currentUser) {
@@ -541,14 +535,16 @@ function ViewCohortCtrl(
     // };
 }
 ViewCohortCtrl.$inject = [
+    '$log',
     '$scope',
     'initialData',
     '$document',
     '$mdDialog',
     '$route',
+    '$firebaseObject',
     'spfAlert',
     'urlFor',
-    'spfFirebase',
+    'firebaseApp',
     'spfAuthData',
     'spfNavBarService',
     'clmDataStore'
@@ -795,10 +791,12 @@ export function clmCohortsStatsPageFactory() {
 }
 
 function ClmCohortStatsPageCtrl(
-    $scope, $q, $log, $mdDialog, $document,
-    urlFor, spfAlert, clmServicesUrl, clmDataStore, spfFirebase
+    $scope, $q, $log, $mdDialog, $document, $firebaseArray,
+    urlFor, spfAlert, firebaseApp, clmServicesUrl, clmDataStore
 ) {
     var self = this;
+    var db = firebaseApp.database();
+
     this.selectedStatistic = null;
 
     this.renderDashboard = function() {
@@ -833,16 +831,11 @@ function ClmCohortStatsPageCtrl(
 
                 console.log(dataObj);
 
-                spfFirebase.loadedArray(['classMentors/userActions'], {
-                    // orderByChild: 'action',
-                    // equalTo: 'submitLinkResponse'
-                }).then(function(promise) {
-                    return promise;
-                }).then(function(data) {
-                    self.submissionLogs = data;
-                }).catch(function (err) {
-                    $log.error(err);
-                    return err;
+                var actionsRef = db.ref('classMentors/userActions');
+                var actionObj = $firebaseArray(actionsRef);
+
+                actionObj.$loaded().then(function() {
+                    self.submissionLogs = actionObj;
                 }).then(function () {
                     for(var actionIndex = 0; actionIndex < self.submissionLogs.length; actionIndex++) {
                         var logHolder = self.submissionLogs[actionIndex];
@@ -975,6 +968,8 @@ function ClmCohortStatsPageCtrl(
                             }
                         }
                     });
+                }).catch(function (err) {
+                    $log.error(err);
                 });
             }
         }
@@ -987,11 +982,12 @@ ClmCohortStatsPageCtrl.$inject = [
     '$log',
     '$mdDialog',
     '$document',
+    '$firebaseArray',
     'urlFor',
     'spfAlert',
+    'firebaseApp',
     'clmServicesUrl',
-    'clmDataStore',
-    'spfFirebase'
+    'clmDataStore'
 ];
 
 export function clmCohortRankPageFactory() {
@@ -1008,9 +1004,10 @@ export function clmCohortRankPageFactory() {
     };
 }
 
-function ClmCohortRankPageCtrl($q, $scope, $log, spfFirebase, clmDataStore, clmPagerOption) {
+function ClmCohortRankPageCtrl($q, $scope, $log, firebaseApp, $firebaseObject, $firebaseArray, clmDataStore, clmPagerOption) {
 
     var self = this;
+    var db = firebaseApp.database();
     var unwatchers = [];
     this.cohortEventData = [];
 
@@ -1022,13 +1019,14 @@ function ClmCohortRankPageCtrl($q, $scope, $log, spfFirebase, clmDataStore, clmP
         function loopDBEvents() {
             var oneEventData = {};
             var event = self.cohort.events[iter];
+
             if(iter < self.cohort.events.length) {
-                spfFirebase.loadedArray(['classMentors/eventParticipants', event], {
-                    limitToLast: 100
-                }).then(function(promise) {
-                    return promise;
-                }).then(function(data) {
-                    var result = data;
+                var participantsRef = db.ref(`classMentors/eventParticipants/${event}`);
+                var participantsQuery = participantsRef.limitToLast(100);
+                var participants = $firebaseArray(participantsQuery);
+
+                participants.$loaded().then(function() {
+                    var result = participants;
                     oneEventData.participants = result;
                 }).catch(function (err) {
                     // prevent events with no participants from breaking the code by initialising their participant array to an empty one.
@@ -1036,10 +1034,11 @@ function ClmCohortRankPageCtrl($q, $scope, $log, spfFirebase, clmDataStore, clmP
                     $log.error(err);
                     return err;
                 }).then(function () {
-                    spfFirebase.loadedObj(['classMentors/events', event]).then(function(promise) {
-                        return promise;
-                    }).then(function(data) {
-                        var result = data;
+                    var eventRef = db.ref(`classMentors/events/${event}`);
+                    var event = $firebaseObject(eventRef);
+
+                    event.$loaded().then(function() {
+                        var result = event;
                         oneEventData.title = result.title;
                         self.cohortTotalParticipants += oneEventData.participants.length;
                         oneEventData.id = result.$id;
@@ -1075,7 +1074,9 @@ ClmCohortRankPageCtrl.$inject = [
     '$q',
     '$scope',
     '$log',
-    'spfFirebase',
+    'firebaseApp',
+    '$firebaseObject',
+    '$firebaseArray',
     'clmDataStore',
     'clmPagerOption'
 ];

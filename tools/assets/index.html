@@ -6,32 +6,30 @@
   <body>
     <classmentors layout="row"></classmentors>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-messages.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-aria.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-aria.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.min.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.9/angular-material.min.js"></script>
 
-    <script src="//cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angularFire/1.1.4/angularfire.min.js"></script>
+    <script src="//www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script src="//cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.2.0/d3.min.js"></script>
 
     <script src="app.js"></script>
 		<script>
-      classmentors.bootstrap({
-        firebaseId: 'singpath',
-        singpathURL: 'http://www.singpath.com',
-        backendURL: 'http://api.singpath.com'
-      });
+      var config = {
+        apiKey: "AIzaSyBH01uLzdMqH0hkbDqvcgpzTDpo6yYtPDA",
+        authDomain: "singpath.firebaseapp.com",
+        databaseURL: "https://singpath.firebaseio.com"
+      };
+
+      classmentors.bootstrap({firebaseApp: firebase.initializeApp(config)});
 		</script>
   </body>
 </html>

@@ -11,8 +11,23 @@
     <script src="jspm.config.js"></script>
 
     <script>
-      System.import('singpath-core/demo.js').then(function(demo) {
-        demo.bootstrap({firebaseId: 'singpath-play'});
+      Promise.all([
+        System.import('singpath-core/demo.js'),
+        System.import('firebase')
+      ]).then(function(modules) {
+        var demo = modules[0];
+        var firebase = modules[1];
+        var config = {
+          apiKey: "AIzaSyBevpPRxI1uswkU-O2I89BA6e1QzgK7Wio",
+          authDomain: "singpath-play.firebaseapp.com",
+          databaseURL: "https://singpath-play.firebaseio.com"
+        };
+
+        demo.bootstrap({
+          firebaseApp: firebase.initializeApp(config),
+          singpathURL: 'https://localhost:8080/',
+          backendURL: 'https://localhost:8081/'
+        });
       }).catch(function(err) {
         console.error(err);
       });

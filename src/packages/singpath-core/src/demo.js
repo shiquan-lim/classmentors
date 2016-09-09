@@ -1,6 +1,7 @@
 /* global document */
 
 import angular from 'angular';
+import firebase from 'firebase';
 import {module as spfShared} from 'singpath-core';
 
 import * as demoApp from 'singpath-core/components/demo/demo.js';
@@ -18,6 +19,14 @@ module.constant('routes', {
   icons: '/icons'
 });
 
+module.config([
+  '$routeProvider',
+  'routes',
+  function($routeProvider, routes) {
+    $routeProvider.otherwise({redirectTo: routes.home});
+  }
+]);
+
 /**
  * Bootstrap demo overwrite default settings.
  *
@@ -28,20 +37,30 @@ export function bootstrap(options) {
 
   options = options || {};
 
-  bootstrapModule.config([
-    '$routeProvider',
-    'routes',
-    'spfFirebaseRefProvider',
-    function($routeProvider, routes, spfFirebaseRefProvider) {
-      $routeProvider.otherwise({redirectTo: routes.home});
+  if (options.firebaseApp) {
+    bootstrapModule.constant('firebaseApp', options.firebaseApp);
+    bootstrapModule.constant('authFirebaseApp', options.firebaseApp);
+  } else {
+    const firebaseApp = firebase.initializeApp({
+      apiKey: 'AIzaSyBH01uLzdMqH0hkbDqvcgpzTDpo6yYtPDA',
+      authDomain: 'singpath.firebaseapp.com',
+      databaseURL: 'https://singpath.firebaseio.com'
+    });
 
-      if (!options.firebaseId) {
-        return;
-      }
+    bootstrapModule.constant('firebaseApp', firebaseApp);
+    bootstrapModule.constant('authFirebaseApp', firebaseApp);
+  }
 
-      spfFirebaseRefProvider.setBaseUrl(`https://${options.firebaseId}.firebaseio.com/`);
-    }
-  ]);
+  if (options.provider) {
+    bootstrapModule.constant('authProvider', options.provider);
+  } else {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+    provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+
+    bootstrapModule.constant('authProvider', provider);
+  }
 
   angular.element(document).ready(function() {
     angular.bootstrap(document, [bootstrapModule.name], {strictDi: true});

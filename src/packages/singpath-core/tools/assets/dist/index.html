@@ -9,9 +9,13 @@
 
     <script src="./demo.js"></script>
     <script>
-      spfSharedDemo.bootstrap({
-        firebaseId: 'singpath-play'
-      });
+      var config = {
+        apiKey: "AIzaSyBH01uLzdMqH0hkbDqvcgpzTDpo6yYtPDA",
+        authDomain: "singpath.firebaseapp.com",
+        databaseURL: "https://singpath.firebaseio.com"
+      };
+
+      classmentors.bootstrap({firebaseApp: firebase.initializeApp(config)});
     </script>
   </body>
 </html>

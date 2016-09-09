@@ -1,6 +1,5 @@
 import admin from './admin.js';
-import {expect} from 'chai';
-import sinon from 'sinon';
+import {testInjectMatch, expect, sinon} from 'classmentors/tools/chai.js';
 
 function wait(delay) {
   return new Promise(resolve => setTimeout(resolve, delay || 10));
@@ -19,6 +18,8 @@ describe('admin GUI', function() {
       settings,
       stopUserWatch,
       stopSettingWatch;
+
+    testInjectMatch(admin.component.controller);
 
     beforeEach(function() {
       $q = (resolve, reject) => new Promise(resolve, reject);
@@ -65,7 +66,7 @@ describe('admin GUI', function() {
       });
 
       it('should reset navbar', function() {
-        expect(spfNavBarService.update).to.have.been.calledOnce;
+        expect(spfNavBarService.update).to.have.been.calledOnce();
         expect(spfNavBarService.update).to.have.been.calledWith(sinon.match.string);
       });
 
@@ -74,13 +75,13 @@ describe('admin GUI', function() {
       });
 
       it('should request request the list of settings', function() {
-        expect(clmDatastore.settings.get).to.have.been.calledOnce;
+        expect(clmDatastore.settings.get).to.have.been.calledOnce();
         expect(ctrl.settings).to.equal(settings);
       });
 
       it('should set permission error when the currentUser is updated', function() {
         return wait().then(() => {
-          expect(spfCurrentUser.$watch).to.have.been.calledOnce;
+          expect(spfCurrentUser.$watch).to.have.been.calledOnce();
           expect(spfCurrentUser.$watch).to.have.been.calledWith(sinon.match.func);
 
           sinon.spy(ctrl, 'checkAccess');
@@ -91,12 +92,12 @@ describe('admin GUI', function() {
 
       it('should filter settings when the settings are updated', function() {
         return wait().then(() => {
-          expect(settings.$watch).to.have.been.calledOnce;
+          expect(settings.$watch).to.have.been.calledOnce();
           expect(settings.$watch).to.have.been.calledWith(sinon.match.func);
 
           sinon.spy(ctrl, 'filterSettings');
           settings.$watch.lastCall.args[0]();
-          expect(ctrl.filterSettings).to.have.been.calledOnce;
+          expect(ctrl.filterSettings).to.have.been.calledOnce();
         });
       });
 
@@ -111,8 +112,8 @@ describe('admin GUI', function() {
         ctrl.loading = true;
         ctrl.failed();
 
-        expect(ctrl.loaded).to.be.false;
-        expect(ctrl.loading).to.be.false;
+        expect(ctrl.loaded).to.be.false();
+        expect(ctrl.loading).to.be.false();
       });
 
       it('should switch errors.loading', function() {
@@ -121,7 +122,7 @@ describe('admin GUI', function() {
         ctrl.errors = {};
         ctrl.failed();
 
-        expect(ctrl.errors.loading).to.be.true;
+        expect(ctrl.errors.loading).to.be.true();
       });
 
       it('should log the error', function() {
@@ -130,7 +131,7 @@ describe('admin GUI', function() {
         ctrlFactory();
         ctrl.failed(err);
 
-        expect($log.error).to.have.been.calledOnce;
+        expect($log.error).to.have.been.calledOnce();
         expect($log.error).to.have.been.calledWith(err);
       });
 
@@ -140,7 +141,7 @@ describe('admin GUI', function() {
         ctrlFactory();
 
         return wait().then(() => {
-          expect(ctrl.failed).to.have.been.calledOnce;
+          expect(ctrl.failed).to.have.been.calledOnce();
         });
       });
 
@@ -154,47 +155,47 @@ describe('admin GUI', function() {
 
       it('should set login error if the user is logged off', function() {
         ctrl.checkAccess({});
-        expect(ctrl.errors.login).to.be.false;
+        expect(ctrl.errors.login).to.be.false();
 
         ctrl.checkAccess({uid: null});
-        expect(ctrl.errors.login).to.be.true;
+        expect(ctrl.errors.login).to.be.true();
 
         ctrl.checkAccess({uid: 'google:12345'});
-        expect(ctrl.errors.login).to.be.false;
+        expect(ctrl.errors.login).to.be.false();
       });
 
       it('should set register error if the user is not registered', function() {
         ctrl.checkAccess({});
-        expect(ctrl.errors.register).to.be.false;
+        expect(ctrl.errors.register).to.be.false();
 
         ctrl.checkAccess({uid: 'google:12345'});
-        expect(ctrl.errors.register).to.be.false;
+        expect(ctrl.errors.register).to.be.false();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: null});
-        expect(ctrl.errors.register).to.be.true;
+        expect(ctrl.errors.register).to.be.true();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: 'bob'});
-        expect(ctrl.errors.register).to.be.false;
+        expect(ctrl.errors.register).to.be.false();
       });
 
       it('should set admin error if the user is not an admin', function() {
         ctrl.checkAccess({});
-        expect(ctrl.errors.admin).to.be.false;
+        expect(ctrl.errors.admin).to.be.false();
 
         ctrl.checkAccess({uid: 'google:12345'});
-        expect(ctrl.errors.admin).to.be.false;
+        expect(ctrl.errors.admin).to.be.false();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: null});
-        expect(ctrl.errors.admin).to.be.false;
+        expect(ctrl.errors.admin).to.be.false();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: 'bob'});
-        expect(ctrl.errors.admin).to.be.true;
+        expect(ctrl.errors.admin).to.be.true();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: 'bob', isAdmin: false});
-        expect(ctrl.errors.admin).to.be.true;
+        expect(ctrl.errors.admin).to.be.true();
 
         ctrl.checkAccess({uid: 'google:12345', publicId: 'bob', isAdmin: true});
-        expect(ctrl.errors.admin).to.be.false;
+        expect(ctrl.errors.admin).to.be.false();
       });
 
     });
@@ -263,6 +264,8 @@ describe('admin GUI', function() {
   describe('configRoute', function() {
     let $routeProvider, routes;
 
+    testInjectMatch(admin.configRoute);
+
     beforeEach(function() {
       $routeProvider = {when: sinon.stub()};
       $routeProvider.when.returnsThis();
@@ -272,7 +275,7 @@ describe('admin GUI', function() {
     });
 
     it('should setup admin route', function() {
-      expect($routeProvider.when).to.have.been.calledOnce;
+      expect($routeProvider.when).to.have.been.calledOnce();
       expect($routeProvider.when).to.have.been.calledWith(
         '/admin',
         sinon.match({template: '<clm-admin></clm-admin>'})

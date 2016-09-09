@@ -48,3 +48,19 @@ export function getStats($http, aceStatsUrl) {
 }
 getStats.$inject = ['$http', 'aceStatsUrl'];
 
+/**
+ * Config route for ace of coders views.
+ *
+ * @param  {object} $routeProvider ngRoute $route service provider.
+ * @param  {object} routes         classmentors route map.
+ */
+export function configRoute($routeProvider, routes) {
+  $routeProvider
+    .when(routes.aceOfCoders, {
+      template: '<ace stats="$resolve.stats"></ace>',
+      resolve: {stats: getStats}
+    })
+    .otherwise(routes.home);
+}
+
+configRoute.$inject = ['$routeProvider', 'routes'];

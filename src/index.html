@@ -10,9 +10,20 @@
     <script src="jspm.config.js"></script>
 
     <script>
-      System.import('classmentors').then(function(classmentors) {
+      Promise.all([
+        System.import('classmentors'),
+        System.import('firebase')
+      ]).then(function(modules) {
+        var classmentors = modules[0];
+        var firebase = modules[1];
+        var config = {
+          apiKey: "AIzaSyBevpPRxI1uswkU-O2I89BA6e1QzgK7Wio",
+          authDomain: "singpath-play.firebaseapp.com",
+          databaseURL: "https://singpath-play.firebaseio.com"
+        };
+
         classmentors.bootstrap({
-          firebaseId: 'singpath-play',
+          firebaseApp: firebase.initializeApp(config),
           singpathURL: 'https://localhost:8080/',
           backendURL: 'https://localhost:8081/'
         });

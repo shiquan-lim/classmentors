@@ -49,13 +49,26 @@ git pull upstream master
 
 ## Firebase Access
 
-If you don't have access to `singpath` or `singpath-play` Firebase DBs, edit
-`src/index.html` and `dist/classmentors/index.html` to point to the correct
-Firebase DB id; edit the `firebaseId` property. E.g.:
+If you don't have access to `singpath` or `singpath-play` Firebase apps,
+[create a new firebase project](https://console.firebase.google.com/), and edit
+`src/index.html` and `dist/classmentors/index.html` to set the correct Firebase
+app; edit the `firebaseApp` property of the `classmentors.bootstrap()` options.
+E.g.:
 ```javascript
-System.import('classmentors').then(function(classmentors) {
+Promise.all([
+  System.import('classmentors'),
+  System.import('firebase')
+]).then(function(modules) {
+  var classmentors = modules[0];
+  var firebase = modules[1];
+  var config = {
+    apiKey: "AIzaSyBevpPRxI1uswkU-O2I89BA6e1QzgK7Wio",
+    authDomain: "singpath-play.firebaseapp.com",
+    databaseURL: "https://singpath-play.firebaseio.com"
+  };
+
   classmentors.bootstrap({
-    firebaseId: 'singpath-play',
+    firebaseApp: firebase.initializeApp(config),
     singpathURL: 'https://localhost:8080/',
     backendURL: 'https://localhost:8081/'
   });
@@ -64,13 +77,10 @@ System.import('classmentors').then(function(classmentors) {
 });
 ```
 
-To setup your Firebase DB:
-```
-npm install @singpath/rules
-./node_modules/.bin/singpath-rules compile
-```
+You can find the firebase settings on your project overview clicking on
+"Add Firebase to your web app".
 
-It will generate `rules.json` to use on your Firebase security tab.
+To setup your Firebase DB, use the rules at [security_rules/security-rules.json].
 
 
 ## Run Dev server
@@ -97,7 +107,11 @@ npm run serve-build
 
 To build and push the app to the remote "origin" gh-pages branch:
 ```shell
-npm run build:gh-pages -- "my-firebase-database-name"
+npm run build:gh-pages -- '{
+  "apiKey": "somekey",
+  "authDomain": "some-id.firebaseapp.com",
+  "databaseURL": "https://some-id.firebaseio.com"
+}'
 ```
 
 To let Travis update your Github pages automatically (only when master get updated),
@@ -106,7 +120,9 @@ you will need to enable Travis for your fork and set up some environment variabl
 Using [Travis CLI]:
 ```shell
 travis enable
-travis env set --public PROD_FIREBASE_ID "my-firebase-database-name"
+travis env set --public PROD_FIREBASE_CONFIG_API_KEY "some-key"
+travis env set --public PROD_FIREBASE_CONFIG_AUTH_DOMAIN "some-id.firebaseapp.com"
+travis env set --public PROD_FIREBASE_CONFIG_DATABASE_URL "https://some-id.firebaseio.com"
 travis env set --private GH_TOKEN some-github-oauth-token
 ```
 
@@ -120,3 +136,4 @@ token. You can verify at
 [Class Mentors]: https://github.com/singpath/classmentors
 [Travis CLI]: https://github.com/travis-ci/travis.rb#installation
 [personal access tokens]: https://github.com/settings/tokens
+[security_rules/security-rules.json]: https://github.com/singpath/classmentors/blob/master/security_rules/security-rules.json

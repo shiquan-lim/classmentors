@@ -36,8 +36,8 @@ const externals = [{
   globalName: 'angular'
 }, {
   name: 'firebase',
-  entry: 'firebase/firebase.js',
-  globalName: 'Firebase'
+  entry: 'firebase',
+  globalName: 'firebase'
 }, {
   name: 'angularfire',
   entry: 'angularfire',
