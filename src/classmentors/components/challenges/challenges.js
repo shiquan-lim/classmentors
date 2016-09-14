@@ -174,7 +174,7 @@ export function challengeServiceFactory
             $location.path(urlFor('editEvent', {eventId: event.$id}));
         }).catch(function(err) {
             $log.error(err);
-            spfAlert.error('Failed to created new task');
+            spfAlert.error('Failed to create new task');
         }).finally(function() {
             self.creatingTask = false;
         });
@@ -183,12 +183,11 @@ export function challengeServiceFactory
         delete copy.singPathProblem;
         delete copy.badge;
         delete copy.answers;
-        console.log(copy);
-        // Create reccord in eventTeams
 
-        // Create reccord in answers and tasks
-        var ref = clmDataStore.events.addTaskWithAns(event.$id, copy, isOpen,answers);
+        var ref = clmDataStore.events.addTaskWithAns(event.$id, copy, isOpen, answers);
+        console.log("this ref is",ref);
         ref.then(function() {
+            console.log("ref after promise", ref);
             spfAlert.success('Task created');
             $location.path(urlFor('editEvent', {eventId: event.$id}));
         }).catch(function(err) {

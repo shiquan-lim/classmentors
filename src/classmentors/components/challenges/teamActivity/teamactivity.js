@@ -28,7 +28,7 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
     self.task = initialData.data.task;
 
     self.taskType = initialData.data.taskType;
-    
+
     self.participants = initialData.participants;
     self.teamsMaximumStudents = 0;
     self.taskType = initialData.data.taskType;
@@ -38,13 +38,12 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
     self.teamFormationParameter = null;
 
     self.submit = function(){
-        console.log('form its submitted');
         self.task.activityType = self.activityType;
         self.task.newExistingTeams = self.newExistingTeams;
         self.task.teamFormationMethod = self.teamFormationMethod;
         self.task.teamFormationParameter = self.teamFormationParameter;
+        self.task.startIRAT = true;
         console.log(self.task);
-        // todo: Validation for form data, saving of form data, direct to MCQ page.
         console.log(self.taskType);
         eventService.set({
             taskType: self.taskType,
@@ -68,8 +67,7 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
     }
 
     self.calculationResult = function (){
-        console.log("t", self.teamsMaximumStudents);
-
+        
         return self.teamsMaximumStudents;
     }
 

@@ -18,30 +18,12 @@
                 >
                     <md-button ng-click="ctrl.orderBy(task.$id)">{{ task.title }}</md-button>
                 </th>
-                <!--<th>
-                    <md-button rowspan="3">TEAM ACTIVITY - BATTLE!</md-button>
-                </th>
-                <th>
-                    <md-button rowspan="3">TEAM ACTIVITY - BATTLE!</md-button>
-                </th>
-                <th>
-                    <md-button rowspan="3">TEAM ACTIVITY - BATTLE!</md-button>
-                </th>-->
             </tr>
             <tr>
                 <th ng-if="ctrl.visibleTasks.length == 0"></th>
                 <th ng-repeat="task in ctrl.visibleTasks track by task.$id">
                     {{ task.description }}
                 </th>
-                <!--<th>
-                    This quiz comprises of 10 questions which will test on your understanding of Lesson 2's materials.
-                </th>
-                <th>
-                    Join a team! (button will be enabled once progress for IRAT reaches 100%)
-                </th>
-                <th>
-                    As a team, complete the quiz again. This time, it is more tricky as your team will also be submitting answers at the same time. Communicate well!
-                </th>-->
             </tr>
             <tr>
                 <th ng-if="ctrl.visibleTasks.length == 0"></th>
@@ -90,8 +72,9 @@
                                 <!--</md-button>-->
 
                             </span>
+                        <!--added one more contraint to change the button to Start IRAT-->
                             <span ng-if="!ctrl.currentUserSolutions[task.$id]">
-                                <md-button class="md-raised md-primary"
+                                <md-button ng-if="!task.teamFormationMethod" class="md-raised md-primary"
                                            ng-click="ctrl.startMCQ(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
                                            target="_blank"
                                            ng-disabled="task.closedAt"
@@ -104,6 +87,37 @@
                                     <!--</span>-->
                                 </md-button>
                             </span>
+                    </div>
+                    <div ng-if="task.teamFormationMethod">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <md-button class="md-raised md-primary" ng-if="task.startIRAT"
+                                   ng-click="ctrl.startMCQ(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
+                                   target="_blank"
+                                   ng-disabled="task.closedAt"
+                                   aria-label="Start irat"
+                        >
+                            Start IRAT
+
+                        </md-button>
+                            </span>
+                        <md-button class="md-raised md-primary" ng-if="task.formationPattern"
+                                   ng-click=""
+                                   target="_blank"
+                                   ng-disabled="task.closedAt"
+                                   aria-label="Start form team"
+                        >
+
+                            Form Team
+                        </md-button>
+                        <md-button class="md-raised md-primary" ng-if="task.teamTRAT"
+                                   ng-click="ctrl.startMCQ(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
+                                   target="_blank"
+                                   ng-disabled="task.closedAt"
+                                   aria-label="Start trat"
+                        >
+                            Start TRAT
+                        </md-button>
+
                     </div>
 
                     <div ng-if="task.serviceId">

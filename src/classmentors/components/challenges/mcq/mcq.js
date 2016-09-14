@@ -342,6 +342,7 @@ export function newMcqController(initialData, challengeService, $filter,$mdDialo
   // Checks if all questions have at least one answer
   self.isMcqValid = false;
   self.task = initialData.task;
+  
   self.questions = [{
     text:"",
     answers:[],
@@ -383,8 +384,7 @@ export function newMcqController(initialData, challengeService, $filter,$mdDialo
     var isOpen = initialData.isOpen;
     task.mcqQuestions = answersJsonText;
     task.answers = angular.toJson(setAnswers);
-    console.log(task);
-    console.log(taskType);
+
     challengeService.save(event, taskId, task,taskType, isOpen);
   }
 

@@ -1686,7 +1686,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         var participantCount, participantsIds;
 
         if (!self.participants || !self.progress) {
-            console.log("there is no self participants!");
             return 0;
         }
         participantCount = self.participants.length;
@@ -3266,7 +3265,7 @@ function ClmEventResultsTableCtrl($scope, $q, $log, $mdDialog, $document,
         self.visibleTasks = self.tasks.filter(function (t) {
             return !t.hidden && !t.archived;
         });
-
+        
         taskCompletion();
     }
 
