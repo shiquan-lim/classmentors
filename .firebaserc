@@ -1,6 +1,7 @@
 {
   "projects": {
     "production": "firebase-singpath",
-    "staging": "singpath-play"
+    "staging": "singpath-play",
+    "default": "singpath-play"
   }
 }

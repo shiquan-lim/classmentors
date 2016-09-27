@@ -89,9 +89,9 @@
       }
     },
     "classMentors": {
-      "cohortAnalysis":{
-        ".read":true,
-        ".write":false
+      "cohortAnalysis": {
+        ".read": true,
+        ".write": false
       },
       "eventQuestions": {
         ".read": "root.child('classMentors/admins').child(auth.uid).val() == true",
@@ -243,8 +243,8 @@
         ".write": "auth !== null && root.child('classMentors/admins').child(auth.uid).val() === true"
       },
       "eventTeams": {
-          ".write": true,
-          ".read": true
+        ".write": true,
+        ".read": true
       },
       "eventApplications": {
         "$eventId": {
