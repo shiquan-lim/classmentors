@@ -198,8 +198,7 @@ function startTRATInitialData($q, spfAuthData, eventService, clmDataStore, fireb
                 var teamRef = db.ref(`classMentors/eventTeams/${eventId}/${teamFormationRefKey}/${teamId}`);
 
                 return {
-                    team: $firebaseArray(teamRef).$loaded()
-                        .then(function (team) {
+                    team: $firebaseArray(teamRef).$loaded(function (team) {
                             var outputTeam = [];
                             for (var i = 0; i < team.length; i++) {
                                 var idAtIdx = team[i].$id;
@@ -208,7 +207,19 @@ function startTRATInitialData($q, spfAuthData, eventService, clmDataStore, fireb
                                 }
                             }
                             return outputTeam;
+                        }).then(function(result){
+                            return result;
                         }),
+                        // .then(function (team) {
+                        //     var outputTeam = [];
+                        //     for (var i = 0; i < team.length; i++) {
+                        //         var idAtIdx = team[i].$id;
+                        //         if (idAtIdx != 'currentSize' && idAtIdx != 'maxSize') {
+                        //             outputTeam.push(team[i]);
+                        //         }
+                        //     }
+                        //     return outputTeam;
+                        // }),
                     teamId: teamId
                 }
             }),
@@ -255,11 +266,21 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
     console.log(initialData.currentUser);
     self.eventId = initialData.eventId;
     var teamAndteamId = initialData.teamAndteamId;
+    console.log(initialData.teamAndteamId);
     self.teamId = teamAndteamId.teamId;
     self.team = null;
     teamAndteamId.team.then(function(result){
         self.team = result;
+        var teamleader = self.team[self.index % self.team.length];
+        if(userPublicId == teamleader.$id){
+            self.teamleader = "You are the team leader"
+        }else{
+            self.teamleader = teamleader.displayName + " is the team leader";
+        }
+        
+        
     });
+    
 
 
     self.tratId = initialData.tratId;
@@ -329,6 +350,7 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
 
     function teamAns(answer) {
         // Check which user`s answer is used for submission.
+        // console.log(self.team);
         var userIdx = self.index % self.team.length;
         console.log("userIdx iss:", userIdx);
         console.log("team length is:", self.team.length);
