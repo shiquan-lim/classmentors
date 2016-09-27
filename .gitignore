@@ -10,3 +10,5 @@ worker/*.env
 *.xml
 .idea/vcs.xml
 .idea/modules.xml
+.firebaserc
+.firebase.json
