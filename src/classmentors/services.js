@@ -1482,8 +1482,8 @@ export function clmDataStoreFactory(
         var cmProfilePromise = clmDataStore.profile(publicId);
         var badgesPromise = cmProfilePromise.then(function(profile) {
           return $q.all({
-            codeCombat: clmDataStore.services.codeCombat.fetchBadges(profile),
-            codeSchool: clmDataStore.services.codeSchool.fetchBadges(profile)
+            // codeCombat: clmDataStore.services.codeCombat.fetchBadges(profile),
+            // codeSchool: clmDataStore.services.codeSchool.fetchBadges(profile)
           });
         });
 
