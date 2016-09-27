@@ -58,8 +58,14 @@
                 <md-input-container flex layout="column">
                     <md-select flex name="selectChallengeResult"
                                ng-model="ctrl.selected" required placeholder="Select a challenge to view results">
-                        <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="!task.archived || ctrl.viewArchived">
-                                {{task.title}}
+                        <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="task.startIRAT && !task.formationPattern && !task.survey && (!task.archived || ctrl.viewArchived)">
+                            {{task.title}} (IRAT)
+                        </md-option>
+                        <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="task.startTRAT && !task.formationPattern && !task.survey && (!task.archived || ctrl.viewArchived)">
+                            {{task.title}} (TRAT)
+                        </md-option>
+                        <md-option ng-value="task" ng-repeat="task in ctrl.tasks" ng-if="!task.startTRAT && !task.startIRAT && !task.formationPattern && !task.survey && (!task.archived || ctrl.viewArchived)">
+                            {{task.title}}
                         </md-option>
                     </md-select>
                 </md-input-container>

@@ -115,12 +115,12 @@ module.constant('routes', {
   viewCohort: '/cohorts/:cohortId',
   editCohort: '/cohorts/:cohortId/edit',
   viewMcq: '/challenges/mcq',
-  startMcq: '/challenges/mcq/start',
+  startMcq: '/events/:eventId/challenges/:taskId/mcq/start',
   editMcq: '/challenges/mcq/edit',
   viewSurvey: '/challenges/survey',
   createTeamActivity: '/challenges/team-activity/create',
   viewIRAT: '/challenges/IRAT',
-  viewTRAT: '/challenges/TRAT'
+  viewTRAT: '/events/:eventId/challenges/:taskId/TRAT/start'
 });
 
 export {module};

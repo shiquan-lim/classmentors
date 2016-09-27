@@ -495,7 +495,6 @@ function ViewEventCtrl($scope, initialData, $document, $mdDialog, $route,
     this.assistantObj = initialData.assistantObj;
     this.asstArr = [];
     this.isReviewSuperUser = false;
-
     for (let asst in self.assistants) {
         if (self.assistants[asst].$id) {
             self.asstArr.push(self.assistants[asst].$id);
@@ -1842,16 +1841,17 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
 
     this.startMCQ = function (eventId, taskId, task, participant, userSolution) {
         // Assign eventTable variables to data
-        var data = {
-            eventId: eventId,
-            taskId: taskId,
-            task: task,
-            participant: participant,
-            userSolution: userSolution
-        }
-        // Store data in eventService
-        eventService.set(data);
-        $location.path('/challenges/mcq/start');
+        // var data = {
+        //     eventId: eventId,
+        //     taskId: taskId,
+        //     task: task,
+        //     participant: participant,
+        //     userSolution: userSolution
+        // }
+        // // Store data in eventService
+        // eventService.set(data);
+        console.log("participant isss:", participant);
+        $location.path('/events/' + eventId + '/challenges/' + taskId + '/mcq/start');
     }
 
     this.startTRAT = function(eventId, taskId, task, participant){
@@ -1864,8 +1864,8 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         }
         // Store data in eventService
         eventService.set(data);
-        console.log('startTRAT triggered');
-        $location.path('/challenges/TRAT');
+
+        $location.path('/events/' + eventId + '/challenges/' + taskId + '/TRAT/start');
     }
 
     this.mustRegister = function (task, profile) {

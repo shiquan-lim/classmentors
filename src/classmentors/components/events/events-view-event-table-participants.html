@@ -73,7 +73,7 @@
 
                             </span>
                         <!--added one more contraint to change the button to Start IRAT-->
-                            <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button ng-if="!task.teamFormationMethod" class="md-raised md-primary"
                                            ng-click="ctrl.startMCQ(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
                                            target="_blank"
@@ -99,7 +99,8 @@
                             Start IRAT
 
                         </md-button>
-                            </span>
+                        </span>
+
                         <md-button class="md-raised md-primary" ng-if="task.formationPattern"
                                    ng-click="ctrl.promptForTeamFormation(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
                                    target="_blank"
@@ -109,6 +110,7 @@
 
                             Form Team
                         </md-button>
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                         <md-button class="md-raised md-primary" ng-if="task.startTRAT"
                                    ng-click="ctrl.startTRAT(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant)"
                                    target="_blank"
@@ -117,14 +119,14 @@
                         >
                             Start TRAT
                         </md-button>
-
+                        </span>
                     </div>
 
                     <div ng-if="task.serviceId">
                             <span ng-if="ctrl.currentUserSolutions[task.$id]">
                                 Completed<span ng-if="!ctrl.currentUserProgress[task.$id].completed"></span>
                             </span>
-                            <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
                                            ng-href="{{ctrl.startLink(task, ctrl.profile)}}"
                                            target="_blank"
@@ -152,7 +154,7 @@
                                 </md-button>
                             </span>
 
-                            <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
                                            aria-label="Submit response"
                                            ng-click="ctrl.promptForTextResponse(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
@@ -176,7 +178,7 @@
                                 </md-button>
                             </span>
 
-                            <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
                                            aria-label="Submit response"
                                            ng-click="ctrl.promptForCodeResponse(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
@@ -200,7 +202,7 @@
                                 </md-button>
                             </span>
 
-                            <span ng-if="!ctrl.currentUserSolutions[task.$id]">
+                        <span ng-if="!ctrl.currentUserSolutions[task.$id]">
                                 <md-button class="md-raised md-primary"
                                            aria-label="Submit link"
                                            ng-click="ctrl.promptForLink(ctrl.event.$id, task.$id, task, ctrl.currentUserParticipant, ctrl.currentUserSolutions)"
@@ -275,7 +277,7 @@
                         {{ participant.user.displayName }}
                     </md-button>
 
-                        <span ng-if="ctrl.profile.$id == ctrl.event.owner.publicId &amp;&amp; participant.$id != ctrl.profile.$id">
+                    <span ng-if="ctrl.profile.$id == ctrl.event.owner.publicId &amp;&amp; participant.$id != ctrl.profile.$id">
                             <md-button class="md-icon-button md-primary small-icon" aria-label="Delete"
                                        ng-click="ctrl.removeParticipant($event, ctrl.event, participant)">
                                 <md-icon md-svg-icon="clear"></md-icon>
@@ -289,7 +291,7 @@
                         <!--Completed-->
                         <!--</span>-->
 
-                            <span ng-if="task.showLinks">
+                        <span ng-if="task.showLinks">
                                 <span ng-if="task.linkPattern">
                                     <a ng-href="{{ctrl.solutions[participant.$id][task.$id]}}"
                                        target="_blank">completed</a>
@@ -318,7 +320,7 @@
                                 </span>
                             </span>
 
-                            <span ng-if="!task.showLinks">
+                        <span ng-if="!task.showLinks">
                                 Completed
                             </span>
                     </div>
