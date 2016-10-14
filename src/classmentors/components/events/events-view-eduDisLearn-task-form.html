@@ -142,21 +142,15 @@
 
         </table>
 
-        <table>
-            <tr>
-                <td>
-                    <md-button ng-disabled="surveyForm.$invalid || ctrl.selectedRaceEthnicity.length == 0 || ctrl.selectedFamily.length == 0" type="submit" class="md-raised md-primary"
-                               style="width: 150px;">Submit
-                    </md-button>
-                </td>
-                <td>
-                    <md-button ng-click="ctrl.backToChallenge()" class="md-raised md-primary" style="width: 150px;">
-                        Discard
-                    </md-button>
-                </td>
-            </tr>
-        </table>
-
+        <br>
+        <div align="center">
+            <md-button ng-disabled="surveyForm.$invalid || ctrl.selectedRaceEthnicity.length == 0 || ctrl.selectedFamily.length == 0" type="submit" class="md-raised md-primary"
+                       style="width: 150px;">Submit
+            </md-button>
+            <md-button ng-click="ctrl.backToChallenge()" class="md-accent" style="width: 150px;">
+                Discard
+            </md-button>
+        </div>
 
     </form>
 </md-content>

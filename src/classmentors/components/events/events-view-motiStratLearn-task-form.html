@@ -43,22 +43,15 @@
             <!--max-size="maxSize"-->
             <!--boundary-links="true">-->
             <!--</pagination>-->
-            <table>
-                <tr>
-                    <td>
-                        <md-button type="submit" ng-disabled="surveyForm.$invalid" class="md-primary md-raised">Submit</md-button>
-                    </td>
-                    <td>
-                        <md-button ng-click="ctrl.backToChallenge()" class="md-raised md-primary" style="width: 150px;">
-                            Discard
-                        </md-button>
-                    </td>
-                </tr>
-            </table>
 
         </md-input>
 
-        <!--<hr style="background: #808080; border: 0; height: 3px"/>-->
+        <div align="center">
+            <md-button type="submit" ng-disabled="surveyForm.$invalid" class="md-primary md-raised" style="width: 150px;">Submit</md-button>
+            <md-button ng-click="ctrl.backToChallenge()" class="md-accent" style="width: 150px;">
+                Discard
+            </md-button>
+        </div>
     </form>
 
 </md-content>

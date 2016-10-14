@@ -25,11 +25,11 @@
         <md-progress-circular ng-show="ctrl.creatingEvent" md-mode="indeterminate"
                               style="margin: 16px auto"></md-progress-circular>
 
-        <md-checkbox ng-model="featureEvent" ng-checked="ctrl.featureEvent" ng-click="ctrl.toggle()"> Feature this event
+        <br><md-checkbox ng-model="featureEvent" ng-checked="ctrl.featureEvent" ng-click="ctrl.toggle()"> Feature this event
         </md-checkbox>
 
         <div layout="row" layout-align="center center">
-            <md-button type="submit" class="md-primary" ng-disabled="newEventForm.$invalid || ctrl.creatingEvent">
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="newEventForm.$invalid || ctrl.creatingEvent">
                 Create
             </md-button>
             <md-button type="reset" ng-click="ctrl.reset(newEventForm)"

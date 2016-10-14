@@ -49,25 +49,14 @@
                 </tr>
 
             </table>
-
-
             <br>
-
-            <table>
-                <tr>
-                    <td>
-                        <md-button type="submit" ng-disabled="surveyForm.$invalid" class="md-raised md-primary" style="width: 150px;">Submit</md-button>
-
-                    </td>
-                    <td>
-                        <md-button ng-click="ctrl.backToChallenge()" class="md-raised md-primary" style="width: 150px;">
-                            Discard
-                        </md-button>
-                    </td>
-                </tr>
-
-            </table>
-
         </md-input>
+
+        <div align="center">
+            <md-button type="submit" ng-disabled="surveyForm.$invalid" class="md-raised md-primary" style="width: 150px;">Submit</md-button>
+            <md-button ng-click="ctrl.backToChallenge()" class="md-accent" style="width: 150px;">
+                Discard
+            </md-button>
+        </div>
     </form>
 </md-content>

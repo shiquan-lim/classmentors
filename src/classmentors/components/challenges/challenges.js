@@ -125,7 +125,7 @@ configRoute.$inject = ['$routeProvider', 'routes'];
 
 function editMCQInitialData($q, eventService, clmDataStore) {
     var data = eventService.get();
-    console.log(data);
+    // console.log(data);
     return clmDataStore.events.getTaskAnswers(data.event.$id, data.task.$id).then(
         function (result) {
             return {
@@ -161,7 +161,7 @@ function startMCQInitialData($q, spfAuthData, eventService, clmDataStore, $route
         task: clmDataStore.events.getTask(eventId, taskId)
 
     }).then(function (result) {
-        console.log("result isss:", result);
+        // console.log("result isss:", result);
         return {
             eventId: eventId,
             taskId: taskId,
@@ -229,9 +229,9 @@ export function challengeServiceFactory
             var db = firebaseApp.database();
             var copy = cleanObj(task);
             var answers = copy.answers;
-            console.log('COPY IS ... ', copy);
-
-            console.log('COPY IS!! ', copy);
+            // console.log('COPY IS ... ', copy);
+            //
+            // console.log('COPY IS!! ', copy);
             self.creatingTask = true;
             if (taskType === 'multipleChoice') {
                 delete copy.singPathProblem;
@@ -240,11 +240,11 @@ export function challengeServiceFactory
 
                 var ref = clmDataStore.events.addTaskWithAns(event.$id, copy, isOpen, answers);
                 ref.then(function () {
-                    spfAlert.success('Task created');
+                    spfAlert.success('Challenge created.');
                     $location.path(urlFor('editEvent', {eventId: event.$id}));
                 }).catch(function (err) {
                     $log.error(err);
-                    spfAlert.error('Failed to created new task');
+                    spfAlert.error('Failed to created new challenge.');
                 }).finally(function () {
                     self.creatingTask = false;
                 });
@@ -256,7 +256,7 @@ export function challengeServiceFactory
                 if (copy.link == "") {
                     delete copy.link;
                 }
-                console.log(copy);
+                // console.log(copy);
                 /*TODO:
                  1. Modify 'addTaskWithAns' to return firebase reference too? hmm.
                  2. Refactor once (1) is agreed upon.
@@ -269,11 +269,11 @@ export function challengeServiceFactory
                 var taskAnsRef = db.ref(`classMentors/eventAnswers/${event.$id}/${ref.key}`);
                 var teamFormationTaskRef = db.ref(`classMentors/eventTasks/${event.$id}`).push();
                 var tratTaskRef = db.ref(`classMentors/eventTasks/${event.$id}`).push();
-                console.log('Team Formation key: ', taskAnsRef.key)
+                // console.log('Team Formation key: ', taskAnsRef.key)
                 var eventTeamsRef = db.ref(`classMentors/eventTeams/${event.$id}/${teamFormationTaskRef.key}`);
-                console.log(event.$id);
+                // console.log(event.$id);
                 // Check If key
-                console.log(teamFormationTaskRef.key);
+                // console.log(teamFormationTaskRef.key);
                 var priority = copy.priority;
                 // Set openedAt, closedAt timestamp.
                 if (isOpen) {
@@ -288,7 +288,7 @@ export function challengeServiceFactory
                 promise.then(function () {
                     // Save answers.
                     console.log('Task answers set.');
-                    console.log(taskAnsRef);
+                    // console.log(taskAnsRef);
                     return taskAnsRef.set(answers);
                 }).then(function () {
                     // Define 'teamFormationTask'.
@@ -340,7 +340,7 @@ export function challengeServiceFactory
                 }).then(function () {
                     console.log('TRAT set.');
                     console.log('Events Created');
-                    spfAlert.success('Task saved');
+                    spfAlert.success('Challenge saved');
                     $location.path(urlFor('editEvent', {eventId: event.$id}));
                 });
             }
@@ -387,10 +387,10 @@ export function challengeServiceFactory
 
                 return clmDataStore.events.closeTask(event.$id, taskId);
             }).then(function () {
-                spfAlert.success('Task saved');
+                spfAlert.success('Challenge saved.');
                 $location.path(urlFor('editEvent', {eventId: event.$id}));
             }).catch(function () {
-                spfAlert.error('Failed to save the task.');
+                spfAlert.error('Failed to save the challenge.');
             }).finally(function () {
                 self.savingTask = false;
             });
@@ -422,7 +422,7 @@ function surveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $locat
 
     this.saveSurveyTask = function (surveyType) {
         var copy = cleanObj(getTask);
-        console.log('my copy is ', copy);
+        // console.log('my copy is ', copy);
         if (sharedData.taskType === 'linkPattern') {
             delete copy.badge;
             delete copy.serviceId;
@@ -445,10 +445,10 @@ function surveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $locat
         }
 
         self.creatingTask = true;
-        console.log("survey type is " + surveyType);
+        // console.log("survey type is " + surveyType);
         copy.survey = surveyType;
         clmDataStore.events.addTask(sharedData.eventId, copy, sharedData.isOpen).then(function () {
-            spfAlert.success('Challenge created');
+            spfAlert.success('Challenge created.');
             $location.path(urlFor('editEvent', {eventId: sharedData.eventId}));
         }).catch(function (err) {
             $log.error(err);

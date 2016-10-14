@@ -19,16 +19,37 @@ function mcqQuestionFactory(){
   }
 }
 
-export function editMcqController(initialData, challengeService, $filter,$mdDialog, urlFor, $location){
+export function editMcqController(initialData,spfNavBarService, challengeService, $filter,$mdDialog, urlFor, $location){
+  //todo: to check with eventsSolution. The error should show when edit button is clicked.
+  //todo: If there are already answers for the challenge, event owner can no longer edit the event.
+
+  //todo: to check with status of challenge (open/close). If challenge is open, event owner cannot edit. This is to prevent race conditions as well.
+
   var self = this;
 
-  // Checks if all questions have at least one answer
-
   self.task = initialData.data.task;
-  // console.log("the initial edit data is........", initialData);
+  self.isMcqValid = true;
+  self.isTextFilled = true;
   var questions = angular.fromJson(self.task.mcqQuestions);
   var savedAnswers = angular.fromJson(initialData.savedAnswers.$value);
   self.questions = builtMCQ(questions, savedAnswers);
+
+
+
+  spfNavBarService.update(
+      initialData.data.task.title, [{
+        title: 'Events',
+        url: `#${urlFor('events')}`
+      }, {
+        title: initialData.data.event.title,
+        url: `#${urlFor('oneEvent', {eventId: initialData.data.event.$id})}`
+      }, {
+        title: 'Challenges',
+        url: `#${urlFor('editEvent', {eventId: initialData.data.event.$id})}`
+      }]
+  );
+
+
 
   function builtMCQ(questions, savedAnswers){
     for(var i = 0; i < questions.length; i ++){
@@ -36,10 +57,32 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
     }
     return questions;
   }
-  self.isMcqValid = checkMCQValid();
+
+  self.checkMCQValid = function(text){
+    console.log("text",text);
+    if(text.length == 0 || text == undefined){
+      self.isTextFilled = false;
+    }else{
+      self.isTextFilled = true;
+    }
+  };
+
+  self.isOptionValid = true;
+
+  self.checkOptionValid = function(text){
+    if(text.length == 0 || text == undefined){
+      self.isOptionValid = false;
+    }else{
+      self.isOptionValid = true;
+    }
+  }
+
+  // console.log("var questions are", questions);
+  // console.log("self q", self.questions);
+
+  // self.isMcqValid = checkMCQValid();
   // Save mcq question to database.
 
-  //todo: clean up the form before submitting. e.g. when toggled, vid entered, but toggled off
   self.save = function(questions){
     var setAnswers = [];
 
@@ -88,6 +131,7 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
     self.questions.push(question);
     checkMCQValid();
   }
+
   function checkMCQValid(){
     for (var i = 0; i < self.questions.length; i ++){
       if(self.questions[i].answers.length == 0){
@@ -164,25 +208,27 @@ export function editMcqController(initialData, challengeService, $filter,$mdDial
   //todo:add back button controls here
   self.discardChanges = function (ev){
     var confirm = $mdDialog.confirm()
-        .title('Would you like to discard your changes?')
-        .textContent('All of the information input will be discarded. Are you sure you want to continue?')
+        .title('You have not saved your changes')
+        .textContent('All of your changes will be discarded. Are you sure you want to continue?')
         .ariaLabel('Discard changes')
         .targetEvent(ev)
-        .ok('Cancel Editing')
-        .cancel('Continue Editing');
+        .ok('Discard my changes')
+        .cancel('Continue editing');
     $mdDialog.show(confirm).then(function() {
       // decided to discard data, bring user to previous page
 
       //todo: link back to previous page
       //$location.path(urlFor('editEventTask', {eventId: initialData.event.$id},{taskId: task.$id}));
-      $location.path(urlFor('oneEvent', {eventId: initialData.event.$id}));
+      $location.path(urlFor('editEvent', {eventId: initialData.data.event.$id}));
     })
   }
 
-
 }
+
+
 editMcqController.$inject = [
     'initialData',
+    'spfNavBarService',
     'challengeService',
     '$filter',
     '$mdDialog',
@@ -196,7 +242,7 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
   var mcqInvalid = true;
   $scope.$on("$routeChangeStart", function (event, next, current) {
     if (mcqInvalid) {
-      if (!confirm("You have not finished this survey. Are you sure you want to continue? All data will be lost")) {
+      if (!confirm("You have not finish your multiple choice questions. Are you sure you want to continue? All data will be lost.")) {
         event.preventDefault();
       }
     }
@@ -388,14 +434,14 @@ export function newMcqController(initialData, challengeService, $filter,$mdDialo
     }
 
     // Check does questions contain answers?
-    console.log(questions);
-
-    // Check answer list
-    console.log(setAnswers);
+    // console.log(questions);
+    //
+    // // Check answer list
+    // console.log(setAnswers);
 
     // Change questions into JSON text
     var answersJsonText = angular.toJson(questions);
-    console.log(answersJsonText);
+    // console.log(answersJsonText);
 
     // Save function defined in challenges.js
     // Parameters: event, taskid, task, taskType, isOpen
@@ -499,19 +545,16 @@ export function newMcqController(initialData, challengeService, $filter,$mdDialo
 
   //todo:back button add here
   self.discardChanges = function (ev){
-
     var confirm = $mdDialog.confirm()
-        .title('Would you like to discard your changes?')
+        .title('You have not save your challenge information')
         .textContent('All of the information input will be discarded. Are you sure you want to continue?')
         .ariaLabel('Discard changes')
         .targetEvent(ev)
-        .ok('Cancel Editing')
+        .ok('Discard Challenge')
         .cancel('Continue Editing');
     $mdDialog.show(confirm).then(function() {
-      // decided to discard data, bring user to previous page
 
       //todo: link back to previous page
-      //$location.path(urlFor('addEventTask', {eventId: initialData.event.$id}));
       $location.path(urlFor('oneEvent', {eventId: initialData.event.$id}));
 
     })
@@ -524,8 +567,8 @@ newMcqController.$inject = [
   'challengeService',
   '$filter',
   '$mdDialog',
-    'urlFor',
-    '$location'
+  'urlFor',
+  '$location'
 ];
 
 export function starMcqTmpl() {

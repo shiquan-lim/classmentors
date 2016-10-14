@@ -1,9 +1,8 @@
 <md-content flex class="md-padding">
 
-  <div layout='column' align="center">
-    <h3>Multiple Choice</h3>
-    <h4>Title: {{ctrl.task.title}}</h4>
-    <h4>Description: {{ctrl.task.description}}</h4>
+  <div layout='column' align="left">
+    <h3>{{ctrl.task.title}}</h3>
+    <p>{{ctrl.task.description}}</p>
     <br>
   </div>
 
@@ -55,7 +54,7 @@
     <br/>
       <div layout="row" layout-align="center center">
         <md-button type="submit" class="md-raised md-primary" ng-disabled="startMcq.$invalid">Submit</md-button>
-        <md-button type="reset" class="md-raised" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
+        <md-button type="button" class="md-accent" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
       </div>
   </form>
 </md-content>

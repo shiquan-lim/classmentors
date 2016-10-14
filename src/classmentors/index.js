@@ -81,6 +81,7 @@ module.factory('quizFactory', components.challenges.tratQuestionFactory);
 // TODO: convert those view controller/template to component and move them above
 module.config(components.cohorts.configRoute);
 module.config(components.feedback.configRoute);
+module.config(components.questionQueue.configRoute);
 module.config(components.events.configRoute);
 module.config(components.profiles.configRoute);
 module.config(components.challenges.configRoute);
@@ -121,7 +122,8 @@ module.constant('routes', {
   createTeamActivity: '/challenges/team-activity/create',
   viewIRAT: '/challenges/IRAT',
   viewTRAT: '/events/:eventId/challenges/:taskId/TRAT/start',
-  feedback: '/feedback'
+  feedback: '/feedback',
+  questionQueue: '/question-queue'
 });
 
 export {module};

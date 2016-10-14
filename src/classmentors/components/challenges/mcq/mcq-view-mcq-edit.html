@@ -1,123 +1,67 @@
 <md-content flex class="md-padding">
-    <form name="editMcq" ng-submit="ctrl.save(ctrl.questions)" >
+    <form name="editMcq" ng-submit="ctrl.save(ctrl.questions)">
         {{ctrl.data}}
         <div align="center">
-            <h3>Multiple Choice</h3>
-            <h4>Title: {{ctrl.task.title}}</h4>
-            <h4>Description: {{ctrl.task.description}}</h4>
+            <h3>Multiple Choice Question Details</h3>
             <br><br>
-        </div>
-
-        <!--<div>-->
-        <!--todo: requires timer to enable this function.-->
-        <!--<md-input-container>-->
-        <!--*Time Limit (in minute)-->
-        <!--<input type="number" name="editTimeLimit" id="edit-time-limit"-->
-        <!--ng-model="ctrl.task.timeLimit"-->
-        <!--min="0" step="1"-->
-        <!--placeholder="Time Limit for the quiz" value="" required-->
-        <!--/>-->
-        <!--<div ng-messages="editMcq.editTimeLimit.$error">-->
-        <!--<div ng-message="number">Time limit allowed should be a positive number in minutes.</div>-->
-        <!--<div ng-message="required">Enter time limit for the quiz. </div>-->
-        <!--</div>-->
-        <!--</md-input-container>-->
-
-        <!--<p>-->
-        <!--<h5>Questions</h5>-->
-        <!--<md-switch class="md-primary" ng-model="ctrl.task.randomQOrder" aria-label="">-->
-        <!--Randomise questions order-->
-        <!--</md-switch>-->
-
-        <!--<md-switch class="md-primary" ng-model="ctrl.task.randomOOrder" aria-label="">-->
-        <!--Randomise options order-->
-        <!--</md-switch>-->
-        <!--</p>-->
-
-        <!--<h5>Results Release</h5>-->
-        <!--<md-input-container>-->
-        <!--*Waiting time to view result after student's completion (minutes)-->
-        <!--<input type="number" name="resultRelease" id="result-release"-->
-        <!--ng-model="ctrl.task.resultRelease"-->
-        <!--min="0" step="1"-->
-        <!--placeholder="Waiting time to view result after student's completion" value="" required-->
-        <!--/>-->
-        <!--<div ng-messages="editMcq.resultRelease.$error">-->
-        <!--<div ng-message="number">Release time after completion should be a positive number in minutes.</div>-->
-        <!--<div ng-message="required">Please enter time(minutes) to release results after completion.</div>-->
-        <!--</div>-->
-        <!--</md-input-container>-->
-
-        <!--todo: install angular-timer and make timer work first before uncommenting-->
-        <!--<h5> Re-attempts Allowance</h5>-->
-        <!--<md-input-container>-->
-        <!--*Waiting time before students can re-attempt challenge (minutes)-->
-        <!--<input type="number" name="reattempts" id="reattempts"-->
-        <!--ng-model="ctrl.task.reattempts"-->
-        <!--min="0" step="1"-->
-        <!--placeholder="Waiting time before students can re-attempt challenge (minutes)" value="" required-->
-        <!--/>-->
-        <!--<div ng-messages="editMcq.reattempts.$error">-->
-        <!--<div ng-message="number">Waiting time before students can re-attempt challenge should be a positive number in minutes.</div>-->
-        <!--<div ng-message="required">Please enter time(minutes) before students can re-attempt challenge.</div>-->
-        <!--</div>-->
-        <!--</md-input-container>-->
-
-        <!--<h5>Team Mode</h5>-->
-        <!--<md-switch class="md-primary" ng-model="ctrl.task.enableTeam" aria-label="">-->
-        <!--Enable team answering mode-->
-        <!--</md-switch>-->
-
-        <!--</div>-->
-
-        <!------------------starting of questions--------------------------------------------->
-
-        <div align="center">
-            <h4>Question Details</h4>
         </div>
 
         <div ng-repeat="question in ctrl.questions">
             <h3>
                 Question {{$index + 1}}
-                <md-button class="md-raised" ng-click="ctrl.removeQuestion($event,$index)" ng-disabled = "ctrl.questions.length == 1">Delete this question</md-button>
+                <md-button class="md-raised" ng-click="ctrl.removeQuestion($event,$index)"
+                           ng-disabled="ctrl.questions.length == 1">Delete this question
+                </md-button>
             </h3>
 
 
-            <div align="center" layout="row" >
+            <div layout="row">
                 <md-input-container flex>
-                    <label for="edit-question_{{$index}}">Question</label>
+                    <label for="edit-question_{{$index}}">Click here to set your question</label>
                     <input type="text" name="editQuestion" id="edit-question_{{$index}}"
+                           ng-change="ctrl.checkMCQValid(question.text)"
                            ng-model="question.text"
-                           placeholer="Question"
+                           placeholer="Click here to set your question"
+                           value = "{{question.text}}"
+
                     />
+
                 </md-input-container>
             </div>
 
-            <md-input-container >
-                <md-button type="button" class="md-raised md-primary" id="addOptions" ng-click="ctrl.addOption(question)">Add option</md-button>
+            <md-input-container>
+                <md-button type="button" class="md-raised md-primary" id="addOptions"
+                           ng-click="ctrl.addOption(question)">Add option
+                </md-button>
             </md-input-container>
 
-            <p ng-show="ctrl.isMcqValid == false"><font color="red">*One of the option must be an answer.</font></p>
+            <!--<p ng-show="!ctrl.isMcqValid"><font color="red">*One of the option must be an answer.</font></p>-->
 
             <!--answer options-->
-            <div align="center" layout="row" ng-repeat="option in question.options" >
+            <div layout="row" ng-repeat="option in question.options">
                 <!--{{$index}}-->
-                <md-input-container flex >
-                    <label for="q-option_{{$index}}">Option</label>
+                <md-input-container flex>
+                    <label for="q-option_{{$index}}">Click here to set your option</label>
                     <input type="text" name="editQuestion" id="q-option_{{$index}}"
                            ng-model="option.text"
                            placeholer="Options"
+                           ng-change="ctrl.checkOptionValid(option.text)"
+                           value="{{option.text}}"
                     />
                 </md-input-container>
 
                 <!--todo: required at least one option to be the answer.-->
                 <md-input-container>
-                    <md-button ng-model="question.answers" ng-class="question.answers.indexOf($index) != -1 ? 'md-raised md-primary' : 'md-raised'"
-                               ng-click="ctrl.toggleOption(question, $index)">Answer</md-button>
+                    <md-button ng-model="question.answers"
+                               ng-class="question.answers.indexOf($index) != -1 ? 'md-raised md-primary' : 'md-raised'"
+                               ng-click="ctrl.toggleOption(question, $index)">Answer
+                    </md-button>
                 </md-input-container>
 
-                <md-input-container >
-                    <md-button class="md-raised" ng-click="ctrl.removeOption(question,$index)" ng-disabled = "question.options.length == 1">Delete option</md-button>
+                <md-input-container>
+                    <md-button class="md-raised" ng-click="ctrl.removeOption(question,$index)"
+                               ng-disabled="question.options.length == 1">Delete option
+                    </md-button>
                 </md-input-container>
             </div>
 
@@ -127,15 +71,155 @@
         <br>
         <div align="center">
             <!--todo: can add new set of question-->
-            <md-button type="button" class="md-raised md-primary" ng-click ="ctrl.addQuestion()">Add question</md-button>
+            <md-button type="button" class="md-raised md-primary" ng-click="ctrl.addQuestion()">Add question</md-button>
         </div>
 
         <br>
 
         <div align="center">
-            <md-button ng-disabled="ctrl.isMcqValid == false" type="submit" class="md-raised md-primary">Save</md-button>
-            <md-button type="reset" class="md-raised" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
+            <md-button type="submit" ng-disabled="!ctrl.isMcqValid || !ctrl.isTextFilled || !ctrl.isOptionValid" class="md-raised md-primary">Save
+            </md-button>
+            <md-button type="button" class="md-accent" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
         </div>
     </form>
 
 </md-content>
+
+
+
+<!--<md-content flex class="md-padding">-->
+    <!--<form name="editMcq" ng-submit="ctrl.save(ctrl.questions)" >-->
+        <!--{{ctrl.data}}-->
+        <!--<div align="center">-->
+            <!--<h3>Multiple Choice</h3>-->
+            <!--<h4>Title: {{ctrl.task.title}}</h4>-->
+            <!--<h4>Description: {{ctrl.task.description}}</h4>-->
+            <!--<br><br>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;<div>&ndash;&gt;-->
+        <!--&lt;!&ndash;todo: requires timer to enable this function.&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-input-container>&ndash;&gt;-->
+        <!--&lt;!&ndash;*Time Limit (in minute)&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="number" name="editTimeLimit" id="edit-time-limit"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-model="ctrl.task.timeLimit"&ndash;&gt;-->
+        <!--&lt;!&ndash;min="0" step="1"&ndash;&gt;-->
+        <!--&lt;!&ndash;placeholder="Time Limit for the quiz" value="" required&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-messages="editMcq.editTimeLimit.$error">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="number">Time limit allowed should be a positive number in minutes.</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="required">Enter time limit for the quiz. </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<p>&ndash;&gt;-->
+        <!--&lt;!&ndash;<h5>Questions</h5>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-switch class="md-primary" ng-model="ctrl.task.randomQOrder" aria-label="">&ndash;&gt;-->
+        <!--&lt;!&ndash;Randomise questions order&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-switch>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<md-switch class="md-primary" ng-model="ctrl.task.randomOOrder" aria-label="">&ndash;&gt;-->
+        <!--&lt;!&ndash;Randomise options order&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-switch>&ndash;&gt;-->
+        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<h5>Results Release</h5>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-input-container>&ndash;&gt;-->
+        <!--&lt;!&ndash;*Waiting time to view result after student's completion (minutes)&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="number" name="resultRelease" id="result-release"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-model="ctrl.task.resultRelease"&ndash;&gt;-->
+        <!--&lt;!&ndash;min="0" step="1"&ndash;&gt;-->
+        <!--&lt;!&ndash;placeholder="Waiting time to view result after student's completion" value="" required&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-messages="editMcq.resultRelease.$error">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="number">Release time after completion should be a positive number in minutes.</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="required">Please enter time(minutes) to release results after completion.</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;todo: install angular-timer and make timer work first before uncommenting&ndash;&gt;-->
+        <!--&lt;!&ndash;<h5> Re-attempts Allowance</h5>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-input-container>&ndash;&gt;-->
+        <!--&lt;!&ndash;*Waiting time before students can re-attempt challenge (minutes)&ndash;&gt;-->
+        <!--&lt;!&ndash;<input type="number" name="reattempts" id="reattempts"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-model="ctrl.task.reattempts"&ndash;&gt;-->
+        <!--&lt;!&ndash;min="0" step="1"&ndash;&gt;-->
+        <!--&lt;!&ndash;placeholder="Waiting time before students can re-attempt challenge (minutes)" value="" required&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-messages="editMcq.reattempts.$error">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="number">Waiting time before students can re-attempt challenge should be a positive number in minutes.</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div ng-message="required">Please enter time(minutes) before students can re-attempt challenge.</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;starting of questions-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+        <!--<div align="center">-->
+            <!--<h4>Question Details</h4>-->
+        <!--</div>-->
+
+        <!--<div ng-repeat="question in ctrl.questions">-->
+            <!--<h3>-->
+                <!--Question {{$index + 1}}-->
+                <!--<md-button class="md-raised" ng-click="ctrl.removeQuestion($event,$index)" ng-disabled = "ctrl.questions.length == 1">Delete this question</md-button>-->
+            <!--</h3>-->
+
+
+            <!--<div align="center" layout="row" >-->
+                <!--<md-input-container flex>-->
+                    <!--<label for="edit-question_{{$index}}">Question</label>-->
+                    <!--<input type="text" name="editQuestion" id="edit-question_{{$index}}"-->
+                           <!--ng-model="question.text"-->
+                           <!--placeholer="Question"-->
+                    <!--/>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+
+            <!--<md-input-container >-->
+                <!--<md-button type="button" class="md-raised md-primary" id="addOptions" ng-click="ctrl.addOption(question)">Add option</md-button>-->
+            <!--</md-input-container>-->
+
+            <!--<p ng-show="ctrl.isMcqValid == false"><font color="red">*One of the option must be an answer.</font></p>-->
+
+            <!--&lt;!&ndash;answer options&ndash;&gt;-->
+            <!--<div align="center" layout="row" ng-repeat="option in question.options" >-->
+                <!--&lt;!&ndash;{{$index}}&ndash;&gt;-->
+                <!--<md-input-container flex >-->
+                    <!--<label for="q-option_{{$index}}">Option</label>-->
+                    <!--<input type="text" name="editQuestion" id="q-option_{{$index}}"-->
+                           <!--ng-model="option.text"-->
+                           <!--placeholer="Options"-->
+                    <!--/>-->
+                <!--</md-input-container>-->
+
+                <!--&lt;!&ndash;todo: required at least one option to be the answer.&ndash;&gt;-->
+                <!--<md-input-container>-->
+                    <!--<md-button ng-model="question.answers" ng-class="question.answers.indexOf($index) != -1 ? 'md-raised md-primary' : 'md-raised'"-->
+                               <!--ng-click="ctrl.toggleOption(question, $index)">Answer</md-button>-->
+                <!--</md-input-container>-->
+
+                <!--<md-input-container >-->
+                    <!--<md-button class="md-raised" ng-click="ctrl.removeOption(question,$index)" ng-disabled = "question.options.length == 1">Delete option</md-button>-->
+                <!--</md-input-container>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+        <!--<br>-->
+        <!--<div align="center">-->
+            <!--&lt;!&ndash;todo: can add new set of question&ndash;&gt;-->
+            <!--<md-button type="button" class="md-raised md-primary" ng-click ="ctrl.addQuestion()">Add question</md-button>-->
+        <!--</div>-->
+
+        <!--<br>-->
+
+        <!--<div align="center">-->
+            <!--<md-button ng-disabled="ctrl.isMcqValid == false" type="submit" class="md-raised md-primary">Save</md-button>-->
+            <!--<md-button type="reset" class="md-raised" ng-click="ctrl.discardChanges($event)">Cancel</md-button>-->
+        <!--</div>-->
+    <!--</form>-->
+
+<!--</md-content>-->

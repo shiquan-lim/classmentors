@@ -20,7 +20,7 @@ function createTeamActivityInitialData($q, eventService, clmDataStore) {
 }
 createTeamActivityInitialData.$inject = ['$q', 'eventService', 'clmDataStore'];
 
-function createTeamActivityController($q, initialData, clmDataStore, $location, urlFor, eventService) {
+function createTeamActivityController($q, initialData, clmDataStore, $location, urlFor, eventService, $mdDialog) {
     var self = this;
 
     // console.log("initialdata for teamform are", initialData);
@@ -68,7 +68,7 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
             for (var i = 0; i < methodParameter; i++) {
                 teamStructure.push(0);
             }
-            console.log('Line reaches here');
+
             console.log('teamStructure :', teamStructure);
             //add 1 to each team until there are no more participants left
             for (var i = 0; i < participants; i++) {
@@ -123,6 +123,21 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
         return self.teamsMaximumStudents;
     }
 
+    //this function double checks with user if he wishes to go back and discard all changes thus far
+    this.discardChanges = function (ev) {
+        var confirm = $mdDialog.confirm()
+            .title('You have not save your challenge information')
+            .textContent('All of the information input will be discarded. Are you sure you want to continue?')
+            .ariaLabel('Discard changes')
+            .targetEvent(ev)
+            .ok('Discard Challenge')
+            .cancel('Continue Editing');
+        $mdDialog.show(confirm).then(function () {
+            // decided to discard data, bring user to previous page
+            $location.path(urlFor('editEvent', {eventId: self.event.$id}));
+        });
+    };
+
 }
 createTeamActivityController.$inject = [
     '$q',
@@ -130,7 +145,8 @@ createTeamActivityController.$inject = [
     'clmDataStore',
     '$location',
     'urlFor',
-    'eventService'
+    'eventService',
+    '$mdDialog'
 ];
 
 function startTRATInitialData($q, spfAuthData, eventService, clmDataStore, firebaseApp, $firebaseObject, $firebaseArray, $route) {
@@ -211,17 +227,16 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
     self.question = self.questions[self.index];
     self.options = self.question.options;
     var userPublicId = initialData.currentUser.publicId;
-    console.log(initialData.currentUser);
+    // console.log(initialData.currentUser);
     self.eventId = initialData.eventId;
     var teamAndteamId = initialData.teamAndteamId;
-    console.log(initialData.teamAndteamId);
+    // console.log(initialData.teamAndteamId);
     self.teamId = teamAndteamId.teamId;
     self.team = null;
-        teamAndteamId.team.then(function(result){
-            self.team = result;
-        });
+    teamAndteamId.team.then(function(result){
+        self.team = result;
+    });
 
-    
     self.tratId = initialData.tratId;
     self.teamFormId = initialData.teamFormId;
     var userAnswers = [];
@@ -312,12 +327,13 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
         // console.log(self.questions.length);
         // For Single answer MCQ
         if (self.selected != null) {
-            var tempArray = []
+            var tempArray = [];
             tempArray.push(parseInt(self.selected));
             var result = markQuestions(tempArray, self.index);
             if(result == 0){
                 self.noOfTries -= 1;
                 updateLog(buildMessage("Incorrect", 'Remaining attempts: ' + self.noOfTries, '#A9241C'));
+                console.log(self.team);
                 // Store reccord
                 attempts.push(tempArray);
                 // console.log('Current attempts: ', attempts);
@@ -340,6 +356,20 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
                         self.options = loadOptions(self.question);
                     }
                 }
+                for(var member in self.team) {
+                    let publicId = self.team[member].$id;
+                    if(publicId.indexOf("teamLeader") < 0) {
+                        clmDataStore.logging.inputLog(
+                            {
+                                publicId: publicId,
+                                timestamp: TIMESTAMP,
+                                action: "wrongTeamSubmission",
+                                taskId: self.tratId,
+                                eventId: self.eventId
+                            }
+                        )
+                    }
+                }
             }else{
                 // Add score if correct
                 self.totalScore += addScore(self.noOfTries, 1);
@@ -359,6 +389,20 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
                     updateLog(buildMessage("New Question ", 'Remaining attempts: ' + self.noOfTries, 'black'));
                     self.question = loadQuestion(self.index += 1, self.questions);
                     self.options = loadOptions(self.question);
+                }
+                for(var member in self.team) {
+                    let publicId = self.team[member].$id;
+                    if(publicId.indexOf("teamLeader") < 0) {
+                        clmDataStore.logging.inputLog(
+                            {
+                                publicId: publicId,
+                                timestamp: TIMESTAMP,
+                                action: "correctTeamSubmission",
+                                taskId: self.tratId,
+                                eventId: self.eventId
+                            }
+                        )
+                    }
                 }
             }
             // console.log(self.totalScore);
@@ -394,6 +438,20 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
                     delete self.options[key].checked;
                 }
                 self.multiAns = [];
+                for(var member in self.team) {
+                    let publicId = self.team[member].$id;
+                    if(publicId.indexOf("teamLeader") < 0) {
+                        clmDataStore.logging.inputLog(
+                            {
+                                publicId: publicId,
+                                timestamp: TIMESTAMP,
+                                action: "wrongTeamSubmission",
+                                taskId: self.tratId,
+                                eventId: self.eventId
+                            }
+                        )
+                    }
+                }
             }else{
                 // Add score
                 // console.log('Single ans mcq is correct!');
@@ -410,18 +468,32 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
                 }else{
                     // console.log('Questions : ', self.questions);
                     // console.log('Load next question!');
-                    self.noOfTries = 3
+                    self.noOfTries = 3;
                     userAnswers.push(attempts);
                     attempts = [];
                     updateLog(buildMessage("New Question ", 'Remaining attempts: ' + self.noOfTries, 'black'));
                     self.question = loadQuestion(self.index += 1, self.questions);
                     self.options = loadOptions(self.question);
                 }
+                for(var member in self.team) {
+                    let publicId = self.team[member].$id;
+                    if(publicId.indexOf("teamLeader") < 0) {
+                        clmDataStore.logging.inputLog(
+                            {
+                                publicId: publicId,
+                                timestamp: TIMESTAMP,
+                                action: "correctTeamSubmission",
+                                taskId: self.tratId,
+                                eventId: self.eventId
+                            }
+                        )
+                    }
+                }
             }
             // console.log(self.totalScore);
             self.multiAns = [];
         }
-    }
+    };
 
     function loadQuestion(index, questions){
         if(index < questions.length){
@@ -478,12 +550,12 @@ function startTRATController($q, initialData, clmDataStore, $location, urlFor,
     }
 
     function markQuestions(submittedAnswers, index) {
-        console.log('Correct Answers...', self.correctAnswers);
-        console.log('Submitted Answers...', submittedAnswers);
+        // console.log('Correct Answers...', self.correctAnswers);
+        // console.log('Submitted Answers...', submittedAnswers);
         var score = 0;
         // for (var i = 0; i < self.correctAnswers.length; i++) {
         score += arraysEqual(submittedAnswers, self.correctAnswers[index]);
-        console.log(score);
+        // console.log(score);
         // }
         return score;
     }

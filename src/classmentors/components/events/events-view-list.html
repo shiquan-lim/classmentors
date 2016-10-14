@@ -1,6 +1,5 @@
 <md-content flex class="md-padding">
-
-    <md-tabs md-dynamic-height="true" md-border-bottom="true">
+    <md-tabs md-dynamic-height="true" md-border-bottom="true" md-selected="1">
         <md-tab label="Featured Events">
             <md-content>
                 <md-list class="path-list">
@@ -19,7 +18,7 @@
             </md-content>
         </md-tab>
 
-        <md-tab label="Created Events" ng-disabled="!ctrl.currentUser">
+        <md-tab label="Created Events" ng-disabled="!ctrl.currentUser" >
             <md-content>
                 <md-list class="path-list">
                     <md-subheader class="md-no-sticky">{{ ctrl.createdEvents.length }} created event(s)</md-subheader>

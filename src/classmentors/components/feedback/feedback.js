@@ -6,6 +6,16 @@ import template from './feedback.html!text';
 /**
  * Update navBar with a title and no action.
  * @param {spfNavBarService} spfNavBarService
+ * Load data required for executing controller functions
+ * @param {initialData} initialData
+ * Route routing directive
+ * @param {urlFor} urlFor
+ * Database reference
+ * @param {firebaseApp} firebaseApp
+ * Alert for success and errors
+ * @param {spfAlert} spfAlert
+ * Firebase reference for objects. Returns promise.
+ * @param {$firebaseObject} $firebaseObject
  */
 function feedbackController(initialData, spfNavBarService, urlFor, firebaseApp, spfAlert, $firebaseObject) {
     var self = this;
