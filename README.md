@@ -1,3 +1,5 @@
+[![Stories in Ready](https://badge.waffle.io/shiquan-lim/classmentors.png?label=ready&title=Ready)](https://waffle.io/shiquan-lim/classmentors)
+[![Stories in Ready](https://badge.waffle.io/shiquan-lim/classmentors.png?label=ready&title=Ready)](https://waffle.io/shiquan-lim/classmentors)
 # Class Mentors UI
 
 
