@@ -7,7 +7,7 @@ import 'angular-material';
 import 'angular-messages';
 import 'angular-route';
 import 'angularfire';
-import 'angular-timer';
+import 'betsol-ng-time-counter';
 
 // polyfills
 import 'core-js/fn/array/every.js';
@@ -32,7 +32,7 @@ const module = angular.module('clm', [
   'ngAnimate',
   'ngMessages',
   'ngRoute',
-  'timer',
+  'betsol.timeCounter',
   spfShared.name
 ]);
 

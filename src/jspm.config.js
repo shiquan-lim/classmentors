@@ -45,6 +45,9 @@ SystemJS.config({
         }
       }
     }
+  },
+  map: {
+    "lodash.upperfirst": "npm:lodash.upperfirst@4.3.1"
   }
 });
 
@@ -66,6 +69,7 @@ SystemJS.config({
     "angular-timer": "github:siddii/angular-timer@1.3.4",
     "angularfire": "github:firebase/angularfire@2.0.2",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
+    "betsol-ng-time-counter": "npm:betsol-ng-time-counter@1.1.1",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "c3": "npm:c3@0.4.11",
     "chai": "npm:chai@3.5.0",
@@ -84,7 +88,6 @@ SystemJS.config({
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
     "https": "github:jspm/nodelibs-https@0.2.0-alpha",
     "lodash.camelcase": "npm:lodash.camelcase@4.3.0",
-    "lodash.upperfirst": "npm:lodash.upperfirst@4.3.1",
     "moment": "npm:moment@2.15.1",
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
@@ -521,11 +524,16 @@ SystemJS.config({
       }
     },
     "github:siddii/angular-timer@1.3.4": {
-          "map": {
-              "moment": "npm:moment@2.15.1",
-              "humanize-duration": "github:EvanHahn/HumanizeDuration.js@3.9.1",
-              "angular": "github:angular/bower-angular@1.5.8"
-          }
+      "map": {
+        "moment": "npm:moment@2.15.1",
+        "humanize-duration": "github:EvanHahn/HumanizeDuration.js@3.9.1",
+        "angular": "github:angular/bower-angular@1.5.8"
+      }
+    },
+    "npm:betsol-ng-time-counter@1.1.1": {
+      "map": {
+        "angular": "npm:angular@1.5.8"
+      }
     }
   }
 });

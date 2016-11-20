@@ -1,11 +1,16 @@
 <md-content flex class="md-padding">
 
+  <ul bs-time-counter date="ctrl.someDate" direction="'down'">
+    <li>{{hours}} hours</li>
+    <li>{{minutes}} minutes</li>
+    <li>{{seconds}} seconds</li>
+  </ul>
+
   <div layout='column' align="left">
     <h3>{{ctrl.task.title}}</h3>
     <p>{{ctrl.task.description}}</p>
     <br>
   </div>
-
   <form name="startMcq" ng-submit="ctrl.submit()">
     <div layout-align="column">
         <!------------------starting of questions--------------------------------------------->
@@ -17,7 +22,7 @@
           </div>
 
           <!--answer's options-->
-          
+
             <!--Radio button inputs-->
             <div ng-show="!ctrl.multipleAns[$index]">
                 <md-radio-group ng-required="true" ng-model="question.answers" >
@@ -34,7 +39,7 @@
                   </div>
                 </md-radio-group>
             </div>
-            
+
             <!--Checkbox inputs-->
             <div ng-show="ctrl.multipleAns[$index]">
               <div layout="column" ng-repeat="option in question.options">

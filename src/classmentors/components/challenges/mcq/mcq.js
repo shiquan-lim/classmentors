@@ -230,7 +230,7 @@ editMcqController.$inject = [
     '$location'
 ];
 
-export function startMcqController(initialData, challengeService, clmDataStore, $location, $mdDialog,urlFor, spfAlert, $scope,spfNavBarService ){
+export function startMcqController(initialData, challengeService, clmDataStore, $location, $mdDialog,urlFor, spfAlert, $scope,spfNavBarService){
   var self = this;
 
   var mcqInvalid = true;
@@ -243,7 +243,7 @@ export function startMcqController(initialData, challengeService, clmDataStore, 
 
 
   });
-
+  self.someDate = new Date('2026-08-16T06:17:00')
   var data = initialData;
   var eventId = data.eventId;
   var taskId = data.taskId;
