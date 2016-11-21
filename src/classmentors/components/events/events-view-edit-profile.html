@@ -5,8 +5,9 @@
             <p>{{ctrl.task.description}}</p>
             <!--<div ng-repeat="toEdit in ctrl.task.toEdit" ng-if="!ctrl.participantInfo[ctrl.camelText(toEdit)]">-->
             <div ng-repeat="toEdit in ctrl.task.toEdit">
-                Please input your {{toEdit}}
+                <!--Enter your {{toEdit | lowercase}}-->
                 <div ng-if="ctrl.camelText(toEdit)==='yearOfBirth'">
+                    <br>You are born in the year <b>{{ctrl.userData.yearOfBirth}}</b>.
                     <md-select ng-model="ctrl.userData.yearOfBirth" aria-label="select_yob" required placeholder="Select your year of birth">
                         <md-option ng-value="year" ng-repeat="year in ctrl.yearOpts">
                             {{year}}
@@ -17,6 +18,7 @@
                     <!--Editing Country.-->
                 <!--</div>-->
                 <div ng-if="ctrl.camelText(toEdit)==='school'">
+                    <br> Your secondary school is <b>{{ctrl.userData.school.name}}</b>.
                     <md-select ng-model="ctrl.userData.school" aria-label="select_school" required placeholder="Select your school">
                         <md-option ng-value="school" ng-repeat="school in ctrl.schools">
                             {{school.name}}
@@ -24,6 +26,7 @@
                     </md-select>
                 </div>
             </div>
+
             <md-dialog-actions layout="row" layout-align="center end">
                 <div>
                     <md-button type="submit" class="md-primary md-raised" ng-hide="ctrl.viewOnly" ng-disabled="!editProfileForm.$valid">

@@ -132,12 +132,15 @@
 
                     <div ng-if="ctrl.selected.linkPattern">
                         <span ng-if="ctrl.solutions[participant.$id][ctrl.selected.$id]">
-                            <a href={{ctrl.solutions[participant.$id][ctrl.selected.$id]}}>{{ ctrl.solutions[participant.$id][ctrl.selected.$id] | cmTruncate: 50 }}</a>
+                            <a href={{ctrl.solutions[participant.$id][ctrl.selected.$id]}} target="_blank">
+                                {{ ctrl.solutions[participant.$id][ctrl.selected.$id] | cmTruncate: 50 }}
+                            </a>
                             <br>
                             <md-button class="md-raised md-primary"
                                        aria-label="Update link"
                                        ng-click="ctrl.viewLink(ctrl.event.$id, ctrl.selected.$id, ctrl.selected, participant, ctrl.solutions[participant.$id])"
                                        ng-if="ctrl.selected.openedAt"
+
                             >
                                 View Link
                             </md-button>
