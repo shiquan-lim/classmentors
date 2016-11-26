@@ -4,6 +4,10 @@
     <!--<script src="../../../jspm_packages/graphing/d3.min.js"></script>-->
     <script src="../../../jspm_packages/npm/c3@0.4.11/c3.css"></script>
 
+    <!--<md-button class="md-raised md-primary" ng-click="ctrl.generateReportCard()">-->
+        <!--Load Data-->
+    <!--</md-button>-->
+
     <md-select flex ng-model="ctrl.selectedStatistic" name="selectStatistic" placeholder="Select statistic to view" ng-change="ctrl.renderDashboard()">
         <md-option ng-repeat="statistic in ['Submission time series', 'Ordering']">
             {{statistic}}

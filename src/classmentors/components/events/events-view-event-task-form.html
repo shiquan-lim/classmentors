@@ -102,21 +102,18 @@
                 <table>
                     <tr>
                         <td style=' padding-bottom:50px;'>
-                            <md-radio-button value="service" class="md-primary">Service / Badge / Problem</md-radio-button>
-                            <md-radio-button value="linkPattern" class="md-primary">Link Pattern</md-radio-button>
-                            <md-radio-button value="textResponse" class="md-primary">Text Response</md-radio-button>
-                            <md-radio-button ng-disabled="!ctrl.enableBeta" value="multipleChoice" class="md-primary">Multiple Choice</md-radio-button>
+                            <md-radio-button value="service" ng-disabled='ctrl.edit' class="md-primary">Service / Badge / Problem</md-radio-button>
+                            <md-radio-button value="linkPattern" ng-disabled='ctrl.edit' class="md-primary">Link Pattern</md-radio-button>
+                            <md-radio-button value="textResponse" ng-disabled='ctrl.edit' class="md-primary">Text Response</md-radio-button>
+                            <md-radio-button ng-disabled='ctrl.edit' value="multipleChoice" class="md-primary">Multiple Choice</md-radio-button>
 
                         </td>
                         <td style='padding-left:30px; padding-bottom:50px;'>
-                            <md-radio-button value="code" class="md-primary">
-                                Code
-                                <md-tooltip md-direction="right">Submit code in a native code editor</md-tooltip>
-                            </md-radio-button>
-                            <md-radio-button value="profileEdit" class="md-primary">Profile Update</md-radio-button>
+                            <md-radio-button value="code" ng-disabled='ctrl.edit' class="md-primary">Code<md-tooltip md-direction="right">Submit code in a native code editor</md-tooltip></md-radio-button>
+                            <md-radio-button value="profileEdit" ng-disabled='ctrl.edit' class="md-primary">Profile Update</md-radio-button>
                             <!--<md-radio-button ng-disabled="!ctrl.enableBeta" value="journalling" class="md-primary">Journalling*</md-radio-button>-->
-                            <md-radio-button ng-disabled="!ctrl.enableBeta" value="survey" class="md-primary">Survey</md-radio-button>
-                            <md-radio-button ng-disabled="!ctrl.enableBeta" value="teamActivity" class="md-primary">Team Activity</md-radio-button>
+                            <md-radio-button  ng-disabled='ctrl.edit' value="survey" class="md-primary">Survey</md-radio-button>
+                            <md-radio-button ng-disabled='ctrl.edit' value="teamActivity" class="md-primary">Team Activity</md-radio-button>
                         </td>
                     </tr>
                 </table>
@@ -272,4 +269,3 @@
         </div>
     </form>
 </md-content>
-

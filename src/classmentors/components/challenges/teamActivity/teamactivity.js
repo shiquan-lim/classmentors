@@ -213,7 +213,7 @@ function createTeamActivityController($q, initialData, clmDataStore, $location, 
         return {
             taskFrom: taskFrom,
             title: task.title,
-            description: "As a team, select your favorite question",
+            description: "As a team, select your favorite question. Click on the question to rank them.",
             formationPattern: true,
             closedAt: {'.sv': 'timestamp'},
             showProgress: task.showProgress,

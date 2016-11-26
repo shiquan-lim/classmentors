@@ -24,12 +24,10 @@
         </div>
 
         <div layout="row" layout-align="center center">
-            <md-button class="md-raised ng-click="ctrl.showPreview(ctrl.surveyType)" ng-disabled="!ctrl.hasSurveyTitle">Preview</md-button>
-        </div>
-
-        <div layout="row" layout-align="center center">
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="!ctrl.hasSurveyTitle">Create Survey</md-button>
-            <md-button type="button" class="md-accent" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
+            <md-button class="md-raised md-primary" ng-click="ctrl.showPreview(ctrl.surveyType)" ng-disabled="!ctrl.hasSurveyTitle">Preview</md-button>
+            <md-button ng-if="ctrl.currentSelected == 0 || ctrl.currentSelected == undefined" type="submit" class="md-raised md-primary" ng-disabled="!ctrl.hasSurveyTitle">Create Survey</md-button>
+            <md-button ng-if="ctrl.currentSelected != undefined || ctrl.currentSelected == 0" type="submit" class="md-raised md-primary" ng-disabled="!ctrl.hasSurveyTitle">Edit Survey</md-button>
+            <md-button type="button" class="md-raised" ng-click="ctrl.discardChanges($event)">Cancel</md-button>
         </div>
         <md-progress-circular ng-show="ctrl.loadPreview" md-mode="indeterminate" style="margin: 16px auto"></md-progress-circular>
     </form>

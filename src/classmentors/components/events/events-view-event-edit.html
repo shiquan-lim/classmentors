@@ -45,14 +45,13 @@
     <table>
         <tr>
             <td>
-                <md-subheader><font size="4">EVENT ASSISTANTS</font></td></md-subheader>
+                <md-subheader><font size="4">Event Assistant(s)</font></td></md-subheader>
             <td>
-                <md-subheader>
-                    <md-button class="md-raised" style="height:10px" ng-click="ctrl.toggleAssistants()"><md-subheader>{{ctrl.eventAssistantBttnText}}</md-subheader>
-                        <md-tooltip ng-if="!ctrl.showingAssistants">Click to view and edit event assistants</md-tooltip>
-                        <md-tooltip ng-if="ctrl.showingAssistants">Click to hide event assistants</md-tooltip>
-                    </md-button>
-                </md-subheader>
+                <md-button class="md-raised" style="height:10px" ng-click="ctrl.toggleAssistants()">
+                    {{ctrl.eventAssistantBttnText}}
+                    <md-tooltip ng-if="!ctrl.showingAssistants">Click to view and edit event assistants</md-tooltip>
+                    <md-tooltip ng-if="ctrl.showingAssistants">Click to hide event assistants</md-tooltip>
+                </md-button>
             </td>
         </tr>
     </table>
@@ -63,12 +62,12 @@
         <md-button ng-click="ctrl.addAssistant()">
             <md-icon md-svg-icon="add"></md-icon>
             <md-tooltip>
-                Add assistant
+                Add Assistant
             </md-tooltip>
             Add Assistant
         </md-button>
-
     </div>
+
     <form name="addAssistantForm" ng-submit="ctrl.saveNewAssistant(ctrl.event.$id)">
         <md-card ng-if="ctrl.addingNewAssistant">
             <md-card-content>
@@ -110,10 +109,11 @@
             </md-card-actions>
         </md-card>
     </form>
-    <div class="collapsable" id="testingCollapse" ng-class="{'showMe2' : ctrl.showingAssistants}"
+
+    <div class=" md-padding collapsable" id="testingCollapse" ng-class="{'showMe2' : ctrl.showingAssistants}"
          ng-style="ctrl.divStyle">
         <md-list>
-            <md-subheader class="md-no-sticky">{{ ctrl.assistants | spfLength }} assistants</md-subheader>
+            <h4 class="md-no-sticky">{{ ctrl.assistants | spfLength }} assistant(s)</h4>
             <md-list-item ng-repeat="asst in ctrl.assistants track by asst.$id">
                 {{ asst.name }}
                 <span flex></span>
@@ -183,84 +183,86 @@
     <table>
         <tr>
             <td>
-                <md-subheader><font size="4" >EVENT CHALLENGES</font></md-subheader>
+                <md-subheader><font size="4" >Event Challenge(s)</font></md-subheader>
             </td>
             <td>
-                <md-subheader>
-                    <md-button class="md-raised" style="height:10px" ng-click="ctrl.toggleTaskEditView()"><md-subheader>{{ctrl.eventChallengeBttnText}}</md-subheader>
-                        <md-tooltip ng-if="!ctrl.showingTasks">Click to view and edit event challenges</md-tooltip>
-                        <md-tooltip ng-if="ctrl.showingTasks">Click to hide event challenges</md-tooltip>
-                    </md-button>
-                </md-subheader>
+                <md-button class="md-raised" style="height:10px" ng-click="ctrl.toggleTaskEditView()">
+                    {{ctrl.eventChallengeBttnText}}
+                    <md-tooltip ng-if="!ctrl.showingTasks">Click to view and edit event challenges</md-tooltip>
+                    <md-tooltip ng-if="ctrl.showingTasks">Click to hide event challenges</md-tooltip>
+                </md-button>
             </td>
         </tr>
         <tr>
             <td>
-                <md-subheader class="md-no-sticky">{{ ctrl.tasks | spfLength }} challenges</md-subheader>
+                <md-subheader class="md-no-sticky">{{ ctrl.tasks | spfLength }} challenge(s)</md-subheader>
             </td>
         </tr>
     </table>
-    <md-list ng-if="ctrl.showingTasks">
-        <md-list-item class="md-3-line" ng-repeat="task in ctrl.tasks track by task.$id" ng-if="!task.archived">
-            <div class="md-list-item-text">
-                <h3>
-                    {{ task.title }}
-                    <span ng-if="task.closedAt">(closed)</span>
-                    <span ng-if="task.openedAt">(opened)</span>
-                </h3>
-                <h4>{{ task.description }}</h4>
-                <p ng-if="task.badge.id">{{ task.badge.name}}</p>
-            </div>
 
-            <div layout="row">
-                <md-button ng-href="#{{ 'editEventTask'|urlFor: {eventId: ctrl.event.$id, taskId: task.$id} }}" layout
-                           layout-align="center center" class="md-raised md-primary" aria-label="Edit">
-                    <md-icon md-svg-icon="create"></md-icon>
-                    Edit
-                </md-button>
-                <md-button ng-click="ctrl.openTask(ctrl.event.$id, task)"
-                    ng-if="task.closedAt"
-                    layout layout-align="center center" class="md-raised md-primary"
-                    aria-label="open"
-                >
-                    <md-icon md-svg-icon="done"></md-icon>
-                    Open
-                </md-button>
-                <md-button ng-click="ctrl.closeTask(ctrl.event.$id, task)"
-                    ng-if="task.openedAt"
-                    layout layout-align="center center" class="md-raised md-primary"
-                    aria-label="open"
-                >
-                    <md-icon md-svg-icon="clear"></md-icon>
-                    Close
-                </md-button>
-                <md-button ng-click="ctrl.showTask(ctrl.event.$id, task.$id)"
-                           ng-if="task.hidden"
-                           layout layout-align="center center" class="md-raised md-primary"
-                           aria-label="open"
-                >
-                    <md-icon md-svg-icon="done"></md-icon>
-                    Show
-                </md-button>
-                <md-button ng-click="ctrl.hideTask(ctrl.event.$id, task.$id)"
-                           ng-if="!task.hidden"
-                           layout layout-align="center center" class="md-raised md-primary"
-                           aria-label="open"
-                >
-                    <md-icon md-svg-icon="clear"></md-icon>
-                    Hide
-                </md-button>
-                <md-button ng-click="ctrl.archiveTask(ctrl.event.$id, task.$id)"
-                           layout layout-align="center center" class="md-raised md-primary"
-                           aria-label="open"
-                >
-                    <md-icon md-svg-icon="clear"></md-icon>
-                    Archive
-                </md-button>
-            </div>
+    <div class="information collapsableTask " ng-class="{'showMe' : ctrl.showingTasks}" ng-style="ctrl.taskStyle" >
+        <md-list>
+            <md-list-item ng-repeat="task in ctrl.tasks track by task.$id" ng-if="!task.archived" class="md-padding">
+                    <div class="md-list-item-text" flex>
+                        <h3>
+                            {{ task.title }}
+                            <span ng-if="task.closedAt">(closed)</span>
+                            <span ng-if="task.openedAt">(opened)</span>
+                        </h3>
+                        <p>{{ task.description |limitTo:80 }}...</p>
+                        <p ng-if="task.badge.id">{{ task.badge.name}}</p>
+                    </div>
 
-            <md-divider ng-if="!$last"></md-divider>
-        </md-list-item>
-    </md-list>
+                <!--<div layout="row">-->
+                    <md-button ng-href="#{{ 'editEventTask'|urlFor: {eventId: ctrl.event.$id, taskId: task.$id} }}" layout
+                               layout-align="center center" class="md-raised md-primary" aria-label="Edit">
+                        <md-icon md-svg-icon="create"></md-icon>
+                        Edit
+                    </md-button>
+                    <md-button ng-click="ctrl.openTask(ctrl.event.$id, task)"
+                               ng-if="task.closedAt"
+                               layout layout-align="center center" class="md-raised md-primary"
+                               aria-label="open"
+                    >
+                        <md-icon md-svg-icon="done"></md-icon>
+                        Open
+                    </md-button>
+                    <md-button ng-click="ctrl.closeTask(ctrl.event.$id, task)"
+                               ng-if="task.openedAt"
+                               layout layout-align="center center" class="md-raised md-primary"
+                               aria-label="open"
+                    >
+                        <md-icon md-svg-icon="clear"></md-icon>
+                        Close
+                    </md-button>
+                    <md-button ng-click="ctrl.showTask(ctrl.event.$id, task.$id)"
+                               ng-if="task.hidden"
+                               layout layout-align="center center" class="md-raised md-primary"
+                               aria-label="open"
+                    >
+                        <md-icon md-svg-icon="done"></md-icon>
+                        Show
+                    </md-button>
+                    <md-button ng-click="ctrl.hideTask(ctrl.event.$id, task.$id)"
+                               ng-if="!task.hidden"
+                               layout layout-align="center center" class="md-raised md-primary"
+                               aria-label="open"
+                    >
+                        <md-icon md-svg-icon="clear"></md-icon>
+                        Hide
+                    </md-button>
+                    <md-button ng-click="ctrl.archiveTask(ctrl.event.$id, task.$id)"
+                               layout layout-align="center center" class="md-raised md-primary"
+                               aria-label="open"
+                    >
+                        <md-icon md-svg-icon="clear"></md-icon>
+                        Archive
+                    </md-button>
+                <!--</div>-->
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>
+    </div>
+
 
 </md-content>

@@ -84,10 +84,23 @@ md-dialog.link-dialog {
     -moz-transition: height 1s;
     -o-transition: height 1s;
 }
+
+.collapsableTask {
+    display: inline-block;
+    overflow: hidden;
+    height: 0;
+    width:100%;
+    transition: height 1s;
+    -webkit-transition: height 1s;
+    -moz-transition: height 1s;
+    -o-transition: height 1s;
+    word-wrap: break-word;
+}
+
 .showMe {
-    height: 100px;
+    height: auto;
 }
 
 .showMe2{
-    height:100px;
+    height:auto;
 }

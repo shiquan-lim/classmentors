@@ -11,34 +11,34 @@
                         <md-radio-group ng-model="ctrl.selectedTeam" ng-change="ctrl.teamChange(ctrl.selectedTeam)">
                             <md-radio-button ng-repeat="(teamId, member) in ctrl.teams"
                                              ng-value="teamId" ng-disabled="member.currentSize == member.maxSize">
-                                <table>
-                                    <tr>
-                                        <td>Team {{$index + 1}} <font color="#A2A2A2" size="2px"><i>max: {{member.maxSize}}
-                                            members</i></font></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td ng-repeat="(key, value) in member"
-                                                        ng-if="key != 'maxSize' && key != 'currentSize' && key!='teamLeader'">
-                                                        <div>
-                                                            ({{value.displayName}})
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!--Team {{$index + 1}} <font color="#A2A2A2" size="2px"><i>max: {{member.maxSize}}-->
-                                <!--members</i></font>-->
-                                <!--<md-chips>-->
-                                    <!--<md-chip ng-repeat="(key, value) in member"-->
-                                             <!--ng-if="key != 'maxSize' && key != 'currentSize' && key!='teamLeader'">-->
-                                        <!--{{value.displayName}}-->
-                                    <!--</md-chip>-->
-                                <!--</md-chips>-->
+                                <!--<table>-->
+                                    <!--<tr>-->
+                                        <!--<td>Team {{$index + 1}} <font color="#A2A2A2" size="2px"><i>max: {{member.maxSize}}-->
+                                            <!--members</i></font></td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>-->
+                                            <!--<table>-->
+                                                <!--<tr>-->
+                                                    <!--<td ng-repeat="(key, value) in member"-->
+                                                        <!--ng-if="key != 'maxSize' && key != 'currentSize' && key!='teamLeader'">-->
+                                                        <!--<div>-->
+                                                            <!--({{value.displayName}})-->
+                                                        <!--</div>-->
+                                                    <!--</td>-->
+                                                <!--</tr>-->
+                                            <!--</table>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</table>-->
+                                Team {{$index + 1}} <font color="#A2A2A2" size="2px"><i>max: {{member.maxSize}}
+                                members</i></font>
+                                <md-chips>
+                                    <md-chip ng-repeat="(key, value) in member"
+                                             ng-if="key != 'maxSize' && key != 'currentSize' && key!='teamLeader'">
+                                        {{value.displayName}}
+                                    </md-chip>
+                                </md-chips>
                             </md-radio-button>
                         </md-radio-group>
                     </md-input-container>

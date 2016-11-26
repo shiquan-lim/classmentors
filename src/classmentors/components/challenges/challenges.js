@@ -98,7 +98,7 @@ export function configRoute($routeProvider, routes) {
             controller: editsurveyFormEvent,
             controllerAs: 'ctrl',
             resolve: {
-                initialData: getTaskSurveyValues
+                initialData: getTaskSurveyEditValues
             }
         })
 
@@ -464,7 +464,6 @@ challengeServiceFactory.$inject =
 // }
 
 function surveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $location, urlFor, $mdDialog, spfNavBarService, $route) {
-
     this.surveys = [
         {id: 1, name: 'Education vs Dissatisfaction with learning'},
         {id: 2, name: 'Motivated strategies for learning'},
@@ -566,7 +565,22 @@ surveyFormEvent.$inject = [
     '$route'
 ];
 
-function editsurveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $location, urlFor, spfNavBarService, eventService, $mdDialog) {
+function getTaskSurveyEditValues($q, $route, spfAuthData, clmDataStore){
+
+    var eventId = $route.current.params.eventId;
+    var taskId = $route.current.params.taskId;
+    var editedTask = JSON.parse($route.current.params.task);
+    // var chosenTask = clmDataStore.events.getTask(eventId, taskId);
+    return $q.all({
+        task: clmDataStore.events.getTask(eventId, taskId),
+        event: clmDataStore.events.get(eventId),
+        editedTask: editedTask
+    });
+
+}
+getTaskSurveyEditValues.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore'];
+
+function editsurveyFormEvent(initialData, $scope, clmSurvey, clmDataStore, $log, spfAlert, $location, urlFor, spfNavBarService, eventService, $mdDialog) {
 
     //todo: sheryl comment to add corner cases checking; only allow edit when 1. there are no submission for the challenge 2. the challenge is closed (avoid race conditions)
     this.surveys = [
@@ -575,14 +589,15 @@ function editsurveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $l
         {id: 3, name: 'School engagement scale'}
 
     ];
+
+    var editedTask = initialData.editedTask;
+
     //TODO: retrieve selected value, add task into firebase
     var sharedData = clmSurvey.get();
     var getTask = sharedData.task;
     var self = this;
 
-    self.currentSelected = sharedData.task.survey;
-
-    console.log(self.currentSelected);
+    self.currentSelected = initialData.task.survey;
 
     //NOTE: no need to check for valid cause you cannot deselect your previous option.
     self.hasSurveyTitle = false;
@@ -599,75 +614,60 @@ function editsurveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $l
     };
 
     spfNavBarService.update(
-        sharedData.task.title, [{
+        initialData.task.title, [{
             title: 'Events',
             url: `#${urlFor('events')}`
         }, {
-            title: sharedData.event.title,
-            url: `#${urlFor('oneEvent', {eventId: sharedData.event.$id})}`
+            title: initialData.event.title,
+            url: `#${urlFor('oneEvent', {eventId: initialData.event.$id})}`
         }, {
             title: 'Challenges',
-            url: `#${urlFor('editEvent', {eventId: sharedData.event.$id})}`
+            url: `#${urlFor('editEvent', {eventId: initialData.event.$id})}`
         }]
     );
 
     this.saveSurveyTask = function (surveyType) {
-        var copy = cleanObj(getTask);
+        var copy = cleanObj(initialData.task);
 
-        // console.log('my copy is ', copy);
-        if (sharedData.taskType === 'linkPattern') {
-            delete copy.badge;
-            delete copy.serviceId;
-            delete copy.singPathProblem;
-        } else if (copy.serviceId === 'singPath') {
-            delete copy.badge;
-            if (copy.singPathProblem) {
-                copy.singPathProblem.path = cleanObj(getTask.singPathProblem.path);
-                copy.singPathProblem.level = cleanObj(getTask.singPathProblem.level);
-                copy.singPathProblem.problem = cleanObj(getTask.singPathProblem.problem);
-            }
-        } else {
-            delete copy.singPathProblem;
-            copy.badge = cleanObj(getTask.badge);
-        }
-
-        if (!copy.link) {
-            // delete empty link. Can't be empty string
-            delete copy.link;
-        }
-
-
-        //copied & pasted
+        //assign all edited values to the copy to be put into firebase
         self.creatingTask = true;
         copy.survey = surveyType;
-        var data = {
-            taskType: copy.survey,
-            isOpen: sharedData.isOpen,
-            event: sharedData.event,
-            task: getTask
-        };
+        console.log("copy for edit survey is: ", copy);
+        console.log("my editedTask is: ", editedTask);
+        copy.archived = editedTask.archived;
+        copy.description = editedTask.description;
+        copy.showProgress = editedTask.showProgress;
+        copy.title = editedTask.title;
 
-        eventService.set(data);
 
-        $location.path(location);
+        // var data = {
+        //     taskType: copy.survey,
+        //     isOpen: sharedData.isOpen,
+        //     event: sharedData.event,
+        //     task: getTask
+        // };
+        //
+        // eventService.set(data);
+
+        // $location.path(location);
 
         self.savingTask = true;
-        clmDataStore.events.updateTask(sharedData.eventId, sharedData.task.$id, copy).then(function () {
-            if (
-                (sharedData.isOpen && sharedData.task.openedAt) ||
-                (!sharedData.isOpen && sharedData.task.closedAt)
-            ) {
-                return;
-            } else if (sharedData.isOpen) {
-                return clmDataStore.events.openTask(sharedData.eventId, sharedData.task.$id);
-            }
-
-            return clmDataStore.events.closeTask(sharedData.eventId, sharedData.task.$id);
+        clmDataStore.events.updateTask(initialData.event.$id, initialData.task.$id, copy).then(function () {
+            // if (
+            //     (sharedData.isOpen && sharedData.task.openedAt) ||
+            //     (!sharedData.isOpen && sharedData.task.closedAt)
+            // ) {
+            //     return;
+            // } else if (sharedData.isOpen) {
+            //     return clmDataStore.events.openTask(sharedData.eventId, sharedData.task.$id);
+            // }
+            //
+            // return clmDataStore.events.closeTask(sharedData.eventId, sharedData.task.$id);
         }).then(function () {
-            $location.path(urlFor('editEvent', {eventId: sharedData.event.$id}));
-            spfAlert.success('Challenge saved.');
+            $location.path(urlFor('editEvent', {eventId: initialData.event.$id}));
+            spfAlert.success('Survey has been edited.');
         }).catch(function () {
-            spfAlert.error('Failed to save the challenge.');
+            spfAlert.error('Failed to edit the survey.');
         }).then(function () {
             self.savingTask = false;
         });
@@ -690,6 +690,7 @@ function editsurveyFormEvent($scope, clmSurvey, clmDataStore, $log, spfAlert, $l
 
 }
 editsurveyFormEvent.$inject = [
+    'initialData',
     '$scope',
     'clmSurvey',
     'clmDataStore',
@@ -706,7 +707,6 @@ editsurveyFormEvent.$inject = [
 function getTaskSurveyValues(clmSurvey, $q, $route, spfAuthData, clmDataStore) {
 
     var eventId = $route.current.params.eventId;
-
     var data = baseEditCtrlInitialData(eventId, $q, $route, spfAuthData, clmDataStore, clmSurvey);
     data.badges = clmDataStore.badges.all();
     data.singPath = $q.all({
@@ -718,7 +718,6 @@ function getTaskSurveyValues(clmSurvey, $q, $route, spfAuthData, clmDataStore) {
     return $q.all(data);
 }
 getTaskSurveyValues.$inject = ['clmSurvey', '$q', '$route', 'spfAuthData', 'clmDataStore'];
-
 
 function baseEditCtrlInitialData(eventId, $q, $route, spfAuthData, clmDataStore, clmSurvey) {
 
