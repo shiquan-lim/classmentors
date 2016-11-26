@@ -205,7 +205,6 @@ export function eventServiceFactory($q, $route, spfAuthData, clmDataStore, $log,
             //     self.creatingTask = false;
             // });
         }
-
     };
     return eventService;
 }
@@ -1615,12 +1614,19 @@ function AddEventTaskCtrl(initialData, $location, $log, spfAlert, urlFor, spfNav
     };
 
     this.saveTask = function (event, taskId, task, taskType, isOpen) {
+        console.log(taskType);
         if (taskType === 'profileEdit') {
             task.toEdit = self.selectedMetaData;
             task.textResponse = "Placeholder";
         }
 
         var copy = cleanObj(task);
+        console.log(copy);
+        if(taskType === 'code'){
+          delete copy.linkPattern
+          delete copy.textResponse
+          delete copy.badge
+        }
 
         //check if user keys in http inside Link Pattern
         var checkLinkPattern = copy.linkPattern;
@@ -1638,10 +1644,14 @@ function AddEventTaskCtrl(initialData, $location, $log, spfAlert, urlFor, spfNav
             task: task
         };
 
+
         if (taskType === 'linkPattern') {
             delete copy.badge;
             delete copy.serviceId;
             delete copy.singPathProblem;
+            delete copy.textResponse;
+            delete copy.lang
+
 
             // console.log("it went here when create");
             //check if user keys in http inside Link Pattern
@@ -1674,6 +1684,14 @@ function AddEventTaskCtrl(initialData, $location, $log, spfAlert, urlFor, spfNav
 
         self.creatingTask = true;
         if (taskType === 'multipleChoice' || taskType === 'journalling' || taskType === 'survey' || taskType === 'teamActivity' || taskType === 'mentoringActivity') {
+            delete task.textResponse;
+            delete task.linkPattern;
+            delete copy.badge;
+            delete copy.serviceId;
+            delete copy.singPathProblem;
+            delete copy.textResponse;
+            delete copy.lang
+            
             var data = {
                 taskType: taskType,
                 isOpen: isOpen,
