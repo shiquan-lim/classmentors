@@ -448,6 +448,9 @@
                 </th>
 
                 <td ng-repeat="task in ctrl.visibleTasks track by task.$id">
+                    <!--progress completed: {{ctrl.progress[participant.$id][task.$id].completed}}-->
+                    <!--<br>-->
+                    <!--show Progress: {{task.showProgress}}-->
                     <div ng-if="ctrl.progress[participant.$id][task.$id].completed && task.showProgress">
                         <!--<span ng-if="(!task.textResponse && !task.linkPattern) || !ctrl.isReviewSuperUser">-->
                         <!--Completed-->

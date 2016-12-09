@@ -355,8 +355,8 @@
               }
             }
           },
-          ".read": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists() || root.child('classMentors/events').child($eventId).child('assistants').child(root.child('auth/users').child(auth.uid).child('publicId').val()).exists())",
-          ".write": "auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n || root.child('classMentors/events').child($eventId).child('assistants').child(root.child('auth/users').child(auth.uid).child('publicId').val()).exists())"
+          ".read": "true || auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/eventApplications/').child($eventId).child(auth.uid).exists() || root.child('classMentors/events').child($eventId).child('assistants').child(root.child('auth/users').child(auth.uid).child('publicId').val()).exists())",
+          ".write": "true || auth !== null && (\n  root.child('classMentors/events').child($eventId).child('owner/publicId').val() === root.child('auth/users').child(auth.uid).child('publicId').val()\n  || root.child('classMentors/admins').child(auth.uid).val() === true\n || root.child('classMentors/events').child($eventId).child('assistants').child(root.child('auth/users').child(auth.uid).child('publicId').val()).exists())"
         }
       },
       "eventRankings": {

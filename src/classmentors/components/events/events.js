@@ -515,9 +515,6 @@ function ViewEventCtrl($scope, initialData, $document, $mdDialog, $route,
         }
     }
 
-    // console.log('Tasks: ', self.tasks);
-    // console.log('Solutions: ', self.solutions);
-
     if (self.participants) {
         this.hasSubmissions = self.participants.find(p => p.$id == self.profile.$id);
     }
@@ -544,12 +541,16 @@ function ViewEventCtrl($scope, initialData, $document, $mdDialog, $route,
     //     );
     // });
 
+
+    //removed condition where user has to be the owner of the event to view progress
+    //self.event.owner.publicId === self.currentUser.publicId
     if (
         self.event &&
         self.event.owner &&
         self.event.owner.publicId &&
         self.currentUser &&
-        self.event.owner.publicId === self.currentUser.publicId
+        typeof this.solutions != 'undefined'
+
     ) {
         monitorHandler = clmDataStore.events.monitorEvent(
             this.event, this.tasks, this.participants, this.solutions, this.progress
@@ -616,6 +617,7 @@ function ViewEventCtrl($scope, initialData, $document, $mdDialog, $route,
                 title: 'Leave Event',
                 onClick: function () {
                     clmDataStore.events.leave(self.event.$id).then(function () {
+                        console.log("leaving event...");
                         $route.reload();
                     });
                 },
@@ -1046,8 +1048,8 @@ ViewEventCtrl.$inject = [
  * is not the owner of the event.
  *
  */
-function baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
-    var errNoEvent = new Error('Event not found-2');
+function baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore, $location, urlFor, spfAlert) {
+    var errNoEvent = new Error('Event not found');
     var errNotAuthaurized = new Error('You cannot edit this event');
     var eventId = $route.current.params.eventId;
 
@@ -1076,10 +1078,20 @@ function baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
 
             if (result.assistants[result.currentUser.publicId]) {
                 if (!result.assistants[result.currentUser.publicId].canEdit) {
-                    return $q.reject(errNotAuthaurized);
+
+                    // return $q.reject(errNotAuthaurized);
+                    spfAlert.error('You cannot edit this event');
+                    $location.path(urlFor('oneEvent', {eventId: $route.current.params.eventId}));
+                    return $q.reject();
+
+
                 }
             } else {
-                return $q.reject(errNotAuthaurized);
+
+                // return $q.reject(errNotAuthaurized);
+                spfAlert.error('You cannot edit this event');
+                $location.path(urlFor('oneEvent', {eventId: $route.current.params.eventId}));
+                return $q.reject();
             }
         }
 
@@ -1093,8 +1105,8 @@ function baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
  * Used to resolve `initialData` for `EditCtrl`
  *
  */
-function editEventCtrllInitialData($q, $route, spfAuthData, clmDataStore) {
-    var data = baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore);
+function editEventCtrllInitialData($q, $route, spfAuthData, clmDataStore, $location, urlFor, spfAlert) {
+    var data = baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore, $location, urlFor, spfAlert);
 
     data.tasks = data.event.then(function (event) {
         return clmDataStore.events.getTasks(event.$id);
@@ -1106,7 +1118,7 @@ function editEventCtrllInitialData($q, $route, spfAuthData, clmDataStore) {
 
     return $q.all(data);
 }
-editEventCtrllInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore'];
+editEventCtrllInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore', '$location', 'urlFor', 'spfAlert'];
 
 /**
  * EditEventCtrl
@@ -1115,12 +1127,10 @@ editEventCtrllInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStor
 
 function EditEventCtrl(initialData, spfNavBarService, urlFor, spfAlert, clmDataStore, firebaseApp, $firebaseArray) {
     var self = this;
-
     this.currentUser = initialData.currentUser;
     this.participants = initialData.participants;
     this.event = initialData.event;
     this.tasks = initialData.tasks;
-
     this.showingAssistants = false;
     this.showingTasks = true;
 
@@ -1132,7 +1142,7 @@ function EditEventCtrl(initialData, spfNavBarService, urlFor, spfAlert, clmDataS
         }
     }
 
-    function updateNonArchivedTask(){
+    function updateNonArchivedTask() {
         var archived = [];
         for (var i = 0; i < this.tasks.length; i++) {
             if (!this.tasks[i].archived) {
@@ -1460,7 +1470,7 @@ function EditEventCtrl(initialData, spfNavBarService, urlFor, spfAlert, clmDataS
                 height: self.taskLength + 'px'
             }
         });
-};
+    };
 }
 EditEventCtrl.$inject = ['initialData', 'spfNavBarService', 'urlFor', 'spfAlert', 'clmDataStore', 'firebaseApp', '$firebaseArray', '$mdDialog', '$location'];
 
@@ -1468,8 +1478,8 @@ EditEventCtrl.$inject = ['initialData', 'spfNavBarService', 'urlFor', 'spfAlert'
  * AddEventTaskCtrl initial data
  *
  */
-function addEventTaskCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
-    var data = baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore);
+function addEventTaskCtrlInitialData($q, $route, spfAuthData, clmDataStore, $location, urlFor, spfAlert) {
+    var data = baseEditCtrlInitialData($q, $route, spfAuthData, clmDataStore, $location, urlFor, spfAlert);
 
     data.badges = clmDataStore.badges.all();
     data.singPath = $q.all({
@@ -1479,7 +1489,7 @@ function addEventTaskCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
     });
     return $q.all(data);
 }
-addEventTaskCtrlInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore'];
+addEventTaskCtrlInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore', '$location', 'urlFor', 'spfAlert'];
 
 /**
  * AddEventTaskCtrl
@@ -1622,10 +1632,10 @@ function AddEventTaskCtrl(initialData, $location, $log, spfAlert, urlFor, spfNav
 
         var copy = cleanObj(task);
         console.log(copy);
-        if(taskType === 'code'){
-          delete copy.linkPattern
-          delete copy.textResponse
-          delete copy.badge
+        if (taskType === 'code') {
+            delete copy.linkPattern
+            delete copy.textResponse
+            delete copy.badge
         }
 
         //check if user keys in http inside Link Pattern
@@ -1691,7 +1701,7 @@ function AddEventTaskCtrl(initialData, $location, $log, spfAlert, urlFor, spfNav
             delete copy.singPathProblem;
             delete copy.textResponse;
             delete copy.lang
-            
+
             var data = {
                 taskType: taskType,
                 isOpen: isOpen,
@@ -1744,7 +1754,7 @@ AddEventTaskCtrl.$inject = [
 
 export function clmSurveyTaskFactory() {
     var sharedData = {};
-    //console.log("it comes in here");
+
     function set(eventId, event, task, tasktype, isOpen) {
         sharedData.eventId = eventId;
         sharedData.event = event;
@@ -1771,8 +1781,8 @@ export function clmSurveyTaskFactory() {
  *
  */
 function editEventTaskCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
-    var errNoEvent = new Error('Event not found-3');
-    var errNoTask = new Error('Event not found-4');
+    var errNoEvent = new Error('Event not found');
+    var errNoTask = new Error('Event not found');
     var errNotAuthaurized = new Error('You cannot edit this event');
     var eventId = $route.current.params.eventId;
     var taskId = $route.current.params.taskId;
@@ -1821,23 +1831,14 @@ function editEventTaskCtrlInitialData($q, $route, spfAuthData, clmDataStore) {
 }
 editEventTaskCtrlInitialData.$inject = ['$q', '$route', 'spfAuthData', 'clmDataStore'];
 
-/**
- * EditEventTaskCtrl
- *
- */
-
-
-/**Todo: enable edit to multiple choice, index card, etc. **/
 function EditEventTaskCtrl(initialData, spfAlert, urlFor, spfNavBarService, clmDataStore, eventService, $mdDialog, $location, clmSurvey) {
     var self = this;
     self.edit = true;
-    // console.log("the initialdata looks like this:", initialData);
     this.event = initialData.event;
     this.badges = initialData.badges;
     this.taskId = initialData.taskId;
     this.task = initialData.task;
     this.taskTitle = initialData.task.title;
-    // console.log(this.taskTitle);
 
     this.isOpen = Boolean(this.task.openedAt);
     this.savingTask = false;
@@ -1983,8 +1984,8 @@ function EditEventTaskCtrl(initialData, spfAlert, urlFor, spfNavBarService, clmD
         console.log("this edit task is: ", task);
         var editedTask = {
             archived: task.archived,
-            description:task.description,
-            priority:task.priority,
+            description: task.description,
+            priority: task.priority,
             showProgress: task.showProgress,
             title: task.title
         }
@@ -2055,11 +2056,11 @@ function EditEventTaskCtrl(initialData, spfAlert, urlFor, spfNavBarService, clmD
             );
 
             eventService.set(data);
-            if(taskType==='survey'){
+            if (taskType === 'survey') {
                 location = '/challenges/editSurvey/' + event.$id + '/' + taskId + '/' + JSON.stringify(editedTask);
                 // editSurvey: '/challenges/survey/edit/:eventId/:taskId'
             }
-            console.log("location path is: ", location);
+
             $location.path(location);
 
         } else {
@@ -2482,7 +2483,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
     };
 
     this.logClick = function (taskId, url) {
-        console.log("logging click...");
         var logObj = {
             action: 'moreDetails',
             taskId: taskId,
@@ -2494,7 +2494,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
     };
 
     this.startMCQ = function (eventId, taskId, task, participant, userSolution) {
-        // console.log("participant isss:", participant);
         $location.path('/events/' + eventId + '/challenges/' + taskId + '/mcq/start');
     };
 
@@ -2523,7 +2522,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
     };
 
     this.editProfileInfo = function (eventId, taskId, task, participant) {
-        // console.log(task);
         $mdDialog.show({
             clickOutsideToClose: true,
             parent: $document.body,
@@ -2545,7 +2543,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                 return promise;
             }).then(function (data) {
                 self.participantInfo = data;
-                // console.log(self.participantInfo);
                 if (self.participantInfo.yearOfBirth) {
                     self.userData.yearOfBirth = self.participantInfo.yearOfBirth;
                 }
@@ -2650,7 +2647,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                     link = link.replace("http:", "https:");
                 }
                 if (task.team) {
-                    console.log('SUBMIT FOR THE TEAM!');
                     Object.keys(task.team).forEach(function (key) {
                         if (task.team[key].displayName) {
                             // console.log('Submitting for: ' + key);
@@ -2793,7 +2789,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         function DialogController(initialData, $scope) {
             var self = this;
             $log.info(`Code reaches here`);
-            console.log(initialData);
             self.title = task.title;
             self.desc = task.description;
             // self.allMembers = initialData.teamMembers;
@@ -2801,21 +2796,21 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
             self.filterSelected = true;
             self.searchText = '';
 
-            self.select = function(item){
-              var exist = false;
-              for(var i = 0; i < self.rankedQuestions.length; i++){
-                if(self.rankedQuestions[i].member == item.member){
-                  exist = true;
-                  break;
+            self.select = function (item) {
+                var exist = false;
+                for (var i = 0; i < self.rankedQuestions.length; i++) {
+                    if (self.rankedQuestions[i].member == item.member) {
+                        exist = true;
+                        break;
+                    }
                 }
-              }
-              if(!exist){
-                self.rankedQuestions.push(item);
-              }
+                if (!exist) {
+                    self.rankedQuestions.push(item);
+                }
             }
 
-            function searchRankedQuestions(item){
-              return
+            function searchRankedQuestions(item) {
+                return
             }
 
             //Watch rankedQuestions array
@@ -2989,9 +2984,9 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                 }
             }
 
-            setTimeout(function(){
+            setTimeout(function () {
                 $scope.$apply();
-            },1);
+            }, 1);
 
             //ensure that radio button is checked if user clicks on one of the teams
             self.selectedTeam = self.userInCurrentTeam;
@@ -3090,7 +3085,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                                 } else if (!userEqualCurrentSize || (typeof userInTeam != 'undefined' && userInTeam != nextSelectedTeamId && numOfOccurrence == 1)) {
                                     //check if user's team is equal to the current size. If not, remove the user and ask him to try again
                                     //or he is inside a team which he did not select, remove this user
-                                    console.log("user undefined, error 1");
 
                                     for (var team in result) {
                                         if (team.charAt(0) != '$' && team != 'forEach') {
@@ -3127,7 +3121,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                                 } else if (numOfOccurrence > 1) {
                                     //check if user DOES NOT exist in more than 1 team at any point of time. If so, remove the user and ask the user to try again
                                     //delete every trace of the user in the team
-                                    console.log("user undefined, error 2");
                                     for (var team in result) {
                                         if (team.charAt(0) != '$' && team != 'forEach') {
                                             //if user can be found inside this team
@@ -3581,7 +3574,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                 // console.log("this response is: ", response);
                 //this line adds solution to firebase
                 if (task.team) {
-                    console.log('SUBMIT FOR THE TEAM!');
                     Object.keys(task.team).forEach(function (key) {
                         if (task.team[key].displayName) {
                             // console.log('Submitting for: ' + key);
@@ -3669,7 +3661,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         }
 
         function CodeController() {
-            console.log("22");
             this.task = task;
 
             this.checkEditor = function () {
@@ -3688,7 +3679,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
                 var response = editor.getValue();
 
                 if (task.team) {
-                    console.log('SUBMIT FOR THE TEAM!');
                     Object.keys(task.team).forEach(function (key) {
                         if (task.team[key].displayName) {
                             // console.log('Submitting for: ' + key);
@@ -3758,7 +3748,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         if (assignmentMethod == 'random') {
             // select mentee
             var mentee = incompleteParticipants[Math.floor(Math.random() * incompleteParticipants.length)];
-            console.log(mentee);
         } else if (assignmentMethod == 'prevCompletion') {
             var orderedIncompleteParticipants = incompleteParticipants.map(function (p) {
                 return {
@@ -3771,7 +3760,7 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
             orderedIncompleteParticipants.sort(function (a, b) {
                 return a.challengesCompleted - b.challengesCompleted
             });
-            // console.log(orderedIncompleteParticipants);
+
             var mentee = orderedIncompleteParticipants[0];
         } else if (assignmentMethod == 'roulette') {
             var valIncompleteParticipants = incompleteParticipants.map(function (p) {
@@ -3857,17 +3846,15 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
 
         // Reassign the two depending if they have completed the challenge already
         if (self.progress[toDelete.mentor.publicId][toCheckId].completed) {
-            console.log('Reassign mentor to other mentee');
             assignMentorPairing(toCheckId, writeToId, toDelete.mentor.publicId, 'random');
         }
         if (self.progress[toDelete.mentee.publicId][toCheckId].completed) {
-            console.log('Reassign mentee to mentor');
             assignMentorPairing(toCheckId, writeToId, toDelete.mentee.publicId, 'random')
         }
     };
 
     this.viewCodeResponse = function (task, solution) {
-        console.log("3");
+        // console.log("3");
         $mdDialog.show({
             clickOutsideToClose: true,
             parent: $document.body,
@@ -3879,7 +3866,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
 
         this.loadingEditor = true;
         var parent = this;
-
 
 
         function loadEditor() {
@@ -3936,7 +3922,6 @@ function ClmEventTableCtrl($scope, $q, $log, $mdDialog, $document,
         }),
         userSolution: clmDataStore.events.getUserSolutions(this.event.$id, this.profile.$id).then(function (solutions) {
             self.currentUserSolutions = solutions;
-            // console.log('What is this ',solutions);
             unwatchers.push(solutions.$destroy.bind(solutions));
             return solutions;
         }),
